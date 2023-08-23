@@ -11,14 +11,13 @@ import { IMapControlsProps } from '@src/pages/MapPage/MapControls/types';
 import { MAP } from '@constants/map';
 import CityControlItem from '@src/pages/MapPage/MapControls/СityControlItem/CityControlItem';
 import { IMemorialMarker } from '@src/store/map/types';
-import { getExtendBounds } from '@helpers/mapHelper';
+import { getExtendBounds } from '@helpers/map.helper';
 import TypeControlItem from '@src/pages/MapPage/MapControls/TypeControlItem/TypeControlItem';
 import MapNothingFound from '@src/pages/MapPage/MapControls/MapNothingFound/MapNothingFound';
 import { useTranslation } from 'react-i18next';
 import { setActiveTypes } from '@src/store/map/reducer';
 import Title from '@src/components/UI/Title/Title';
 import * as S from './style';
-import { ControlTypeBlock, MarkersBlock, MarkersList, MarkersTypes, MarkerTypeLabel, MarkerTypeRadio, ResetTypeButton } from './style';
 
 const MapControls: React.FC<IMapControlsProps> = ({ setCoords, setActiveMarker, zoom, bounds }) => {
   const [sortedMarkers, setSortedMarkers] = useState<IMemorialMarker[]>([]);

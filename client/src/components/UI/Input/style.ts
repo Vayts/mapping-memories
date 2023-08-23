@@ -12,7 +12,7 @@ export const InputWrapper = styled.div<IInputStyle>`
 export const InputLabel = styled.label<IInputStyle>`
 	margin-bottom: 10px;
 	font-size: inherit;
-	color: ${({ theme, isValid }) => (isValid ? 'inherit' : theme.accentColorActive)};
+	color: ${({ theme, isValid }) => (isValid ? 'inherit' : theme.accentColor)};
 `;
 
 export const InputElemWrapper = styled.div`
@@ -24,7 +24,7 @@ export const InputElem = styled.input<IInputStyle>`
   padding: ${({ padding = '10px 30px 10px 20px' }) => padding};
   font-size: ${({ fz = 16 }) => `${fz}px`};
   width: 100%;
-  border: 1px solid ${({ isValid, theme }) => (isValid ? '#E2E8F0' : theme.dangerColor)};
+  border: 1px solid ${({ isValid, theme }) => (isValid ? '#E2E8F0' : theme.accentColor)};
   background-color: transparent;
   border-radius: 5px;
   transition: all 0.2s;
@@ -35,7 +35,7 @@ export const InputElem = styled.input<IInputStyle>`
 	
   &:focus {
     outline: none;
-    border-color: ${({ theme, isValid }) => (isValid ? theme.blackColor : theme.dangerColor)};
+    border-color: ${({ theme, isValid }) => (isValid ? theme.blackColor : theme.accentColor)};
   }
 	
   &::placeholder {

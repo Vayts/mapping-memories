@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
 import { THEMES } from '@constants/themes';
 import { Route, Routes } from 'react-router-dom';
 import Layout from '@hoc/Layout/Layout';
@@ -8,6 +9,7 @@ import InterviewPage from '@src/pages/InterviewPage/InterviewPage';
 import CreateInterviewPage from '@src/pages/CreateInterviewPage/CreateInterviewPage';
 import AdminLayout from '@hoc/AdminLayout/AdminLayout';
 import { AppWrapper } from '@src/components/App/style';
+import { ToastContainer } from 'react-toastify';
 
 export const App: React.FC = () => {
   return (
@@ -24,6 +26,17 @@ export const App: React.FC = () => {
             <Route path='/admin/create-interview' element={<CreateInterviewPage/>}/>
           </Route>
         </Routes>
+        <ToastContainer
+          position="bottom-right"
+          limit={3}
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          draggable={false}
+          theme="colored"
+        />
       </AppWrapper>
     </ThemeProvider>
   );

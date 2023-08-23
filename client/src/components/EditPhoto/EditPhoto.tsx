@@ -53,7 +53,7 @@ const EditPhoto: React.FC<IEditPhoto> = ({ state, setState }) => {
     
     setLoading(true);
     if (editor?.current) {
-      const canvas = editor.current.getImage();
+      const canvas = editor.current.getImageScaledToCanvas();
       const blob = canvas.toDataURL();
       const result: File | undefined = await fetch(blob)
         .then((res) => res.blob())

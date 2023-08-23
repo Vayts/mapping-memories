@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { IInterviewContentBlock, INTERVIEW_CONTENT_BLOCKS } from '@constants/interviewContentBlocks';
 import Button from '@src/components/UI/Button/Button';
 import { v4 as uuidv4 } from 'uuid';
-import { ICreateRecipeContentBlock } from '@src/types/createInterviewTypes';
+import { ICreateInterviewContentBlock } from '@src/types/createInterviewTypes';
 import * as S from './style';
 
 const AddContentBlockModal: React.FC<IAddContentBlockProps> = ({ setContentBlocks, setModal }) => {
@@ -23,7 +23,7 @@ const AddContentBlockModal: React.FC<IAddContentBlockProps> = ({ setContentBlock
   const addContentBlock = useCallback(() => {
     if (checked) {
       setContentBlocks((prev) => {
-        const newBlock: ICreateRecipeContentBlock = {
+        const newBlock: ICreateInterviewContentBlock = {
           _id: uuidv4(),
           errors: {},
           touched: {},

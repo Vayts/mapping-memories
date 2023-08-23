@@ -1,5 +1,6 @@
 import React, { Ref } from 'react';
-import { DefaultTFuncReturn } from 'i18next';
+import { LocaleType } from '@src/types/types';
+import DefaultTFuncReturn from 'i18next';
 
 export interface ITextArea {
 	id: string,
@@ -10,13 +11,14 @@ export interface ITextArea {
 	height?: string,
 	width?: string,
 	value: string,
-	label?: string | DefaultTFuncReturn,
-	placeholder?: string | DefaultTFuncReturn,
+	label?: string | typeof DefaultTFuncReturn,
+	placeholder?: string | typeof DefaultTFuncReturn,
 	onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
 	isValid?: boolean,
 	refValue?: Ref<HTMLInputElement> | null,
 	min?: number,
 	max?: number,
+    locale?: LocaleType | undefined,
 }
 
 export interface ITextAreaStyle {

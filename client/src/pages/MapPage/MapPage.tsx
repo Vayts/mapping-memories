@@ -5,6 +5,7 @@ import { MAP } from '@constants/map';
 import { useAppDispatch } from '@src/hooks/hooks';
 import { getMapInfoRequest } from '@src/store/map/actions';
 import MapElem from '@src/pages/MapPage/MapElem/MapElem';
+import * as S from './style';
 
 const MapPage: React.FC = () => {
   const [map, setMap] = React.useState<any>(null);
@@ -24,7 +25,7 @@ const MapPage: React.FC = () => {
   }, []);
   
   return (
-    <div>
+    <S.MapPageWrapper>
       <MapControls
         setCoords={setCoords}
         setActiveMarker={setActiveMarker}
@@ -42,7 +43,7 @@ const MapPage: React.FC = () => {
         activeMarker={activeMarker}
         setActiveMarker={setActiveMarker}
       />
-    </div>
+    </S.MapPageWrapper>
   );
 };
 

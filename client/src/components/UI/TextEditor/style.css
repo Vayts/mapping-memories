@@ -1,0 +1,8 @@
+.editor {
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  min-height: 300px;
+  padding: 10px;
+  cursor: text;
+  font-family: 'Montserrat', sans-serif;
+}

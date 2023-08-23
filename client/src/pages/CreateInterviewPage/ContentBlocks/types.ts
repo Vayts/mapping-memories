@@ -1,7 +1,7 @@
 import React, { SetStateAction } from 'react';
-import { ICreateRecipeContentBlock } from '@src/types/createInterviewTypes';
+import { ICreateInterviewContentBlock } from '@src/types/createInterviewTypes';
 
 export interface IContentBlocksProps {
-  contentBlocks: ICreateRecipeContentBlock[],
-  setContentBlocks: React.Dispatch<SetStateAction<ICreateRecipeContentBlock[]>>,
+  contentBlocks: ICreateInterviewContentBlock[],
+  setContentBlocks: React.Dispatch<SetStateAction<ICreateInterviewContentBlock[]>>,
 }

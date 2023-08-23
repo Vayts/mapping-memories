@@ -23,14 +23,21 @@ export const INTERVIEW_CONTENT_BLOCKS: IInterviewContentBlock[] = [
   {
     type: INTERVIEW_BLOCK_TYPES.TEXT,
     content: {
-      text: '',
+      text: {
+        uk: '',
+        en: '',
+      },
     },
   },
   {
     type: INTERVIEW_BLOCK_TYPES.PHOTO,
     content: {
       photo: null,
-      description: '',
+      source: '',
+      description: {
+        uk: '',
+        en: '',
+      },
     },
   },
 ];

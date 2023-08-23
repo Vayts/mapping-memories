@@ -11,6 +11,9 @@ import EditPhoto from '@src/components/EditPhoto/EditPhoto';
 import FileUploader from '@src/components/UI/FileUploader/FileUploader';
 import { MainPhotoWrapper } from '@src/pages/CreateInterviewPage/MainInfo/style';
 import Button from '@src/components/UI/Button/Button';
+import { INTERVIEW_VALIDATION } from '@constants/createInterview';
+import { getInterviewMainValidation } from '@src/validation/createInterview.validation';
+import { v4 as uuidv4 } from 'uuid';
 import * as S from '../style';
 
 const editPhotoInitial = {
@@ -34,7 +37,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
     setMainInfo((state) => {
       return {
         ...state,
-        mainPhoto: photo,
+        photo,
       };
     });
     setPhotoBlob(URL.createObjectURL(photo));
@@ -49,6 +52,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
         return {
           ...state,
           photo,
+          photoName: `${uuidv4()}_${Date.now()}`,
           photoBlob,
           isOpen: true,
           saveFunc: setMainPhotoHandler };
@@ -63,14 +67,28 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
     const language: string | undefined = e.target.dataset.language;
 
     setMainInfo((prev) => {
-      return {
+      const newState = {
         ...prev,
+        touched: {
+          ...prev.touched,
+          [name]: language
+            ? {
+              ...prev.touched[name as LocaleFieldsMain],
+              [language]: true,
+            }
+            : true,
+        },
         [name]: language
           ? {
             ...prev[name as LocaleFieldsMain],
             [language]: value,
           }
           : value,
+      };
+      
+      return {
+        ...newState,
+        errors: getInterviewMainValidation(newState),
       };
     });
   }, []);
@@ -79,7 +97,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
     setMainInfo((state) => {
       return {
         ...state,
-        mainPhoto: null,
+        photo: null,
       };
     });
     setPhotoBlob(null);
@@ -98,22 +116,23 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
         <Title
           margin='5px 0 15px'
         >
-          {t('mainPhoto')}
+          {t('photo')}
         </Title>
         <MainPhotoWrapper>
           <FileUploader
-            id='mainPhoto'
+            id='photo'
             onChange={openEditPhoto}
-            name='mainPhoto'
+            name='photo'
             value={photoBlob}
             margin='0 0 20px'
           />
         </MainPhotoWrapper>
+        <ErrorMsg show={touched?.photo && !!errors?.photo} margin='5px 0 5px'>{errors?.photo}</ErrorMsg>
         <Button
           margin='15px 0 0'
           text={t('deletePhoto')}
           clickHandler={removePhoto}
-          disabled={mainInfo.mainPhoto === null}
+          disabled={mainInfo.photo === null}
         />
       </S.CreateInterviewMainBlock>
       <S.CreateInterviewMainBlock>
@@ -131,9 +150,10 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
           onChange={changeHandler}
           placeholder={`${t('ukrainian')}`}
           label={`${t('ukrainian')}`}
+          isValid={touched?.title?.uk && !errors?.title?.uk}
           fz={16}
           padding='10px'
-          min={2}
+          min={INTERVIEW_VALIDATION.LIMIT.TITLE_MIN}
         />
         <ErrorMsg show={touched?.title?.uk && !!errors?.title?.uk} margin='5px 0 5px'>{errors?.title?.uk}</ErrorMsg>
         <Input
@@ -145,9 +165,10 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
           onChange={changeHandler}
           placeholder={`${t('english')}`}
           label={`${t('english')}`}
+          isValid={touched?.title?.en && !errors?.title?.en}
           fz={16}
           padding='10px'
-          min={2}
+          min={INTERVIEW_VALIDATION.LIMIT.TITLE_MIN}
         />
         <ErrorMsg show={touched?.title?.en && !!errors?.title?.en} margin='5px 0 5px'>{errors?.title?.en}</ErrorMsg>
       </S.CreateInterviewMainBlock>
@@ -158,32 +179,34 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
           {t('interviewDescription')}
         </Title>
         <TextArea
+          locale='uk'
           value={description.uk}
           onChange={changeHandler}
           name='description'
           id='descriptionUk'
-          height='300px'
+          height='200px'
           margin='0'
           padding='10px'
           fz={16}
           placeholder={`${t('ukrainian')}`}
           label={`${t('ukrainian')}`}
-          isValid={touched.description && !errors.description}
+          isValid={touched?.description?.uk && !errors?.description?.uk}
           max={1500}
         />
         <ErrorMsg show={touched?.description?.uk && !!errors?.description?.uk} margin='5px 0 5px'>{errors?.description?.uk}</ErrorMsg>
         <TextArea
+          locale='en'
           value={description.en}
           onChange={changeHandler}
-          name='descriptionEn'
-          id='asddf'
-          height='300px'
+          name='description'
+          id='descriptionEn'
+          height='200px'
           margin='0'
           padding='10px'
           fz={16}
           placeholder={`${t('english')}`}
           label={`${t('english')}`}
-          isValid={touched.description && !errors.description}
+          isValid={touched?.description?.en && !errors?.description?.en}
           max={1500}
         />
         <ErrorMsg show={touched?.description?.en && !!errors?.description?.en} margin='5px 0 5px'>{errors?.description?.en}</ErrorMsg>

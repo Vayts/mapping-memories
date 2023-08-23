@@ -21,7 +21,7 @@ const VideoContentBlock: React.FC<IVideoContentBlockProps> = ({ contentBlock, on
       <Title>{t('yVideo')}</Title>
       <Description>{t('videoBlockTxt')}</Description>
       <ContentBlockIframe
-        src={content.link}
+        src={errors.link ? '' : content.link}
         title="YouTube video player"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -35,6 +35,7 @@ const VideoContentBlock: React.FC<IVideoContentBlockProps> = ({ contentBlock, on
         onChange={changeHandler}
         placeholder={`${t('link')}`}
         label={`${t('link')}`}
+        isValid={touched.link && !errors.link}
         fz={16}
         padding='10px'
         min={2}
@@ -44,7 +45,7 @@ const VideoContentBlock: React.FC<IVideoContentBlockProps> = ({ contentBlock, on
         fz={16}
         fw={400}
       >
-        {t('shortDescription')}
+        {`${t('shortDescription')} (${t('optional')})`}
       </Title>
       <Input
         locale='uk'

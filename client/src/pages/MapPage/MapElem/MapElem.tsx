@@ -49,8 +49,6 @@ const MapElem: React.FC<IMapProps> = (props) => {
     id: '845a623558bc42e2',
     googleMapsApiKey: process.env.GOOGLE_MAP_API as string,
   });
-  
-  console.log(process.env.GOOGLE_MAP_API);
 
   useEffect(() => {
     if (map) {

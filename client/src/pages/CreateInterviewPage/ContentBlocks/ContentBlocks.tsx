@@ -1,13 +1,17 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { IContentBlocksProps } from '@src/pages/CreateInterviewPage/ContentBlocks/types';
 import Modal from '@src/components/Modal/Modal';
 import AddContentBlockModal from '@src/pages/CreateInterviewPage/ContentBlocks/AddContentBlockModal/AddContentBlockModal';
 import Button from '@src/components/UI/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { ICreateRecipeContentBlock, IVideoContentBlock } from '@src/types/createInterviewTypes';
+import { ICreateInterviewContentBlock, IPhotoContentBlock, ITextContentBlock, IVideoContentBlock } from '@src/types/createInterviewTypes';
 import { INTERVIEW_BLOCK_TYPES } from '@constants/interviewContentBlocks';
 import VideoContentBlock from '@src/pages/CreateInterviewPage/ContentBlocks/VideoContentBlock/VideoContentBlock';
 import Title from '@src/components/UI/Title/Title';
+import { getContentBlockValidation } from '@src/validation/createInterview.validation';
+import TextContentBlock from '@src/pages/CreateInterviewPage/ContentBlocks/TextContentBlock/TextContentBlock';
+import { LocaleType } from '@src/types/types';
+import PhotoContentBlock from '@src/pages/CreateInterviewPage/ContentBlocks/PhotoContentBlock/PhotoContentBlock';
 import * as S from './style';
 
 const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, contentBlocks }) => {
@@ -25,7 +29,7 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
     setContentBlocks((prev) => {
       return prev.map((item) => {
         if (item._id === id) {
-          return {
+          const newItem = {
             ...item,
             content: {
               ...item.content,
@@ -36,6 +40,20 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
                 }
                 : value,
             },
+            touched: {
+              ...item.touched,
+              [name]: language
+                ? {
+                  ...item.touched[name],
+                  [language]: true,
+                }
+                : true,
+            },
+          };
+          
+          return {
+            ...newItem,
+            errors: getContentBlockValidation(newItem),
           };
         }
         return item;
@@ -43,13 +61,92 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
     });
   }, []);
   
-  const generateContent = (contentBlock: ICreateRecipeContentBlock) => {
+  const savePhotoHandler = useCallback((value: File | null, id: string) => {
+    setContentBlocks((prev) => {
+      return prev.map((item) => {
+        if (item._id === id) {
+          return {
+            ...item,
+            content: {
+              ...item.content,
+              photo: value,
+            },
+            touched: {
+              ...item.touched,
+              photo: true,
+            },
+            errors: {
+              ...getContentBlockValidation({
+                ...item,
+                content: {
+                  ...item.content,
+                  photo: value,
+                },
+              }),
+            },
+          };
+        }
+        return item;
+      });
+    });
+  }, []);
+  
+  const changeTextEditorHandler = useCallback((name: string, value: string, locale: LocaleType, id: string) => {
+    setContentBlocks((prev) => {
+      return prev.map((item) => {
+        if (item._id === id) {
+          const newItem = {
+            ...item,
+            content: {
+              ...item.content,
+              [name]: {
+                ...item.content[name],
+                [locale]: value,
+              },
+            },
+            touched: {
+              ...item.touched,
+              [name]: locale
+                ? {
+                  ...item.touched[name],
+                  [locale]: true,
+                }
+                : true,
+            },
+          };
+          
+          return {
+            ...newItem,
+            errors: getContentBlockValidation(newItem),
+          };
+        }
+        return item;
+      });
+    });
+  }, []);
+  
+  const generateContent = (contentBlock: ICreateInterviewContentBlock) => {
     switch (contentBlock.type) {
     case INTERVIEW_BLOCK_TYPES.Y_VIDEO:
       return (
         <VideoContentBlock
           contentBlock={contentBlock as IVideoContentBlock}
           onChange={changeHandler}
+        />
+      );
+    case INTERVIEW_BLOCK_TYPES.TEXT:
+      return (
+        <TextContentBlock
+          onChange={changeTextEditorHandler}
+          contentBlock={contentBlock as ITextContentBlock}
+        />
+      );
+    case INTERVIEW_BLOCK_TYPES.PHOTO:
+      return (
+        <PhotoContentBlock
+          onPhotoSave={savePhotoHandler}
+          onChange={changeHandler}
+          contentBlock={contentBlock as IPhotoContentBlock}
         />
       );
     default:

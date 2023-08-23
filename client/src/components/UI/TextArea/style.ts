@@ -13,10 +13,7 @@ export const TextAreaWrapper = styled.div<ITextAreaStyle>`
 export const TextAreaLabel = styled.label<ITextAreaStyle>`
   margin-bottom: 10px;
   font-size: inherit;
-  color: ${({
-    theme,
-    isValid,
-  }) => (isValid ? 'inherit' : theme.dangerColor)};
+  color: ${({ theme, isValid }) => (isValid ? 'inherit' : theme.accentColor)};
 `;
 
 export const TextAreaElemWrapper = styled.div`
@@ -32,7 +29,7 @@ export const TextAreaElem = styled.textarea<ITextAreaStyle>`
   border: 1px solid ${({
     isValid,
     theme,
-  }) => (isValid ? '#E2E8F0' : theme.accentColorActive)};
+  }) => (isValid ? '#E2E8F0' : theme.accentColor)};
   background-color: transparent;
   border-radius: 5px;
   transition: all 0.2s;
@@ -48,7 +45,7 @@ export const TextAreaElem = styled.textarea<ITextAreaStyle>`
     border-color: ${({
     theme,
     isValid,
-  }) => (isValid ? theme.blackColor : theme.accentColorActive)};
+  }) => (isValid ? theme.blackColor : theme.accentColor)};
   }
 
   &::placeholder {

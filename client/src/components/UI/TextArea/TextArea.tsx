@@ -18,13 +18,15 @@ const TextArea: React.FC<ITextArea> = (props) => {
     isValid,
     min,
     max,
+    locale,
   } = props;
 	
   return (
     <TextAreaWrapper margin={margin} width={width} height={height}>
-      {label && <TextAreaLabel htmlFor={id} isValid={isValid !== undefined ? isValid : true}>{label}</TextAreaLabel>}
+      {label && <TextAreaLabel htmlFor={id} isValid={isValid !== undefined ? isValid : true}>{label as string}</TextAreaLabel>}
       <TextAreaElemWrapper>
         <TextAreaElem
+          data-language={locale}
           data-testid='textarea'
           name={name}
           onChange={onChange}
