@@ -6,10 +6,10 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from '@hoc/Layout/Layout';
 import MapPage from '@src/pages/MapPage/MapPage';
 import InterviewsPage from '@src/pages/InterviewsPage/InterviewsPage';
-import CreateInterviewPage from '@src/pages/CreateInterviewPage/CreateInterviewPage';
 import AdminLayout from '@hoc/AdminLayout/AdminLayout';
 import { AppWrapper } from '@src/components/App/style';
 import { ToastContainer } from 'react-toastify';
+import CreatePublicationPage from '@src/pages/CreatePublication/CreatePublicationPage';
 
 export const App: React.FC = () => {
   return (
@@ -23,7 +23,7 @@ export const App: React.FC = () => {
             <Route path='/map' element={<MapPage/>}/>
           </Route>
           <Route path='/admin' element={<AdminLayout/>}>
-            <Route path='/admin/create-interview' element={<CreateInterviewPage/>}/>
+            <Route path='/admin/create-interview' element={<CreatePublicationPage/>}/>
           </Route>
         </Routes>
         <ToastContainer

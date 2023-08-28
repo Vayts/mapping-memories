@@ -1,29 +1,52 @@
 export const defaultTheme = [
   {
     featureType: 'all',
-    elementType: 'labels.text',
+    elementType: 'geometry',
     stylers: [
       {
-        color: '#878787',
+        color: '#202c3e',
       },
     ],
   },
   {
-    featureType: 'poi',
+    featureType: 'all',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        visibility: 'hidden',
+        gamma: 0.01,
+      },
+      {
+        lightness: 20,
+      },
+      {
+        weight: '1.39',
+      },
+      {
+        color: '#ffffff',
       },
     ],
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'geometry.fill',
-    stylers: [{ visibility: 'on' }, { color: '#BBE5CF' }],
   },
   {
     featureType: 'all',
     elementType: 'labels.text.stroke',
+    stylers: [
+      {
+        weight: '0.96',
+      },
+      {
+        saturation: '9',
+      },
+      {
+        visibility: 'on',
+      },
+      {
+        color: '#000000',
+      },
+    ],
+  },
+  {
+    featureType: 'all',
+    elementType: 'labels.icon',
     stylers: [
       {
         visibility: 'off',
@@ -31,54 +54,74 @@ export const defaultTheme = [
     ],
   },
   {
-    featureType: 'poi.attraction',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'poi.government',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'poi.place_of_worship',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'poi.medical',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'poi.school',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'poi.business',
-    stylers: [{ visibility: 'off' }],
-  },
-  
-  {
     featureType: 'landscape',
-    elementType: 'all',
+    elementType: 'geometry',
     stylers: [
       {
-        color: '#f9f5ed',
+        lightness: 30,
+      },
+      {
+        saturation: '9',
+      },
+      {
+        color: '#29446b',
       },
     ],
   },
   {
-    featureType: 'road.highway',
-    elementType: 'all',
+    featureType: 'poi',
+    elementType: 'geometry',
     stylers: [
       {
-        color: '#f5f5f5',
+        saturation: 20,
       },
     ],
   },
   {
-    featureType: 'road.highway',
+    featureType: 'poi.park',
+    elementType: 'geometry',
+    stylers: [
+      {
+        lightness: 20,
+      },
+      {
+        saturation: -20,
+      },
+    ],
+  },
+  {
+    featureType: 'road',
+    elementType: 'geometry',
+    stylers: [
+      {
+        lightness: 10,
+      },
+      {
+        saturation: -30,
+      },
+    ],
+  },
+  {
+    featureType: 'road',
+    elementType: 'geometry.fill',
+    stylers: [
+      {
+        color: '#193a55',
+      },
+    ],
+  },
+  {
+    featureType: 'road',
     elementType: 'geometry.stroke',
     stylers: [
       {
-        color: '#c9c9c9',
+        saturation: 25,
+      },
+      {
+        lightness: 25,
+      },
+      {
+        weight: '0.01',
       },
     ],
   },
@@ -87,7 +130,7 @@ export const defaultTheme = [
     elementType: 'all',
     stylers: [
       {
-        color: '#aee0f4',
+        lightness: -20,
       },
     ],
   },

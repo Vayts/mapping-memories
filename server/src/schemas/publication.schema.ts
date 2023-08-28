@@ -3,13 +3,17 @@ import { HydratedDocument } from 'mongoose';
 import { LocaleSchema } from './locale.schema';
 import { PublicationContentBlock } from './interviewContentBlock.schema';
 
-export type InterviewDocument = HydratedDocument<Interview>;
+type PublicationType = 'interview' | 'artProject' | 'specialProject';
+
+export type PublicationDocument = HydratedDocument<Publication>;
 
 @Schema()
-export class Interview {
+export class Publication {
   _id?: string;
   @Prop()
   title: LocaleSchema;
+  @Prop({ enum: ['interview', 'artProject', 'specialProject'] })
+  type: PublicationType;
   @Prop()
   description: LocaleSchema;
   @Prop()
@@ -22,4 +26,4 @@ export class Interview {
   contentBlocks: [PublicationContentBlock];
 }
 
-export const InterviewSchema = SchemaFactory.createForClass(Interview);
+export const PublicationSchema = SchemaFactory.createForClass(Publication);

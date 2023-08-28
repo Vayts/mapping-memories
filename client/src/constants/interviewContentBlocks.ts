@@ -7,6 +7,7 @@ export const INTERVIEW_BLOCK_TYPES = {
   Y_VIDEO: 'yVideo',
   TEXT: 'text',
   PHOTO: 'photo',
+  PDF: 'pdf',
 };
 
 export const INTERVIEW_CONTENT_BLOCKS: IInterviewContentBlock[] = [
@@ -38,6 +39,12 @@ export const INTERVIEW_CONTENT_BLOCKS: IInterviewContentBlock[] = [
         uk: '',
         en: '',
       },
+    },
+  },
+  {
+    type: INTERVIEW_BLOCK_TYPES.PDF,
+    content: {
+      file: null,
     },
   },
 ];
