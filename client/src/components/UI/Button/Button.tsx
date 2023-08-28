@@ -35,7 +35,7 @@ const Button: React.FC<IButton> = (props) => {
       br={br}
       type={type || 'button'}
     >
-      {isLoading ? <Loader size={15}/> : (
+      {isLoading ? <Loader size={15} color='#fff'/> : (
         <ButtonContent>
           {icon ? <ButtonIcon fz={fz} className={icon}/> : null}
           {text ? <ButtonText>{text as string}</ButtonText> : null}

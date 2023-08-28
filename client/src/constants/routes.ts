@@ -4,6 +4,8 @@ export const ROUTES = {
   },
   INTERVIEW: {
     ADD: '/interview/add',
-    GET_ALL: '/interview/get-all',
+    GET: '/interview/get',
+    GET_BY_SEARCH: '/interview/get-by-search',
+    GET_FAVORITE: '/interview/get-favorite',
   },
 };

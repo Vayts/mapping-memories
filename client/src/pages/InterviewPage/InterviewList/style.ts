@@ -2,24 +2,18 @@ import styled from 'styled-components';
 import { RESPONSIVE } from '@constants/style';
 
 export const InterviewListWrapper = styled.ul`
-  margin: 0 0 30px;
-  padding: 0;
+  margin: 0 0 20px;
+  padding: 0 0 10px;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 30px;
-
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 
   @media screen and (min-width: ${RESPONSIVE.desktop}) {
+    gap: 30px;
     grid-template-columns: repeat(3, 1fr);
   }
 `;
 
 export const InterviewItem = styled.li`
-  max-width: 380px;
-  grid-template: 'row';
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;

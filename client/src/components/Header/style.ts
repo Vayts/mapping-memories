@@ -1,13 +1,23 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { RESPONSIVE } from '@constants/style';
 import { IHeaderStyle } from '@src/components/Header/types';
 import { NavLink } from 'react-router-dom';
 
-export const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.div<IHeaderStyle>`
   border-bottom: 1px solid #e8e8e8;
   height: 60px;
-  position: relative;
-  z-index: 10;
+  z-index: ${({ isOpen }) => (isOpen ? 12 : 10)};;
+  
+  ${({ isFixed }) => {
+    if (isFixed) {
+      return css`
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+      `;
+    }
+  }}
 `;
 
 export const HeaderContent = styled.div`

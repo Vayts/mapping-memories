@@ -1,28 +1,64 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { INTERVIEW_PAGE_CONFIG } from '@constants/interview';
+import { IInterviewState } from '@src/store/interview/types';
+import { IInterview } from '@src/types/interview.types';
 
-const initialState = {
+const initialState: IInterviewState = {
+  isInSearch: false,
+  searchValue: '',
   isLoading: true,
-  interviews: [],
+  data: [],
   favoriteInterviews: [],
+  limit: INTERVIEW_PAGE_CONFIG.PER_PAGE,
+  hasMoreContent: false,
 };
 
-export const interviewSlice = createSlice({
-  name: 'interview',
+export const interviewsSlice = createSlice({
+  name: 'interviewsSlice',
   initialState,
   reducers: {
-    interviewRequestStart: (state) => {
+    interviewsRequestStart: (state) => {
       state.isLoading = true;
     },
-    interviewRequestEnd: (state) => {
+    interviewsRequestEnd: (state) => {
       state.isLoading = false;
     },
-    setInterviews: (state, action) => {
-      state.interviews = action.payload;
+    setInterviewsSearchValue: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload;
     },
-    setFavoriteInterviews: (state, action) => {
-      state.favoriteInterviews = action.payload;
+    resetLimitAndData: (state) => {
+      state.limit = initialState.limit;
+    },
+    setFavoriteInterviews: (state, action: PayloadAction<IInterview[]>) => {
+      state.favoriteInterviews = [...action.payload];
+    },
+    addInterviewsLimit: (state) => {
+      state.limit += INTERVIEW_PAGE_CONFIG.PER_PAGE;
+    },
+    addInterviews: (state, action: PayloadAction<IInterview[]>) => {
+      state.data = [...state.data, ...action.payload];
+    },
+    setInterviews: (state, action: PayloadAction<IInterview[]>) => {
+      state.data = [...action.payload];
+    },
+    setInSearch: (state, action: PayloadAction<boolean>) => {
+      state.isInSearch = action.payload;
+    },
+    setInterviewHasMoreContent: (state, action: PayloadAction<boolean>) => {
+      state.hasMoreContent = action.payload;
     },
   },
 });
 
-export const { interviewRequestStart, setFavoriteInterviews, interviewRequestEnd, setInterviews } = interviewSlice.actions;
+export const {
+  addInterviews,
+  interviewsRequestEnd,
+  resetLimitAndData,
+  setInterviewsSearchValue,
+  interviewsRequestStart,
+  setInSearch,
+  setInterviewHasMoreContent,
+  setInterviews,
+  setFavoriteInterviews,
+  addInterviewsLimit,
+} = interviewsSlice.actions;

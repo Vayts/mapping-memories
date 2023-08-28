@@ -45,6 +45,9 @@ code {
 .icon-link:before {
   content: "\e908";
 }
+.icon-search:before {
+  content: "\e909";
+}
 
 .icon-burger:before {
   content: "\e907";
@@ -73,6 +76,7 @@ code {
 
 *::-webkit-scrollbar {
   width: 10px;
+
 }
 
 /* Track */

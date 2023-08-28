@@ -1,6 +1,6 @@
-import React from 'react';
-import Card from '@src/components/Card/Card';
+import React, { memo } from 'react';
 import { IInterviewList } from '@src/pages/InterviewPage/InterviewList/types';
+import InterviewCard from '@src/pages/InterviewPage/InterviewCard/InterviewCard';
 import * as S from './style';
 
 const InterviewList: React.FC<IInterviewList> = ({ interviews }) => {
@@ -9,7 +9,7 @@ const InterviewList: React.FC<IInterviewList> = ({ interviews }) => {
       {interviews.map((item) => {
         return (
           <S.InterviewItem key={item._id}>
-            <Card content={item}/>
+            <InterviewCard content={item}/>
           </S.InterviewItem>
         );
       })}
@@ -17,4 +17,4 @@ const InterviewList: React.FC<IInterviewList> = ({ interviews }) => {
   );
 };
 
-export default InterviewList;
+export default memo(InterviewList);
