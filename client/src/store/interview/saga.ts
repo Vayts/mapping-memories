@@ -8,8 +8,12 @@ import {
   addInterviews,
   addInterviewsLimit,
   interviewsRequestEnd,
-  interviewsRequestStart, resetLimitAndData, setFavoriteInterviews, setInSearch,
-  setInterviewHasMoreContent, setInterviews,
+  interviewsRequestStart,
+  resetInterviewsLimit,
+  setFavoriteInterviews,
+  setInSearch,
+  setInterviewHasMoreContent,
+  setInterviews,
 } from '@src/store/interview/reducer';
 import { selectInterviewsLimit, selectInterviewsSearchValue } from '@src/store/interview/selectors';
 import { getAllInterviewRequest, getFavoriteInterviewsRequest, getInterviewsByTitle } from '@src/store/interview/actions';
@@ -46,7 +50,7 @@ function* getFavoriteInterviewSaga(): SagaIterator {
 function* getInterviewsByTitleSaga(): SagaIterator {
   try {
     yield put(interviewsRequestStart());
-    yield put(resetLimitAndData());
+    yield put(resetInterviewsLimit());
     yield put(setInSearch(true));
     const limit = yield select(selectInterviewsLimit);
     const search = yield select(selectInterviewsSearchValue);

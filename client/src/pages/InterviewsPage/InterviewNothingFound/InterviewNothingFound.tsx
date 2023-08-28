@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Description from '@src/components/UI/Description/Description';
 import Button from '@src/components/UI/Button/Button';
 import { useAppDispatch } from '@src/hooks/hooks';
-import { resetLimitAndData, setInterviewsSearchValue } from '@src/store/interview/reducer';
+import { resetInterviews, resetInterviewsLimit, setInterviewsSearchValue } from '@src/store/interview/reducer';
 import { getAllInterviewRequest } from '@src/store/interview/actions';
 import * as S from './style';
 
@@ -12,7 +12,8 @@ const InterviewNothingFound: React.FC = () => {
   const dispatch = useAppDispatch();
   
   const showAllInterviewHandler = useCallback(() => {
-    dispatch(resetLimitAndData());
+    dispatch(resetInterviewsLimit());
+    dispatch(resetInterviews());
     dispatch(setInterviewsSearchValue(''));
     dispatch(getAllInterviewRequest());
   }, []);

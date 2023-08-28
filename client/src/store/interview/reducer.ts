@@ -26,8 +26,11 @@ export const interviewsSlice = createSlice({
     setInterviewsSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
     },
-    resetLimitAndData: (state) => {
+    resetInterviewsLimit: (state) => {
       state.limit = initialState.limit;
+    },
+    resetInterviews: (state) => {
+      state.data = initialState.data;
     },
     setFavoriteInterviews: (state, action: PayloadAction<IInterview[]>) => {
       state.favoriteInterviews = [...action.payload];
@@ -53,7 +56,7 @@ export const interviewsSlice = createSlice({
 export const {
   addInterviews,
   interviewsRequestEnd,
-  resetLimitAndData,
+  resetInterviewsLimit,
   setInterviewsSearchValue,
   interviewsRequestStart,
   setInSearch,
@@ -61,4 +64,5 @@ export const {
   setInterviews,
   setFavoriteInterviews,
   addInterviewsLimit,
+  resetInterviews,
 } = interviewsSlice.actions;
