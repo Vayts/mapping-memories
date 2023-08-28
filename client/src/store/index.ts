@@ -5,7 +5,7 @@ import { appSlice } from '@src/store/app/reducer';
 import rootSaga from '@src/store/sagas';
 import { createInterviewSlice } from '@src/store/createInterview/reducer';
 import { INTERVIEW } from '@constants/actions';
-import { interviewSlice } from '@src/store/interview/reducer';
+import { interviewsSlice } from '@src/store/interview/reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -13,7 +13,7 @@ export const store = configureStore({
   reducer: {
     app: appSlice.reducer,
     map: mapSlice.reducer,
-    interview: interviewSlice.reducer,
+    interviews: interviewsSlice.reducer,
     createInterview: createInterviewSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

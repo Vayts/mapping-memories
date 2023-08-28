@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { RESPONSIVE } from '@constants/style';
 
 export const CardWrapper = styled(NavLink)`
-  //max-width: 380px;
   min-height: 410px;
   text-decoration: none;
   display: block;
@@ -13,6 +13,36 @@ export const CardWrapper = styled(NavLink)`
   &:hover {
     box-shadow: 0 0 5px rgba(136, 136, 136, 0.30);
   }
+
+  @media screen and (min-width: ${RESPONSIVE.mobileL}) {
+    display: flex;
+    min-height: auto;
+    
+    img {
+      margin-bottom: 0;
+      max-width: 230px;
+      max-height: 150px;
+    }
+  }
+
+  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+
+    img {
+      min-width: 330px;
+      max-width: 330px;
+      max-height: unset;
+    }
+  }
+
+  @media screen and (min-width: ${RESPONSIVE.desktop}) {
+    display: block;
+    min-height: 410px;
+    
+    img {
+      max-width: unset;
+      max-height: unset;
+    }
+  }
 `;
 
 export const CardImg = styled.img`
@@ -20,6 +50,10 @@ export const CardImg = styled.img`
   height: 240px;
   margin-bottom: 10px;
   vertical-align: bottom;
+
+  @media screen and (min-width: ${RESPONSIVE.desktop}) {
+    max-width: 380px;
+  }
 `;
 
 export const CardDate = styled.span`
@@ -32,6 +66,7 @@ export const CardDate = styled.span`
 
 export const CardInfo = styled.div`
   padding: 10px;
+  width: 100%;
   
   h3 {
     display: -webkit-box;
@@ -39,7 +74,6 @@ export const CardInfo = styled.div`
     -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: ${({ theme }) => theme.primaryTextColor};
     line-height: 1;
   }
   
@@ -58,7 +92,12 @@ export const CardTitleWrapper = styled.div`
   align-items: flex-start;
   color: #000;
   
+  h3 {
+    flex-grow: 1;
+  }
+  
   span {
-    font-size: 14px;
+    font-size: 12px;
+    margin-left: 5px;
   }
 `;

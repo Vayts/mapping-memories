@@ -15,15 +15,15 @@ export const ButtonItem = styled.button<IButtonStyle>`
 	transition: all 0.1s;
 
   &:disabled, &[disabled] {
-    background-color: ${({ theme }) => theme.semiLightBgColor};
-    color: ${({ theme }) => theme.lightBgColor};
-    border-color: ${({ theme }) => theme.borderColor};
+    background-color: ${({ theme }) => theme.semiLightBgColor} !important;
+    color: ${({ theme }) => theme.lightBgColor} !important;
+    border-color: ${({ theme }) => theme.borderColor} !important;
 
     &:hover {
       cursor: default;
-      background-color: ${({ theme }) => theme.semiLightBgColor};
-      color: ${({ theme }) => theme.lightBgColor};
-      border-color: ${({ theme }) => theme.borderColor};
+      background-color: ${({ theme }) => theme.semiLightBgColor} !important;
+      color: ${({ theme }) => theme.lightBgColor} !important;
+      border-color: ${({ theme }) => theme.borderColor} !important;
     }
   }
 	

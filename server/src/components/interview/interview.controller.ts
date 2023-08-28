@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -23,8 +24,13 @@ export class InterviewController {
     return this.interviewService.addInterview(files, dto);
   }
 
-  @Get('/get-all')
-  getAllInterview() {
-    return this.interviewService.getAllInterview();
+  @Get('/get')
+  getInterview(@Query('limit') limit = 9, @Query('search') search = '') {
+    return this.interviewService.getInterview(limit, search);
+  }
+
+  @Get('/get-favorite')
+  getFavoriteInterview() {
+    return this.interviewService.getFavoriteInterview();
   }
 }

@@ -2,5 +2,6 @@ import styled from 'styled-components';
 
 export const AppWrapper = styled.div`
   position: relative;
-	min-height: 100vh;
+	//max-height: 100vh;
+  overflow-y: scroll;
 `;

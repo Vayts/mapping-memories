@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { IHeaderProps } from '@src/components/Header/types';
 import * as S from './style';
 
-const Header: React.FC = () => {
+const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
   const [isNavOpen, setNavOpen] = useState(false);
   const { t } = useTranslation();
   
   return (
-    <S.HeaderWrapper>
+    <S.HeaderWrapper isOpen={isNavOpen} isFixed={isFixed}>
       <S.HeaderContent>
         <S.Logo src='../assets/img/logo.svg' alt='mapping memories of ukraine logo'/>
         <S.BurgerButton className='icon-burger' onClick={() => setNavOpen(!isNavOpen)}/>

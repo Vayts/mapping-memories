@@ -12,7 +12,7 @@ export const Loader: FC<ILoader> = ({ color, size }) => {
 	
   return (
     <LoaderWrapper data-testid='loaderId'>
-      <ClipLoader color={color || theme.primaryColor} loading size={size || 100} />
+      <ClipLoader color={color || theme.accentColor} loading size={size || 100} />
     </LoaderWrapper>
   );
 };

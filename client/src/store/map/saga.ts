@@ -5,10 +5,14 @@ import { mapRequestEnd, mapRequestStart, setActiveTypes, setMapInfo } from '@src
 import { getRequest } from '@src/api/request';
 import { ROUTES } from '@constants/routes';
 import { selectActiveTypes } from '@src/store/map/selectors';
+import { getNotification } from '@src/notification/notifications';
+import i18n from 'i18next';
+
+const { t } = i18n;
 
 function* getMapInfoSaga(): SagaIterator {
   try {
-    yield put(mapRequestStart);
+    yield put(mapRequestStart());
     const filters = yield select(selectActiveTypes);
     const response = yield call(getRequest, `${ROUTES.MAP.GET_INFO}?filters=${filters.join('_%_')}`);
     yield put(setMapInfo({
@@ -17,9 +21,9 @@ function* getMapInfoSaga(): SagaIterator {
       types: response.data.types,
     }));
   } catch (e) {
-    alert('error');
+    getNotification(t('somethingWentWrong'), 'error');
   } finally {
-    yield put(mapRequestEnd);
+    yield put(mapRequestEnd());
   }
 }
 

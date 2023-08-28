@@ -32,4 +32,19 @@ export const ContentBlocksList = styled.ul`
   padding: 0;
 `;
 
-export const ContentBlockItem = styled.li``;
+export const ContentBlockItem = styled.li`
+  position: relative;
+`;
+
+export const ContentBlockDeleteBtn = styled.span`
+  position: absolute;
+  top: 15px;
+  font-size: 14px;
+  right: 15px;
+  color: ${({ theme }) => theme.lightTxtColor};
+  cursor: pointer;
+  
+  &:hover {
+    color: ${({ theme }) => theme.accentColor};
+  }
+`;

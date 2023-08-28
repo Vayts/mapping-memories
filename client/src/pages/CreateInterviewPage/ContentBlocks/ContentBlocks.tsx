@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { IContentBlocksProps } from '@src/pages/CreateInterviewPage/ContentBlocks/types';
 import Modal from '@src/components/Modal/Modal';
 import AddContentBlockModal from '@src/pages/CreateInterviewPage/ContentBlocks/AddContentBlockModal/AddContentBlockModal';
@@ -125,6 +125,10 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
     });
   }, []);
   
+  const deleteContentBlock = useCallback((id: string) => {
+    setContentBlocks((prev) => prev.filter((item) => item._id !== id));
+  }, []);
+  
   const generateContent = (contentBlock: ICreateInterviewContentBlock) => {
     switch (contentBlock.type) {
     case INTERVIEW_BLOCK_TYPES.Y_VIDEO:
@@ -173,6 +177,7 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
       <S.ContentBlocksList>
         {contentBlocks.map((item) => (
           <S.ContentBlockItem key={item._id}>
+            <S.ContentBlockDeleteBtn className='icon-cross' onClick={() => deleteContentBlock(item._id)}/>
             {generateContent(item)}
           </S.ContentBlockItem>
         ))}
