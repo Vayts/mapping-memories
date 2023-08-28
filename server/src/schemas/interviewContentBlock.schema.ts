@@ -2,7 +2,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
 @Schema({ _id: false })
-export class RecipeContentBlock {
+export class PublicationContentBlock {
   @Prop()
   _id: string;
   @Prop()

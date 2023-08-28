@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useCallback, useEffect } from 'react';
 import Title from '@src/components/UI/Title/Title';
 import { useTranslation } from 'react-i18next';
-import InterviewList from '@src/pages/InterviewsPage/InterviewList/InterviewList';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { Search } from '@src/components/UI/Search/Search';
 import {
@@ -19,6 +18,7 @@ import {
 } from '@src/store/interview/reducer';
 import Button from '@src/components/UI/Button/Button';
 import InterviewNothingFound from '@src/pages/InterviewsPage/InterviewNothingFound/InterviewNothingFound';
+import PublicationList from '@src/components/PublicationList/PublicationList';
 import * as S from './style';
 
 const InterviewsPage: React.FC = () => {
@@ -59,7 +59,7 @@ const InterviewsPage: React.FC = () => {
   return (
     <S.InterviewsPageWrapper>
       <S.InterviewsBanner>
-        <img src='../assets/img/banner.svg' alt='mapping memories of Ukraine'/>
+        <img src='../assets/img/bannerInterview.svg' alt='mapping memories of Ukraine'/>
       </S.InterviewsBanner>
       {
         favoriteInterviews.length ? (
@@ -71,7 +71,7 @@ const InterviewsPage: React.FC = () => {
               {t('favoriteInterviews')}
             </Title>
             <S.InterviewsListWrapper>
-              <InterviewList interviews={favoriteInterviews}/>
+              <PublicationList publications={favoriteInterviews}/>
             </S.InterviewsListWrapper>
           </>
         ) : null
@@ -94,7 +94,7 @@ const InterviewsPage: React.FC = () => {
       </S.InterviewsControls>
       <S.InterviewsListWrapper>
         {!interviews.length && <InterviewNothingFound/>}
-        <InterviewList interviews={interviews}/>
+        <PublicationList publications={interviews}/>
         {hasMoreContent && (
           <S.InterviewsMoreButton>
             <Button

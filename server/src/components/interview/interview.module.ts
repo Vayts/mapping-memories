@@ -3,14 +3,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { InterviewController } from './interview.controller';
 import { InterviewService } from './interview.service';
-import { Interview, InterviewSchema } from '../../schemas/interview.schema';
 import { PhotoService } from '../photo/photo.service';
+import {
+  Publication,
+  PublicationSchema,
+} from '../../schemas/publication.schema';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forFeature([
-      { name: Interview.name, schema: InterviewSchema },
+      { name: Publication.name, schema: PublicationSchema },
     ]),
   ],
   controllers: [InterviewController],

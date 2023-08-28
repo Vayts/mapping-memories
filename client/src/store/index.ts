@@ -3,9 +3,9 @@ import createSagaMiddleware from 'redux-saga';
 import { mapSlice } from '@src/store/map/reducer';
 import { appSlice } from '@src/store/app/reducer';
 import rootSaga from '@src/store/sagas';
-import { createInterviewSlice } from '@src/store/createInterview/reducer';
-import { INTERVIEW } from '@constants/actions';
+import { PUBLICATION } from '@constants/actions';
 import { interviewsSlice } from '@src/store/interview/reducer';
+import { createPublicationSlice } from '@src/store/createPublication/reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,11 +14,11 @@ export const store = configureStore({
     app: appSlice.reducer,
     map: mapSlice.reducer,
     interviews: interviewsSlice.reducer,
-    createInterview: createInterviewSlice.reducer,
+    createPublication: createPublicationSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
-      ignoredActions: [INTERVIEW.ADD_INTERVIEW],
+      ignoredActions: [PUBLICATION.ADD_PUBLICATION],
     },
   }).concat(sagaMiddleware),
 });

@@ -1,10 +1,10 @@
-import { IInterview } from '@src/types/interview.types';
+import { IPublication } from '@src/types/publication.types';
 
 export interface IInterviewState {
   isLoading: boolean,
   isInSearch: boolean,
-  data: IInterview[],
-  favoriteInterviews: IInterview[],
+  data: IPublication[],
+  favoriteInterviews: IPublication[],
   searchValue: string,
   limit: number,
   hasMoreContent: boolean,
