@@ -46,6 +46,10 @@ code {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-nothing-exist:before {
+  content: "\e90a";
+}
+
 .icon-link:before {
   content: "\e908";
 }

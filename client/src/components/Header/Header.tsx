@@ -8,6 +8,10 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
   const [isNavOpen, setNavOpen] = useState(false);
   const { t } = useTranslation();
   
+  const closeNav = () => {
+    setNavOpen(false);
+  };
+  
   return (
     <S.HeaderWrapper isOpen={isNavOpen} isFixed={isFixed}>
       <S.HeaderContent>
@@ -21,6 +25,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
           <S.NavList>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/'
               >
                 {t('main')}
@@ -28,6 +33,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/map'
               >
                 {t('mapOfMemorials')}
@@ -35,6 +41,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/interviews'
               >
                 {t('interviews')}
@@ -42,6 +49,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/art-projects'
               >
                 {t('artProjects')}
@@ -49,6 +57,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/special-projects'
               >
                 {t('specialProjects')}
@@ -56,6 +65,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/about_us'
               >
                 {t('aboutUs')}

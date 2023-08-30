@@ -1,28 +1,24 @@
-import React, { ChangeEvent, useCallback, useEffect } from 'react';
-import Title from '@src/components/UI/Title/Title';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { Search } from '@src/components/UI/Search/Search';
 import {
   selectPublications,
-  selectPublicationsSearchValue,
   selectPublicationsLoading,
   selectPublicationsHasMoreContent, selectFavoritePublications, selectIsInSearch,
 } from '@src/store/publications/selectors';
-import { getPublicationsByTitle } from '@src/store/publications/actions';
 import {
   addPublicationsLimit,
   resetPublicationsState, setCurrentPublicationType,
-  setInSearch,
-  setPublicationsSearchValue,
 } from '@src/store/publications/reducer';
 import Button from '@src/components/UI/Button/Button';
-import PublicationList from '@src/components/PublicationList/PublicationList';
-import PublicationNothingFound from '@src/components/PublicationNothingFound/PublicationNothingFound';
 import { IPublicationsPageProps } from '@src/pages/PublicationsPage/types';
 import { PUBLICATIONS_PAGE_CONFIG } from '@constants/publication';
 import { selectIsAppLoading } from '@src/store/app/selectors';
 import { Loader } from '@src/components/Loader/Loader';
+import PublicationsNotExist from '@src/pages/PublicationsPage/PublicationsNotExist/PublicationsNotExist';
+import PublicationNothingFound from '@src/pages/PublicationsPage/PublicationNothingFound/PublicationNothingFound';
+import AllPublications from '@src/pages/PublicationsPage/AllPublications/AllPublications';
+import FavoritePublications from '@src/pages/PublicationsPage/FavoritePublications/FavoritePublications';
 import * as S from './style';
 
 const PublicationsPage: React.FC<IPublicationsPageProps> = ({ type, withFavorite }) => {
@@ -30,9 +26,11 @@ const PublicationsPage: React.FC<IPublicationsPageProps> = ({ type, withFavorite
   const isInSearch = useAppSelector(selectIsInSearch);
   const isLoading = useAppSelector(selectPublicationsLoading);
   const hasMoreContent = useAppSelector(selectPublicationsHasMoreContent);
-  const searchValue = useAppSelector(selectPublicationsSearchValue);
   const interviews = useAppSelector(selectPublications);
   const favoriteInterviews = useAppSelector(selectFavoritePublications);
+  const showNotExist = !interviews.length && !isInSearch;
+  const showNothingFound = !interviews.length && isInSearch;
+  const showFavorite = withFavorite && Boolean(favoriteInterviews.length);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   
@@ -44,37 +42,9 @@ const PublicationsPage: React.FC<IPublicationsPageProps> = ({ type, withFavorite
     };
   }, [type]);
   
-  const onSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      dispatch(setInSearch(false));
-    }
-    
-    dispatch(setPublicationsSearchValue(e.target.value));
-  }, []);
-  
-  const onSearchClickHandler = useCallback(() => {
-    dispatch(getPublicationsByTitle());
-  }, []);
-  
   const addLimitHandler = useCallback(() => {
     dispatch(addPublicationsLimit());
   }, []);
-  
-  const generateFavoriteContent = () => {
-    return withFavorite && favoriteInterviews.length ? (
-      <>
-        <Title
-          fz={22}
-          margin='0 0 30px'
-        >
-          {t('favoriteInterviews')}
-        </Title>
-        <S.PublicationsListWrapper>
-          <PublicationList publications={favoriteInterviews}/>
-        </S.PublicationsListWrapper>
-      </>
-    ) : null;
-  };
   
   return (
     isAppLoading ? <Loader size={50}/> : (
@@ -83,35 +53,17 @@ const PublicationsPage: React.FC<IPublicationsPageProps> = ({ type, withFavorite
           <img src={`../assets/img/banner_${type || 'main'}.svg`} alt='interview banner'/>
         </S.PublicationsBanner>
         
-        {generateFavoriteContent()}
-        
-        <S.PublicationsControls>
-          <Title
-            fz={22}
-            margin='0'
-          >
-            {t(PUBLICATIONS_PAGE_CONFIG[type || 'default'].all)}
-          </Title>
-          <Search
-            id='interviewSearch'
-            name='biba'
-            value={searchValue}
-            onChange={onSearchChange}
-            onSearch={onSearchClickHandler}
-            isLoading={isLoading}
-          />
-        </S.PublicationsControls>
+        {showFavorite && <FavoritePublications type={type}/>}
         
         <S.PublicationsListWrapper>
           
-          {!interviews.length
-            && (
-              <PublicationNothingFound
-                text={t(PUBLICATIONS_PAGE_CONFIG[type || 'default'].nothing)}
-              />
-            )}
+          {showNotExist ? <PublicationsNotExist/> : <AllPublications type={type}/>}
           
-          <PublicationList publications={interviews}/>
+          {showNothingFound && (
+            <PublicationNothingFound
+              text={t(PUBLICATIONS_PAGE_CONFIG[type || 'default'].nothing)}
+            />
+          )}
           
           {hasMoreContent && (
             <S.PublicationsMoreButton>
