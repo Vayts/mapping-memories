@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 export const HeaderWrapper = styled.div<IHeaderStyle>`
   border-bottom: 1px solid #e8e8e8;
   height: 60px;
+  position: relative;
   z-index: ${({ isOpen }) => (isOpen ? 12 : 10)};;
   
   ${({ isFixed }) => {
@@ -151,10 +152,10 @@ export const NavigationLink = styled(NavLink)`
     &.active {
       color: #000000;
       background-color: ${({ theme }) => theme.brightBgColor};
-    
+
       &::before {
         background-color: ${({ theme }) => theme.accentColor};
       }
     }
-}
+  }
 `;

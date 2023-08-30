@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { InterviewController } from './interview.controller';
-import { InterviewService } from './interview.service';
+import { PublicationController } from './publication.controller';
+import { PublicationService } from './publication.service';
 import { PhotoService } from '../photo/photo.service';
 import {
   Publication,
@@ -16,7 +16,7 @@ import {
       { name: Publication.name, schema: PublicationSchema },
     ]),
   ],
-  controllers: [InterviewController],
-  providers: [InterviewService, PhotoService],
+  controllers: [PublicationController],
+  providers: [PublicationService, PhotoService],
 })
-export class InterviewModule {}
+export class PublicationModule {}
