@@ -30,7 +30,7 @@ export const InputElem = styled.input<IInputStyle>`
   transition: all 0.2s;
   
   &:hover {
-    border-color: ${({ theme }) => theme.lightBgColor};;
+    border-color: ${({ theme }) => theme.lightBgColor};
   }
 	
   &:focus {

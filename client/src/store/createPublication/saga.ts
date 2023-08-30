@@ -16,9 +16,9 @@ function* addPublicationSaga(action: PayloadAction<any>): SagaIterator {
   const formData = getCreatePublicationFormData(values);
   try {
     yield put(createPublicationRequestStart);
-    const response = yield call(postRequestWithFiles, ROUTES.INTERVIEW.ADD, formData);
+    const response = yield call(postRequestWithFiles, ROUTES.PUBLICATION.ADD, formData);
     if (response) {
-      getNotification(t('interviewAdded'), 'success');
+      getNotification(t('publicationAdded'), 'success');
     }
   } catch (e) {
     getNotification(t('somethingWentWrong'), 'error');

@@ -1,22 +1,22 @@
 import React, { useCallback, useState } from 'react';
 import Title from '@src/components/UI/Title/Title';
 import { useTranslation } from 'react-i18next';
-import { IInterviewContentBlock, INTERVIEW_CONTENT_BLOCKS } from '@constants/interviewContentBlocks';
+import { PUBLICATION_CONTENT_BLOCKS } from '@constants/publicationContentBlocks';
 import Button from '@src/components/UI/Button/Button';
 import { v4 as uuidv4 } from 'uuid';
-import { ICreatePublicationContentBlock } from '@src/types/createPublicationTypes';
+import { ICreatePublicationContentBlock, IPublicationContentBlock } from '@src/types/createPublicationTypes';
 import { IAddContentBlockProps } from './types';
 import * as S from './style';
 
 const AddContentBlockModal: React.FC<IAddContentBlockProps> = ({ setContentBlocks, setModal }) => {
-  const [checked, setChecked] = useState<IInterviewContentBlock | null>(null);
+  const [checked, setChecked] = useState<IPublicationContentBlock | null>(null);
   const { t } = useTranslation();
   
   const closeModal = () => {
     setModal(false);
   };
   
-  const setCheckedHandler = (item: IInterviewContentBlock) => {
+  const setCheckedHandler = (item: IPublicationContentBlock) => {
     setChecked(item);
   };
   
@@ -50,7 +50,7 @@ const AddContentBlockModal: React.FC<IAddContentBlockProps> = ({ setContentBlock
         {t('selectContentType')}
       </Title>
       <S.ContentBlockList>
-        {INTERVIEW_CONTENT_BLOCKS.map((item) => {
+        {PUBLICATION_CONTENT_BLOCKS.map((item) => {
           return (
             <li key={item.type} onClick={() => setCheckedHandler(item)}>
               <S.ContentBlockLabel checked={checked ? checked.type === item.type : false}>

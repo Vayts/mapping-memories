@@ -68,7 +68,7 @@ export const Search: React.FC<ISearch> = (props) => {
         width={width}
         onClick={onSearchHandler}
       >
-        {isLoading ? <Loader size={12}/> : (
+        {isLoading ? <Loader size={15}/> : (
           <S.SearchIcon
             className='icon-search'
           />

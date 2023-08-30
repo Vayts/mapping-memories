@@ -36,6 +36,10 @@ export class CreateInterviewMainInfoDto {
   @IsString({ message: 'ONLY_STRING' })
   @IsNotEmpty()
   readonly photo: string;
+
+  @IsString({ message: 'ONLY_STRING' })
+  @IsNotEmpty()
+  readonly type: string;
 }
 
 export class CreateInterviewContentBlockDto {

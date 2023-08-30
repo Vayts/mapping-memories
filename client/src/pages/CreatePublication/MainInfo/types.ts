@@ -1,7 +1,7 @@
-import { ICreateInterviewMain } from '@src/types/createPublicationTypes';
 import React, { SetStateAction } from 'react';
+import { ICreatePublicationMain } from '@src/types/createPublicationTypes';
 
 export interface IMainInfoBlockProps {
-  mainInfo: ICreateInterviewMain,
-  setMainInfo: React.Dispatch<SetStateAction<ICreateInterviewMain>>,
+  mainInfo: ICreatePublicationMain,
+  setMainInfo: React.Dispatch<SetStateAction<ICreatePublicationMain>>,
 }

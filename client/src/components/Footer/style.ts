@@ -9,12 +9,13 @@ export const FooterWrapper = styled.div`
 
 export const FooterContent = styled.div`
   max-width: 1220px;
-  margin: 0 auto 0;
-  padding: 20px 10px;
+  margin: 10px auto 0;
+  padding: 10px 10px;
   display: flex;
   color: ${({ theme }) => theme.lightTxtColor};
   font-size: 16px;
   font-weight: 500;
+  border-top: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
 export const FooterText = styled.p`

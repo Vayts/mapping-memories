@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, memo, useCallback, useState } from 'react';
 import { IEditPhotoState } from '@src/components/EditPhoto/types';
 import EditPhoto from '@src/components/EditPhoto/EditPhoto';
 import FileUploader from '@src/components/UI/FileUploader/FileUploader';
@@ -34,12 +34,12 @@ const PhotoContentBlock: React.FC<IPhotoContentBlockProps> = ({ contentBlock, on
   }, []);
   
   const setPhotoHandler = (photo: any) => {
-    onPhotoSave(photo, _id);
+    onPhotoSave(photo, _id, 'photo');
     setPhotoBlob(URL.createObjectURL(photo));
   };
   
   const removePhoto = useCallback(() => {
-    onPhotoSave(null, _id);
+    onPhotoSave(null, _id, 'photo');
     setPhotoBlob(null);
   }, []);
   
@@ -136,4 +136,4 @@ const PhotoContentBlock: React.FC<IPhotoContentBlockProps> = ({ contentBlock, on
   );
 };
 
-export default PhotoContentBlock;
+export default memo(PhotoContentBlock);

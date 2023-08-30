@@ -8,30 +8,34 @@ export const SelectWrapper = styled.div<ISelectStyle>`
   margin: ${({ margin = '5px 0' }) => margin};
   width: ${({ width = 'auto' }) => width};
   font-size: ${({ fz = 16 }) => `${fz}px`};
+  user-select: none;
 `;
 
 export const SelectLabel = styled.label<ISelectStyle>`
 	margin-bottom: 10px;
 	font-size: inherit;
-	color: ${({ theme, isValid }) => (isValid ? 'inherit' : theme.dangerColor)};
+	color: ${({ theme, isValid }) => (isValid ? 'inherit' : theme.accentColorActive)};
 `;
 
 export const SelectElemWrapper = styled.div<ISelectStyle>`
   position: relative;
   height: ${({ height = '35px' }) => height};
-  border: 1px solid ${({ isValid, theme }) => (isValid ? '#E2E8F0' : theme.dangerColor)};
+  border: 1px solid ${({ isValid, theme, isOpen }) => (isValid ? isOpen ? theme.blackColor : '#E2E8F0' : theme.accentColorActive)};
   border-radius: 5px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: ${({ padding = '0 30px 0 10px' }) => padding};
-  outline:  ${({ theme, isOpen }) => (isOpen ? `1px solid ${theme.primaryColor}` : 'none')};
+  
+  &:hover {
+    border-color: ${({ theme, isValid }) => (isValid ? theme.lightBgColor : theme.accentColorActive)};
+  }
 `;
 
 export const SelectPlaceholder = styled.p<ISelectStyle>`
   margin: 0;
   font-size: ${({ fz = 16 }) => `${fz}px`};
-  color: ${({ theme }) => theme.reverseLight};
+  color: ${({ theme }) => theme.lightBgColor};
 `;
 
 export const SelectInput = styled.input`
@@ -65,23 +69,24 @@ export const SelectIconsWrapper = styled.div`
   padding: 0;
 `;
 
-export const SelectIcon = styled.li<ISelectStyle>`
+export const SelectIcon = styled.span<ISelectStyle>`
   font-size: 20px;
-  color: ${({ theme, isOpen }) => (isOpen ? theme.primaryColor : theme.greyColor)};
+  color: ${({ theme, isOpen }) => (isOpen ? theme.blackColor : theme.borderColor)};
   font-weight: 100;
 `;
 
-export const SelectIconClear = styled.li`
-  font-size: 20px;
-  color: ${({ theme }) => theme.greyColor};
+export const SelectIconClear = styled.span`
+  font-size: 14px;
+  color: ${({ theme }) => theme.lightBgColor};
   font-weight: 100;
+  margin-right: 3px;
   
   &:hover {
     color: ${({ theme }) => theme.blackColor};
   }
 `;
 
-export const SelectSeparator = styled.li`
+export const SelectSeparator = styled.span`
   color: #E2E8F0;
   font-size: 15px;
   margin: 0 5px;

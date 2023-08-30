@@ -43,6 +43,7 @@ export const SearchButton = styled.div<ISearchStyle>`
   align-items: center;
   cursor: pointer;
   transition: all 0.2s;
+  position: relative;
   
   &:hover {
     background-color: ${({ theme }) => theme.accentColorActive};

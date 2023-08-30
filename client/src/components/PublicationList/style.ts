@@ -5,7 +5,6 @@ export const PublicationListWrapper = styled.div`
   margin: 0 0 20px;
   padding: 0 0 10px;
   display: grid;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 
   @media screen and (min-width: ${RESPONSIVE.desktop}) {
     gap: 30px;

@@ -1,18 +1,15 @@
-export interface IInterviewContentBlock {
-  type: string,
-  content: Record<string, any>
-}
+import { IPublicationContentBlock } from '@src/types/createPublicationTypes';
 
-export const INTERVIEW_BLOCK_TYPES = {
+export const PUBLICATION_BLOCK_TYPES = {
   Y_VIDEO: 'yVideo',
   TEXT: 'text',
   PHOTO: 'photo',
   PDF: 'pdf',
 };
 
-export const INTERVIEW_CONTENT_BLOCKS: IInterviewContentBlock[] = [
+export const PUBLICATION_CONTENT_BLOCKS: IPublicationContentBlock[] = [
   {
-    type: INTERVIEW_BLOCK_TYPES.Y_VIDEO,
+    type: PUBLICATION_BLOCK_TYPES.Y_VIDEO,
     content: {
       link: '',
       description: {
@@ -22,7 +19,7 @@ export const INTERVIEW_CONTENT_BLOCKS: IInterviewContentBlock[] = [
     },
   },
   {
-    type: INTERVIEW_BLOCK_TYPES.TEXT,
+    type: PUBLICATION_BLOCK_TYPES.TEXT,
     content: {
       text: {
         uk: '',
@@ -31,7 +28,7 @@ export const INTERVIEW_CONTENT_BLOCKS: IInterviewContentBlock[] = [
     },
   },
   {
-    type: INTERVIEW_BLOCK_TYPES.PHOTO,
+    type: PUBLICATION_BLOCK_TYPES.PHOTO,
     content: {
       photo: null,
       source: '',
@@ -42,7 +39,7 @@ export const INTERVIEW_CONTENT_BLOCKS: IInterviewContentBlock[] = [
     },
   },
   {
-    type: INTERVIEW_BLOCK_TYPES.PDF,
+    type: PUBLICATION_BLOCK_TYPES.PDF,
     content: {
       file: null,
     },

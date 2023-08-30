@@ -52,12 +52,15 @@ const Select: React.FC<ISelect> = (props) => {
     setInputValue('');
   };
   
-  const changeHandler = useCallback((e) => {
-    onChange(e.target.dataset.value);
-    closeSelect();
+  const changeHandler = useCallback((e: any) => {
+    const value = e.currentTarget.dataset.value;
+    if (value) {
+      onChange(value);
+      closeSelect();
+    }
   }, []);
   
-  const clearHandler = useCallback((e) => {
+  const clearHandler = useCallback((e: any) => {
     e.preventDefault();
     e.stopPropagation();
     onChange('');
@@ -93,20 +96,20 @@ const Select: React.FC<ISelect> = (props) => {
       <SelectIconsWrapper>
         {selected && (
           <>
-            <SelectIconClear className='icon-cancel' onClick={clearHandler}/>
+            <SelectIconClear className='icon-cross' onClick={clearHandler}/>
             <SelectSeparator>|</SelectSeparator>
           </>
         )}
-        <SelectIcon className='icon-down' isOpen={isOpen}/>
+        {isOpen ? <SelectIcon className='icon-up' isOpen={isOpen}/> : <SelectIcon className='icon-down' isOpen={isOpen}/>}
       </SelectIconsWrapper>
     );
-  }, [selected]);
+  }, [selected, isOpen]);
   
   useOutsideClick(selectRef, closeSelect);
   
   return (
     <SelectWrapper margin={margin} width={width} ref={selectRef} data-testid='selectWrapper'>
-      {label && <SelectLabel data-testid='selectLabel' htmlFor={id} isValid={isValid !== undefined ? isValid : true}>{label}</SelectLabel>}
+      {label && <SelectLabel data-testid='selectLabel' htmlFor={id} isValid={isValid !== undefined ? isValid : true}>{label as string}</SelectLabel>}
       <SelectElemWrapper
         data-testid='select'
         padding={padding}
@@ -115,7 +118,7 @@ const Select: React.FC<ISelect> = (props) => {
         onClick={toggleSelect}
         isOpen={isOpen}
       >
-        {!selected && !inputValue && placeholder && <SelectPlaceholder fz={fz}>{placeholder}</SelectPlaceholder>}
+        {!selected && !inputValue && placeholder && <SelectPlaceholder fz={fz}>{placeholder as string}</SelectPlaceholder>}
         {generateElemContent()}
         {generateIcons()}
       </SelectElemWrapper>
