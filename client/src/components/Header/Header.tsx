@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IHeaderProps } from '@src/components/Header/types';
+import { NavLink } from 'react-router-dom';
 import * as S from './style';
 
 const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
@@ -10,10 +11,21 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
   return (
     <S.HeaderWrapper isOpen={isNavOpen} isFixed={isFixed}>
       <S.HeaderContent>
-        <S.Logo src='../assets/img/logo.svg' alt='mapping memories of ukraine logo'/>
+        <NavLink
+          to='/'
+        >
+          <S.Logo src='../assets/img/logo.svg' alt='mapping memories of ukraine logo'/>
+        </NavLink>
         <S.BurgerButton className='icon-burger' onClick={() => setNavOpen(!isNavOpen)}/>
         <S.Navigation isOpen={isNavOpen}>
           <S.NavList>
+            <S.NavItem>
+              <S.NavigationLink
+                to='/'
+              >
+                {t('main')}
+              </S.NavigationLink>
+            </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
                 to='/map'
@@ -30,7 +42,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
-                to='/admin/create-interview'
+                to='/art-projects'
               >
                 {t('artProjects')}
               </S.NavigationLink>

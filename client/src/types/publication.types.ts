@@ -1,6 +1,6 @@
 import { ILocale } from '@src/types/types';
 
-type PublicationType = 'interview' | 'artProject' | 'specialProject';
+export type PublicationType = 'interview' | 'artProject' | 'specialProject';
 
 export interface IPublication {
   _id: string,
@@ -11,4 +11,10 @@ export interface IPublication {
   createdAt: Date,
   isFavorite: boolean,
   content: Record<string, any>
+}
+
+export enum PublicationEnum {
+  interview = 'interview',
+  artProject = 'artProject',
+  specialProject = 'specialProject',
 }

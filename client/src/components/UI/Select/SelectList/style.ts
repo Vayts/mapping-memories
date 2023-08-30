@@ -16,11 +16,11 @@ export const SelectListWrapper = styled.ul<ISelectStyle>`
   list-style: none;
   box-shadow: ${({ theme, isOpen }) => (isOpen ? theme.modalShadow : 'none')};
 
-  border: 1px solid ${({ theme }) => theme.greyColor};
+  border: 1px solid ${({ theme }) => theme.borderColor};
 
   ::-webkit-scrollbar {
     width: 5px;
-    background-color: ${({ theme }) => theme.greyLight};
+    background-color: ${({ theme }) => theme.borderColor};
   }
 
   /* Track */
@@ -33,13 +33,13 @@ export const SelectListWrapper = styled.ul<ISelectStyle>`
 
   ::-webkit-scrollbar-thumb {
     width: 5px;
-    background: ${({ theme }) => theme.primaryColor};
+    background: ${({ theme }) => theme.accentColor};
   }
 
   /* Handle on hover */
 
   ::-webkit-scrollbar-thumb:hover {
-    background: ${({ theme }) => theme.primaryHover};
+    background: ${({ theme }) => theme.accentColorHover};
   }
 `;
 
@@ -48,7 +48,7 @@ export const SelectItem = styled.li`
   
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.primaryLight};
+    background-color: ${({ theme }) => theme.brightBgColor};
   }
 `;
 

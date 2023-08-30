@@ -9,10 +9,12 @@ import TextArea from '@src/components/UI/TextArea/TextArea';
 import EditPhoto from '@src/components/EditPhoto/EditPhoto';
 import FileUploader from '@src/components/UI/FileUploader/FileUploader';
 import Button from '@src/components/UI/Button/Button';
-import { PUBLICATION_VALIDATION } from '@constants/createPublication';
+import { PUBLICATION_TYPES, PUBLICATION_VALIDATION } from '@constants/createPublication';
 import { getPublicationMainValidation } from '@src/validation/createPublication.validation';
 import { v4 as uuidv4 } from 'uuid';
 import { IMainInfoBlockProps } from '@src/pages/CreatePublication/MainInfo/types';
+import Select from '@src/components/UI/Select/Select';
+import { PublicationType } from '@src/types/publication.types';
 import * as S from '../style';
 import * as Styled from './style';
 
@@ -93,6 +95,24 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
     });
   }, []);
   
+  const typeChangeHandler = useCallback((value: string) => {
+    setMainInfo((prev: ICreatePublicationMain) => {
+      const newState: ICreatePublicationMain = {
+        ...prev,
+        touched: {
+          ...prev.touched,
+          type: true,
+        },
+        type: value as PublicationType,
+      };
+      
+      return {
+        ...newState,
+        errors: getPublicationMainValidation(newState),
+      };
+    });
+  }, []);
+  
   const removePhoto = useCallback(() => {
     setMainInfo((state: ICreatePublicationMain) => {
       return {
@@ -139,8 +159,26 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo }) => {
         <Title
           margin='5px 0 15px'
         >
+          {t('publicationType')}
+        </Title>
+        <Select
+          selected={mainInfo.type}
+          name='typeSelect'
+          id='typeSelect'
+          isValid={touched?.type && !errors?.type}
+          onChange={typeChangeHandler}
+          placeholder={t('publicationType')}
+          valueArr={PUBLICATION_TYPES}
+        />
+        <ErrorMsg show={touched?.type && !!errors?.type} margin='5px 0 5px'>{errors?.type}</ErrorMsg>
+      </S.CreatePublicationMainBlock>
+      <S.CreatePublicationMainBlock>
+        <Title
+          margin='5px 0 15px'
+        >
           {t('publicationTittle')}
         </Title>
+        
         <Input
           locale='uk'
           id='titleUk'

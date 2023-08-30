@@ -1,5 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { ICreatePublicationDTO } from '@src/types/createPublicationTypes';
-import { INTERVIEW } from '@constants/actions';
+import { PUBLICATION } from '@constants/actions';
 
-export const addPublicationRequest = createAction(INTERVIEW.ADD_INTERVIEW, (values: ICreatePublicationDTO) => ({ payload: { values } }));
+export const addPublicationRequest = createAction(PUBLICATION.ADD_PUBLICATION, (values: ICreatePublicationDTO) => {
+  return { payload: { values } };
+});

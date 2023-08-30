@@ -1,8 +1,10 @@
 import { ILocale } from '@src/types/types';
+import { PublicationType } from '@src/types/publication.types';
 
 export interface ICreatePublicationMain {
   title: ILocale,
   description: ILocale,
+  type: PublicationType | '',
   photo: File | null,
   errors: Record<string, any>,
   touched: Record<string, any>,
@@ -16,6 +18,11 @@ export interface ICreatePublicationContentBlock {
   errors: Record<string, any>,
   touched: Record<string, any>,
   content: Record<string, any>,
+}
+
+export interface IPublicationContentBlock {
+  type: string,
+  content: Record<string, any>
 }
 
 export interface IVideoContentBlock extends ICreatePublicationContentBlock{
@@ -49,6 +56,7 @@ export interface ICreatePublicationMainDTO {
   title: ILocale
   description: ILocale,
   photo: string,
+  type: PublicationType,
 }
 
 export interface IContentBlockDto {
@@ -58,6 +66,7 @@ export interface IContentBlockDto {
 }
 
 export interface ICreatePublicationDTO {
+  files: File[],
   photos: File[],
   mainInfo: ICreatePublicationMainDTO,
   contentBlocks: IContentBlockDto[],

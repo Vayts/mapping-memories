@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback } from 'react';
+import React, { ChangeEvent, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import Title from '@src/components/UI/Title/Title';
 import Input from '@src/components/UI/Input/Input';
@@ -76,4 +76,4 @@ const VideoContentBlock: React.FC<IVideoContentBlockProps> = ({ contentBlock, on
   );
 };
 
-export default VideoContentBlock;
+export default memo(VideoContentBlock);

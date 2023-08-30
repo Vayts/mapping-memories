@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { RESPONSIVE } from '@constants/style';
 
-export const InterviewsPageWrapper = styled.div`
-  min-height: calc(100vh - 60px);
+export const PublicationsPageWrapper = styled.div`
+  //min-height: calc(100vh - 60px);
 `;
 
-export const InterviewsBanner = styled.div`
+export const PublicationsBanner = styled.div`
   img {
     border-top: 1px solid ${({ theme }) => theme.semiLightBgColor};
     border-bottom: 1px solid ${({ theme }) => theme.semiLightBgColor};
@@ -15,8 +15,12 @@ export const InterviewsBanner = styled.div`
   }
 `;
 
-export const InterviewsControls = styled.div`
+export const PublicationsControls = styled.div`
   margin-bottom: 30px;
+
+  h3 {
+    margin-bottom: 20px;
+  }
 
   & > div {
     width: 100%;
@@ -27,7 +31,11 @@ export const InterviewsControls = styled.div`
     align-items: center;
     justify-content: space-between;
     
-  & > div {
+    h3 {
+      margin-bottom: 0;
+    }
+
+    & > div {
       width: 250px;
     }
   }
@@ -40,13 +48,13 @@ export const InterviewsControls = styled.div`
   }
 `;
 
-export const InterviewsMoreButton = styled.div`
+export const PublicationsMoreButton = styled.div`
   margin: 20px 0;
   display: flex;
   justify-content: center;
 `;
 
-export const InterviewsListWrapper = styled.div`
+export const PublicationsListWrapper = styled.div`
   position: relative;
   min-height: 200px;
 `;

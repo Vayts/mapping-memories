@@ -5,11 +5,11 @@ import { THEMES } from '@constants/themes';
 import { Route, Routes } from 'react-router-dom';
 import Layout from '@hoc/Layout/Layout';
 import MapPage from '@src/pages/MapPage/MapPage';
-import InterviewsPage from '@src/pages/InterviewsPage/InterviewsPage';
 import AdminLayout from '@hoc/AdminLayout/AdminLayout';
 import { AppWrapper } from '@src/components/App/style';
 import { ToastContainer } from 'react-toastify';
 import CreatePublicationPage from '@src/pages/CreatePublication/CreatePublicationPage';
+import PublicationsPage from '@src/pages/PublicationsPage/PublicationsPage';
 
 export const App: React.FC = () => {
   return (
@@ -17,7 +17,10 @@ export const App: React.FC = () => {
       <AppWrapper>
         <Routes>
           <Route path='/' element={<Layout/>}>
-            <Route path='/interviews' element={<InterviewsPage/>}/>
+            <Route path='/' element={<PublicationsPage withFavorite={false}/>}/>
+            <Route path='/interviews' element={<PublicationsPage type='interview' withFavorite/>}/>
+            <Route path='/art-projects' element={<PublicationsPage type='artProject' withFavorite/>}/>
+            <Route path='/special-projects' element={<PublicationsPage type='specialProject' withFavorite/>}/>
           </Route>
           <Route path='/' element={<Layout withContainer={false}/>}>
             <Route path='/map' element={<MapPage/>}/>

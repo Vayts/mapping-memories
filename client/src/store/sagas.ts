@@ -1,13 +1,13 @@
 import { SagaIterator } from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
 import { watchMap } from '@src/store/map/saga';
-import { watchAllInterview } from '@src/store/interview/saga';
 import { watchCreatePublication } from '@src/store/createPublication/saga';
+import { watchAllPublications } from '@src/store/publications/saga';
 
 const sagas = [
   watchMap,
   watchCreatePublication,
-  watchAllInterview,
+  watchAllPublications,
 ];
 
 export default function* rootSaga(): SagaIterator {

@@ -13,7 +13,10 @@ export const appSlice = createSlice({
     appRequestEnd: (state) => {
       state.isLoading = false;
     },
+    appRequestStart: (state) => {
+      state.isLoading = true;
+    },
   },
 });
 
-export const { appRequestEnd } = appSlice.actions;
+export const { appRequestEnd, appRequestStart } = appSlice.actions;

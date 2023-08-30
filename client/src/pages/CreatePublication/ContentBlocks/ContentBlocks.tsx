@@ -4,8 +4,14 @@ import Modal from '@src/components/Modal/Modal';
 import AddContentBlockModal from '@src/pages/CreatePublication/ContentBlocks/AddContentBlockModal/AddContentBlockModal';
 import Button from '@src/components/UI/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { ICreatePublicationContentBlock, IPhotoContentBlock, ITextContentBlock, IVideoContentBlock } from '@src/types/createPublicationTypes';
-import { INTERVIEW_BLOCK_TYPES } from '@constants/interviewContentBlocks';
+import {
+  ICreatePublicationContentBlock,
+  IPdfContentBlock,
+  IPhotoContentBlock,
+  ITextContentBlock,
+  IVideoContentBlock,
+} from '@src/types/createPublicationTypes';
+import { PUBLICATION_BLOCK_TYPES } from '@constants/publicationContentBlocks';
 import VideoContentBlock from '@src/pages/CreatePublication/ContentBlocks/VideoContentBlock/VideoContentBlock';
 import Title from '@src/components/UI/Title/Title';
 import { getContentBlockValidation } from '@src/validation/createPublication.validation';
@@ -62,7 +68,7 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
     });
   }, []);
   
-  const savePhotoHandler = useCallback((value: File | null, id: string) => {
+  const saveFileHandler = useCallback((value: File | null, id: string, name: string) => {
     setContentBlocks((prev) => {
       return prev.map((item) => {
         if (item._id === id) {
@@ -70,18 +76,18 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
             ...item,
             content: {
               ...item.content,
-              photo: value,
+              [name]: value,
             },
             touched: {
               ...item.touched,
-              photo: true,
+              [name]: true,
             },
             errors: {
               ...getContentBlockValidation({
                 ...item,
                 content: {
                   ...item.content,
-                  photo: value,
+                  [name]: value,
                 },
               }),
             },
@@ -132,31 +138,34 @@ const ContentBlocks: React.FC<IContentBlocksProps> = ({ setContentBlocks, conten
   
   const generateContent = (contentBlock: ICreatePublicationContentBlock) => {
     switch (contentBlock.type) {
-    case INTERVIEW_BLOCK_TYPES.Y_VIDEO:
+    case PUBLICATION_BLOCK_TYPES.Y_VIDEO:
       return (
         <VideoContentBlock
           contentBlock={contentBlock as IVideoContentBlock}
           onChange={changeHandler}
         />
       );
-    case INTERVIEW_BLOCK_TYPES.TEXT:
+    case PUBLICATION_BLOCK_TYPES.TEXT:
       return (
         <TextContentBlock
           onChange={changeTextEditorHandler}
           contentBlock={contentBlock as ITextContentBlock}
         />
       );
-    case INTERVIEW_BLOCK_TYPES.PHOTO:
+    case PUBLICATION_BLOCK_TYPES.PHOTO:
       return (
         <PhotoContentBlock
-          onPhotoSave={savePhotoHandler}
+          onPhotoSave={saveFileHandler}
           onChange={changeHandler}
           contentBlock={contentBlock as IPhotoContentBlock}
         />
       );
-    case INTERVIEW_BLOCK_TYPES.PDF:
+    case PUBLICATION_BLOCK_TYPES.PDF:
       return (
-        <PdfContentBlock />
+        <PdfContentBlock
+          onChange={saveFileHandler}
+          contentBlock={contentBlock as IPdfContentBlock}
+        />
       );
     default:
       return null;

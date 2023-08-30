@@ -1,8 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
 import * as process from 'process';
 import { Readable } from 'stream';
@@ -32,11 +28,14 @@ export class PhotoService {
   }
 
   multiplyUpload(files: any[] | File[], folder: string) {
-    const promiseArr: Promise<any>[] = [];
-    files.forEach((el: any) => {
-      promiseArr.push(this.upload(el, folder));
-    });
-    return Promise.all(promiseArr);
+    if (files && files.length) {
+      const promiseArr: Promise<any>[] = [];
+      files.forEach((el: any) => {
+        promiseArr.push(this.upload(el, folder));
+      });
+      return Promise.all(promiseArr);
+    }
+    return Promise.all([]);
   }
 
   async downloadPhotoFromAws(key) {

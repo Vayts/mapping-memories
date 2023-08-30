@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { ICreatePublicationMain, ICreatePublicationContentBlock } from '@src/types/createPublicationTypes';
 import Title from '@src/components/UI/Title/Title';
 import { getCreatePublicationTotalValidation } from '@src/validation/createPublication.validation';
-import { getNotification } from '@src/notification/notifications';
 import Button from '@src/components/UI/Button/Button';
 import { getCreatePublicationDTO } from '@helpers/createPublication.helper';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
@@ -18,6 +17,7 @@ const initialMain: ICreatePublicationMain = {
     uk: '',
     en: '',
   },
+  type: '',
   photo: null,
   description: {
     uk: '',
@@ -36,8 +36,8 @@ const CreatePublicationPage: React.FC = () => {
   const submitHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (getCreatePublicationTotalValidation(mainInfo, contentBlocks)) {
-      getNotification('Все супер');
       const values = getCreatePublicationDTO(mainInfo, contentBlocks);
+
       dispatch(addPublicationRequest(values));
     }
   };

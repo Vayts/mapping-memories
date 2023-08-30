@@ -12,7 +12,6 @@ import { PUBLICATION_TYPE_COLOR } from '@constants/publication';
 import { useTranslation } from 'react-i18next';
 import * as S from './style';
 import { IPublicationCardProps } from './types';
-import { CardTextInfo } from './style';
 
 const localeMap = {
   en: enLocale,

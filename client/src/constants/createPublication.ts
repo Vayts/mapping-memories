@@ -6,3 +6,5 @@ export const PUBLICATION_VALIDATION = {
     DESCRIPTION_MAX: 400,
   },
 };
+
+export const PUBLICATION_TYPES = ['interview', 'artProject', 'specialProject'];

@@ -1,13 +1,13 @@
 import i18n from 'i18next';
-import { PUBLICATION_VALIDATION } from '@constants/createPublication';
+import { PUBLICATION_TYPES, PUBLICATION_VALIDATION } from '@constants/createPublication';
 import {
   ICreatePublicationMain,
   ICreatePublicationContentBlock,
   IPhotoContentBlock,
   ITextContentBlock,
-  IVideoContentBlock,
+  IVideoContentBlock, IPdfContentBlock,
 } from '@src/types/createPublicationTypes';
-import { INTERVIEW_BLOCK_TYPES } from '@constants/interviewContentBlocks';
+import { PUBLICATION_BLOCK_TYPES } from '@constants/publicationContentBlocks';
 import { getNotification } from '@src/notification/notifications';
 import { LINK_REGEX, YOUTUBE_EMBED_REGEX } from '@constants/regex';
 import { LocaleType } from '@src/types/types';
@@ -66,11 +66,28 @@ function validateRequiredPhoto(photo: File | null): Record<string, string> {
   return errors;
 }
 
+function validateMainInfoType(type: string): Record<string, string> {
+  const errors: Record<string, string> = {};
+  
+  if (!type) {
+    errors.type = t('requiredField');
+    return errors;
+  }
+  
+  if (!PUBLICATION_TYPES.includes(type)) {
+    errors.type = t('wrongPublicationType');
+    return errors;
+  }
+  
+  return errors;
+}
+
 export function getPublicationMainValidation(mainInfo: ICreatePublicationMain): Record<string, Record<string, string> | string> {
   const titleUk = validatePublicationTitle(mainInfo.title.uk, 'uk');
   const titleEn = validatePublicationTitle(mainInfo.title.en, 'en');
   const descriptionUk = validatePublicationDescription(mainInfo.description.uk, 'uk');
   const descriptionEn = validatePublicationDescription(mainInfo.description.en, 'en');
+  const type = validateMainInfoType(mainInfo.type);
   const photo = validateRequiredPhoto(mainInfo.photo);
   
   const result: Record<string, Record<string, string> | string> = {};
@@ -92,6 +109,7 @@ export function getPublicationMainValidation(mainInfo: ICreatePublicationMain): 
   return {
     ...result,
     ...photo,
+    ...type,
   };
 }
 
@@ -169,14 +187,35 @@ function getPublicationTextBlockValidation(content: ITextContentBlock['content']
   };
 }
 
+function validatePublicationFile(content: IPdfContentBlock['content']): Record<string, string> {
+  const errors: Record<string, string> = {};
+  
+  if (!content.file) {
+    errors.file = t('requiredField');
+    return errors;
+  }
+  
+  return errors;
+}
+
+function getPublicationPdfBlockValidation(content: IPdfContentBlock['content']): Record<string, Record<string, string> | string> {
+  const file = validatePublicationFile(content);
+  
+  return {
+    ...file,
+  };
+}
+
 export function getContentBlockValidation(contentBlock: ICreatePublicationContentBlock): Record<string, Record<string, string> | string> {
   switch (contentBlock.type) {
-  case INTERVIEW_BLOCK_TYPES.Y_VIDEO:
+  case PUBLICATION_BLOCK_TYPES.Y_VIDEO:
     return getPublicationVideoBlockValidation(contentBlock.content as IVideoContentBlock['content']);
-  case INTERVIEW_BLOCK_TYPES.PHOTO:
+  case PUBLICATION_BLOCK_TYPES.PHOTO:
     return getPublicationPhotoBlockValidation(contentBlock.content as IPhotoContentBlock['content']);
-  case INTERVIEW_BLOCK_TYPES.TEXT:
+  case PUBLICATION_BLOCK_TYPES.TEXT:
     return getPublicationTextBlockValidation(contentBlock.content as ITextContentBlock['content']);
+  case PUBLICATION_BLOCK_TYPES.PDF:
+    return getPublicationPdfBlockValidation(contentBlock.content as IPdfContentBlock['content']);
   default:
     return {};
   }
