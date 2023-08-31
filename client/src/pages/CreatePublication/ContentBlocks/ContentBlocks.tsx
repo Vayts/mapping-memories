@@ -16,7 +16,7 @@ import VideoContentBlock from '@src/pages/CreatePublication/ContentBlocks/VideoC
 import Title from '@src/components/UI/Title/Title';
 import { getContentBlockValidation } from '@src/validation/createPublication.validation';
 import TextContentBlock from '@src/pages/CreatePublication/ContentBlocks/TextContentBlock/TextContentBlock';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 import PhotoContentBlock from '@src/pages/CreatePublication/ContentBlocks/PhotoContentBlock/PhotoContentBlock';
 import PdfContentBlock from '@src/pages/CreatePublication/ContentBlocks/PdfContentBlock/PdfContentBlock';
 import * as S from './style';

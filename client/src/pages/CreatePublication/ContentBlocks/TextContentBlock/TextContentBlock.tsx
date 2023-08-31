@@ -3,7 +3,7 @@ import TextEditor from '@src/components/UI/TextEditor/TextEditor';
 import Title from '@src/components/UI/Title/Title';
 import { useTranslation } from 'react-i18next';
 import { convertToRaw, EditorState } from 'draft-js';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 import draftToHtml from 'draftjs-to-html';
 import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import { ITextEditor } from './types';

@@ -1,5 +1,5 @@
 import React, { Ref } from 'react';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 import DefaultTFuncReturn from 'i18next';
 
 export interface ITextArea {

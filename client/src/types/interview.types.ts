@@ -1,4 +1,4 @@
-import { ILocale } from '@src/types/types';
+import { ILocale } from '@src/types/locale.types';
 
 export interface IInterview {
   _id: string,

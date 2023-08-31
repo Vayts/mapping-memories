@@ -1,4 +1,4 @@
-import { ILocale } from '@src/types/types';
+import { ILocale } from '@src/types/locale.types';
 import { PublicationType } from '@src/types/publication.types';
 
 export interface ICreatePublicationMain {

@@ -14,7 +14,7 @@ import PublicationPage from '@src/pages/PublicationPage/PublicationPage';
 import { useAppDispatch } from '@src/hooks/hooks';
 import { setLocale } from '@src/store/app/reducer';
 import { LANGUAGE } from '@constants/locale';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();

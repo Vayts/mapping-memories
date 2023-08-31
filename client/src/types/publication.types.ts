@@ -1,4 +1,4 @@
-import { ILocale } from '@src/types/types';
+import { ILocale } from '@src/types/locale.types';
 
 export type PublicationType = 'interview' | 'artProject' | 'specialProject';
 

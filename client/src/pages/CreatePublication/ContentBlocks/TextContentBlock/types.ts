@@ -1,4 +1,4 @@
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 import { ITextContentBlock } from '@src/types/createPublication.types';
 
 export interface ITextEditor {

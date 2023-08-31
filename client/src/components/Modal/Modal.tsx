@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { hideScrollbar, showScrollbar } from '@helpers/visual.helper';
 import { ModalBackground, ModalContent } from '@src/components/Modal/style';
 import { useOutsideClick } from '@src/hooks/useOutsideClick';
+import { hideScrollbar, showScrollbar } from '@helpers/visual.helper';
 
 interface ModalProps {
   children?: React.ReactNode;
