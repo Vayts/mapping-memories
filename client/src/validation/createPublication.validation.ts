@@ -6,11 +6,11 @@ import {
   IPhotoContentBlock,
   ITextContentBlock,
   IVideoContentBlock, IPdfContentBlock,
-} from '@src/types/createPublicationTypes';
+} from '@src/types/createPublication.types';
 import { PUBLICATION_BLOCK_TYPES } from '@constants/publicationContentBlocks';
 import { getNotification } from '@src/notification/notifications';
 import { LINK_REGEX, YOUTUBE_EMBED_REGEX } from '@constants/regex';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 
 const { t } = i18n;
 
@@ -221,7 +221,10 @@ export function getContentBlockValidation(contentBlock: ICreatePublicationConten
   }
 }
 
-export function getCreatePublicationTotalValidation(mainInfo: ICreatePublicationMain, contentBlocks: ICreatePublicationContentBlock[]) {
+export function getCreatePublicationTotalValidation(
+  mainInfo: ICreatePublicationMain,
+  contentBlocks: ICreatePublicationContentBlock[],
+): boolean {
   const mainInfoValidate = getPublicationMainValidation(mainInfo);
 
   if (Object.values(mainInfoValidate).length > 0) {

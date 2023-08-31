@@ -30,7 +30,7 @@ function* getAllPublicationSaga(): SagaIterator {
     const limit = yield select(selectPublicationsLimit);
     const response = yield call(getRequest, `${ROUTES.PUBLICATION.GET}?limit=${limit}&type=${type}`);
     if (response.data) {
-      yield put(addPublications(response.data.publication));
+      yield put(addPublications(response.data.publications));
       yield put(setPublicationsHasMoreContent(response.data.hasMoreContent));
     }
   } catch (e) {
@@ -62,7 +62,7 @@ function* getInterviewsByTitleSaga(): SagaIterator {
     const search = yield select(selectPublicationsSearchValue);
     const response = yield call(getRequest, `${ROUTES.PUBLICATION.GET}?limit=${limit}&search=${search}&type=${type}`);
     if (response.data) {
-      yield put(setPublications(response.data.publication));
+      yield put(setPublications(response.data.publications));
       yield put(setPublicationsHasMoreContent(response.data.hasMoreContent));
     }
   } catch (e) {

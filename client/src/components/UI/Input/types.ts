@@ -1,6 +1,6 @@
 import React, { Ref } from 'react';
 import DefaultTFuncReturn from 'i18next';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 
 export interface IInput {
   id: string,

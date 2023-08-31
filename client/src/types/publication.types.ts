@@ -1,4 +1,4 @@
-import { ILocale } from '@src/types/types';
+import { ILocale } from '@src/types/locale.types';
 
 export type PublicationType = 'interview' | 'artProject' | 'specialProject';
 
@@ -10,7 +10,7 @@ export interface IPublication {
   photo: string,
   createdAt: Date,
   isFavorite: boolean,
-  content: Record<string, any>
+  contentBlocks: Record<string, any>
 }
 
 export enum PublicationEnum {

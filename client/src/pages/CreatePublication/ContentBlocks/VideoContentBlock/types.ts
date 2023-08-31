@@ -1,4 +1,4 @@
-import { IVideoContentBlock } from '@src/types/createPublicationTypes';
+import { IVideoContentBlock } from '@src/types/createPublication.types';
 import { ChangeEvent } from 'react';
 
 export interface IVideoContentBlockProps {

@@ -1,4 +1,4 @@
-import { ICreatePublicationMain, ICreatePublicationContentBlock, ICreatePublicationDTO } from '@src/types/createPublicationTypes';
+import { ICreatePublicationMain, ICreatePublicationContentBlock, ICreatePublicationDTO } from '@src/types/createPublication.types';
 import { PublicationType } from '@src/types/publication.types';
 import { v4 as uuidv4 } from 'uuid';
 

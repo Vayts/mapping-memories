@@ -6,5 +6,6 @@ export const ROUTES = {
     ADD: '/publication/add',
     GET: '/publication/get',
     GET_FAVORITE: '/publication/get-favorite',
+    GET_RECENT: '/publication/get-recent',
   },
 };

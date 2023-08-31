@@ -1,13 +1,10 @@
-html {
-  overflow-y: scroll;
-}
-
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fbfbfb;
+  overflow-y: scroll;
 }
 
 code {

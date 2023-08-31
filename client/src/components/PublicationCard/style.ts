@@ -37,9 +37,9 @@ export const CardWrapper = styled(NavLink)`
   }
 
   @media screen and (min-width: ${RESPONSIVE.desktop}) {
-    //display: block;
     flex-direction: column;
     min-height: 410px;
+    max-width: 378px;
     
     img {
       max-width: unset;
@@ -81,6 +81,7 @@ export const CardInfo = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1;
+    word-wrap: break-word;
   }
   
   p {
@@ -89,6 +90,7 @@ export const CardInfo = styled.div`
     -webkit-line-clamp: 3;
     overflow: hidden;
     text-overflow: ellipsis;
+    word-wrap: break-word;
   }
 `;
 

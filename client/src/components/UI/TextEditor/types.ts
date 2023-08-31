@@ -1,6 +1,5 @@
 import { EditorState } from 'draft-js';
-import React, { SetStateAction } from 'react';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 
 export interface ITextEditorProps {
   editorState: EditorState,

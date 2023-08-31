@@ -1,4 +1,4 @@
-import { IPublicationContentBlock } from '@src/types/createPublicationTypes';
+import { IPublicationContentBlock } from '@src/types/createPublication.types';
 
 export const PUBLICATION_BLOCK_TYPES = {
   Y_VIDEO: 'yVideo',

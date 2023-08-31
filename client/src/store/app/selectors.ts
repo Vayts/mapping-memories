@@ -1,5 +1,5 @@
 import { RootState } from '@src/store';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 
 export const selectLocale = (state: RootState): LocaleType => state.app.locale;
 

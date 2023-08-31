@@ -8,6 +8,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:4200',
+      'http://localhost:4202',
       'http://localhost:4020',
       'http://192.168.88.5',
       'https://boring-design-app.herokuapp.com',

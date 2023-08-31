@@ -6,7 +6,6 @@ import { IPdfContentBlockProps } from '@src/pages/CreatePublication/ContentBlock
 import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import * as Style from '../style';
 import * as S from './style';
-import './style.css';
 
 const PdfContentBlock: React.FC<IPdfContentBlockProps> = ({ onChange, contentBlock }) => {
   const { content, errors, touched, _id } = contentBlock;

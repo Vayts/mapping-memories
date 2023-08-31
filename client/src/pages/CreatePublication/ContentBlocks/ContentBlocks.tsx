@@ -10,13 +10,13 @@ import {
   IPhotoContentBlock,
   ITextContentBlock,
   IVideoContentBlock,
-} from '@src/types/createPublicationTypes';
+} from '@src/types/createPublication.types';
 import { PUBLICATION_BLOCK_TYPES } from '@constants/publicationContentBlocks';
 import VideoContentBlock from '@src/pages/CreatePublication/ContentBlocks/VideoContentBlock/VideoContentBlock';
 import Title from '@src/components/UI/Title/Title';
 import { getContentBlockValidation } from '@src/validation/createPublication.validation';
 import TextContentBlock from '@src/pages/CreatePublication/ContentBlocks/TextContentBlock/TextContentBlock';
-import { LocaleType } from '@src/types/types';
+import { LocaleType } from '@src/types/locale.types';
 import PhotoContentBlock from '@src/pages/CreatePublication/ContentBlocks/PhotoContentBlock/PhotoContentBlock';
 import PdfContentBlock from '@src/pages/CreatePublication/ContentBlocks/PdfContentBlock/PdfContentBlock';
 import * as S from './style';
