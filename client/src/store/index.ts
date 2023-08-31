@@ -6,6 +6,7 @@ import rootSaga from '@src/store/sagas';
 import { PUBLICATION } from '@constants/actions';
 import { createPublicationSlice } from '@src/store/createPublication/reducer';
 import { publicationsSlice } from '@src/store/publications/reducer';
+import { currentPublicationSlice } from '@src/store/publication/reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     map: mapSlice.reducer,
     publications: publicationsSlice.reducer,
     createPublication: createPublicationSlice.reducer,
+    currentPublication: currentPublicationSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {

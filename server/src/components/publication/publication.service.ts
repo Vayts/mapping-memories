@@ -55,7 +55,7 @@ export class PublicationService {
     ]);
   }
 
-  async getPublication(limit: number, search: string, type: string) {
+  async getPublications(limit: number, search: string, type: string) {
     const searchPipeline = generateSearchPipeline(search);
 
     const typeMatchPipeline = type ? [{ $match: { type: type } }] : [];
@@ -90,5 +90,9 @@ export class PublicationService {
       hasMoreContent,
       publication,
     };
+  }
+
+  getPublication(id) {
+    return this.publicationModel.findById(id);
   }
 }

@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Query,
   UploadedFiles,
@@ -28,12 +29,17 @@ export class PublicationController {
   }
 
   @Get('/get')
-  getPublication(
+  getPublications(
     @Query('limit') limit = 9,
     @Query('search') search = '',
     @Query('type') type = '',
   ) {
-    return this.publicationService.getPublication(limit, search, type);
+    return this.publicationService.getPublications(limit, search, type);
+  }
+
+  @Get('/get/:id')
+  getPublication(@Param('id') id) {
+    return this.publicationService.getPublication(id);
   }
 
   @Get('/get-favorite')

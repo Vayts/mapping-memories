@@ -5,29 +5,23 @@ import Title from '@src/components/UI/Title/Title';
 import Description from '@src/components/UI/Description/Description';
 import { useAppSelector } from '@src/hooks/hooks';
 import { selectLocale } from '@src/store/app/selectors';
-import ukLocale from 'date-fns/locale/uk';
-import enLocale from 'date-fns/locale/en-US';
 import Tag from '@src/components/Tag/Tag';
 import { PUBLICATION_TYPE_COLOR } from '@constants/publication';
 import { useTranslation } from 'react-i18next';
+import { LOCALE_MAP } from '@constants/locale';
 import * as S from './style';
 import { IPublicationCardProps } from './types';
 
-const localeMap = {
-  en: enLocale,
-  uk: ukLocale,
-};
-
 const PublicationCard: React.FC<IPublicationCardProps> = ({ publication }) => {
-  const { photo, title, description, createdAt, type } = publication;
+  const { photo, title, description, createdAt, type, _id } = publication;
   const locale = useAppSelector(selectLocale);
   const { t } = useTranslation();
   
   return (
-    <S.CardWrapper to='/interviews'>
+    <S.CardWrapper to={`/publication/${_id}`}>
       <S.CardImg src={`${BASE_URL}/photo/download?id=${photo}`}/>
       <S.CardInfo>
-        <S.CardDate>{format(new Date(createdAt), 'dd MMM yyyy', { locale: localeMap[locale] })}</S.CardDate>
+        <S.CardDate>{format(new Date(createdAt), 'dd MMM yyyy', { locale: LOCALE_MAP[locale] })}</S.CardDate>
         <S.CardTextInfo>
           <S.CardTitleWrapper>
             <Title

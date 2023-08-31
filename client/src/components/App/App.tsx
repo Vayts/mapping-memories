@@ -10,6 +10,7 @@ import { AppWrapper } from '@src/components/App/style';
 import { ToastContainer } from 'react-toastify';
 import CreatePublicationPage from '@src/pages/CreatePublication/CreatePublicationPage';
 import PublicationsPage from '@src/pages/PublicationsPage/PublicationsPage';
+import PublicationPage from '@src/pages/PublicationPage/PublicationPage';
 
 export const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ export const App: React.FC = () => {
             <Route path='/interviews' element={<PublicationsPage type='interview' withFavorite/>}/>
             <Route path='/art-projects' element={<PublicationsPage type='artProject' withFavorite/>}/>
             <Route path='/special-projects' element={<PublicationsPage type='specialProject' withFavorite/>}/>
+            <Route path='/publication/:id' element={<PublicationPage/>}/>
           </Route>
           <Route path='/' element={<Layout withContainer={false}/>}>
             <Route path='/map' element={<MapPage/>}/>
