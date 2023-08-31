@@ -2,9 +2,9 @@ import React, { memo, useCallback, useState } from 'react';
 import TextEditor from '@src/components/UI/TextEditor/TextEditor';
 import Title from '@src/components/UI/Title/Title';
 import { useTranslation } from 'react-i18next';
-import { EditorState } from 'draft-js';
+import { convertToRaw, EditorState } from 'draft-js';
 import { LocaleType } from '@src/types/types';
-import { convertToHTML } from 'draft-convert';
+import draftToHtml from 'draftjs-to-html';
 import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import { ITextEditor } from './types';
 import * as S from '../style';
@@ -25,7 +25,7 @@ const TextContentBlock: React.FC<ITextEditor> = ({ onChange, contentBlock }) => 
       };
     });
     
-    const html = convertToHTML(editor.getCurrentContent());
+    const html = draftToHtml(convertToRaw(editor.getCurrentContent()));
     
     onChange('text', html, locale, _id);
   }, []);

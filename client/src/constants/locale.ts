@@ -5,3 +5,5 @@ export const LOCALE_MAP = {
   en: enLocale,
   uk: ukLocale,
 };
+
+export const LANGUAGE = ['uk', 'en'];

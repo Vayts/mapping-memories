@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAppState } from '@src/store/app/types';
+import { LocaleType } from '@src/types/types';
 
 const initialState: IAppState = {
   isLoading: false,
@@ -16,7 +17,10 @@ export const appSlice = createSlice({
     appRequestStart: (state) => {
       state.isLoading = true;
     },
+    setLocale: (state, action: PayloadAction<LocaleType>) => {
+      state.locale = action.payload;
+    },
   },
 });
 
-export const { appRequestEnd, appRequestStart } = appSlice.actions;
+export const { appRequestEnd, appRequestStart, setLocale } = appSlice.actions;

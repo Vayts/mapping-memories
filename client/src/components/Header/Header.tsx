@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IHeaderProps } from '@src/components/Header/types';
 import { NavLink } from 'react-router-dom';
+import LanguageSwitcher from '@src/components/LanguageSwitcher/LanguageSwitcher';
 import * as S from './style';
 
 const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
@@ -72,6 +73,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
               </S.NavigationLink>
             </S.NavItem>
           </S.NavList>
+          <LanguageSwitcher/>
         </S.Navigation>
       </S.HeaderContent>
     </S.HeaderWrapper>
