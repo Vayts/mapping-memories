@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { PhotoService } from '../photo/photo.service';
+import mongoose, { Model } from 'mongoose';
+import { FileService } from '../photo/file.service';
 import {
   Publication,
   PublicationDocument,
@@ -11,7 +11,7 @@ import { generateSearchPipeline } from '../../helper/pipeline.helper';
 @Injectable()
 export class PublicationService {
   constructor(
-    private photoService: PhotoService,
+    private photoService: FileService,
     @InjectModel(Publication.name)
     private publicationModel: Model<PublicationDocument>,
   ) {}
@@ -55,6 +55,24 @@ export class PublicationService {
     ]);
   }
 
+  getRecentPublications(except) {
+    return this.publicationModel.aggregate([
+      { $match: { _id: { $ne: new mongoose.Types.ObjectId(except) } } },
+      { $sort: { createdAt: -1 } },
+      { $limit: 3 },
+      {
+        $project: {
+          photo: 1,
+          _id: 1,
+          description: 1,
+          type: 1,
+          title: 1,
+          createdAt: 1,
+        },
+      },
+    ]);
+  }
+
   async getPublications(limit: number, search: string, type: string) {
     const searchPipeline = generateSearchPipeline(search);
 
@@ -66,7 +84,8 @@ export class PublicationService {
       ...searchPipeline,
     ]);
 
-    const hasMoreContent = Number(limit) <= publicationCount.length;
+    const hasMoreContent = Number(limit) < publicationCount.length;
+
     const pipeline: any = [
       ...typeMatchPipeline,
       { $sort: { createdAt: -1 } },
@@ -84,11 +103,11 @@ export class PublicationService {
         },
       },
     ];
-    const publication = await this.publicationModel.aggregate(pipeline);
+    const publications = await this.publicationModel.aggregate(pipeline);
 
     return {
       hasMoreContent,
-      publication,
+      publications,
     };
   }
 

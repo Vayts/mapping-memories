@@ -10,7 +10,7 @@ import {
   IPhotoContentBlock,
   ITextContentBlock,
   IVideoContentBlock,
-} from '@src/types/createPublicationTypes';
+} from '@src/types/createPublication.types';
 import { PUBLICATION_BLOCK_TYPES } from '@constants/publicationContentBlocks';
 import VideoContentBlock from '@src/pages/CreatePublication/ContentBlocks/VideoContentBlock/VideoContentBlock';
 import Title from '@src/components/UI/Title/Title';

@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MapModule } from '../map/map.module';
 import * as process from 'process';
-import { PhotoModule } from '../photo/photo.module';
+import { FileModule } from '../photo/file.module';
 import { PublicationModule } from '../publication/publication.module';
 
 @Module({
@@ -13,7 +13,7 @@ import { PublicationModule } from '../publication/publication.module';
     ConfigModule.forRoot({ envFilePath: `${process.env.NODE_ENV}.env` }),
     MongooseModule.forRoot(process.env.MONGO_URI),
     MapModule,
-    PhotoModule,
+    FileModule,
     PublicationModule,
   ],
   controllers: [AppController],

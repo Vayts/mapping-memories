@@ -4,7 +4,7 @@ import * as process from 'process';
 import { Readable } from 'stream';
 
 @Injectable()
-export class PhotoService {
+export class FileService {
   private s3: S3;
 
   constructor() {
@@ -38,10 +38,10 @@ export class PhotoService {
     return Promise.all([]);
   }
 
-  async downloadPhotoFromAws(key) {
+  async downloadFileFromAws(folder: string, key: string) {
     const getObjectParams = {
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: `photo/${key}`,
+      Key: `${folder}/${key}`,
     };
 
     try {

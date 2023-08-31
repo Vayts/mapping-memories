@@ -1,4 +1,4 @@
-import { IPhotoContentBlock } from '@src/types/createPublicationTypes';
+import { IPhotoContentBlock } from '@src/types/createPublication.types';
 import { ChangeEvent } from 'react';
 
 export interface IPhotoContentBlockProps {

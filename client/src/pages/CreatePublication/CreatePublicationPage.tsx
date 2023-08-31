@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ICreatePublicationMain, ICreatePublicationContentBlock } from '@src/types/createPublicationTypes';
+import { ICreatePublicationMain, ICreatePublicationContentBlock } from '@src/types/createPublication.types';
 import Title from '@src/components/UI/Title/Title';
 import { getCreatePublicationTotalValidation } from '@src/validation/createPublication.validation';
 import Button from '@src/components/UI/Button/Button';

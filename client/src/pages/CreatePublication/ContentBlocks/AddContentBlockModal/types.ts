@@ -1,5 +1,5 @@
 import React, { SetStateAction } from 'react';
-import { ICreatePublicationContentBlock } from '@src/types/createPublicationTypes';
+import { ICreatePublicationContentBlock } from '@src/types/createPublication.types';
 
 export interface IAddContentBlockProps {
   setContentBlocks: React.Dispatch<SetStateAction<ICreatePublicationContentBlock[]>>,

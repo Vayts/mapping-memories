@@ -6,6 +6,7 @@ const initialState: IPublicationState = {
   isLoading: true,
   currentPublication: null,
   asideData: [],
+  asideIsLoading: true,
 };
 
 export const currentPublicationSlice = createSlice({
@@ -16,13 +17,19 @@ export const currentPublicationSlice = createSlice({
       state.isLoading = true;
     },
     currentPublicationRequestEnd: (state) => {
-      state.isLoading = true;
+      state.isLoading = false;
     },
     setCurrentPublication: (state, action: PayloadAction<IPublication>) => {
       state.currentPublication = action.payload;
     },
     resetCurrentPublication: (state) => {
       Object.assign(state, initialState);
+    },
+    setAsideData: (state, action: PayloadAction<IPublication[]>) => {
+      state.asideData = action.payload;
+    },
+    setAsideLoading: (state, action: PayloadAction<boolean>) => {
+      state.asideIsLoading = action.payload;
     },
   },
 });
@@ -32,4 +39,6 @@ export const {
   resetCurrentPublication,
   currentPublicationRequestEnd,
   setCurrentPublication,
+  setAsideData,
+  setAsideLoading,
 } = currentPublicationSlice.actions;

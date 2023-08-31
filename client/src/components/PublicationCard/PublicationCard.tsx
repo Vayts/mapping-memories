@@ -19,7 +19,7 @@ const PublicationCard: React.FC<IPublicationCardProps> = ({ publication }) => {
   
   return (
     <S.CardWrapper to={`/publication/${_id}`}>
-      <S.CardImg src={`${BASE_URL}/photo/download?id=${photo}`}/>
+      <S.CardImg src={`${BASE_URL}/file/download/photo?id=${photo}`} loading='lazy'/>
       <S.CardInfo>
         <S.CardDate>{format(new Date(createdAt), 'dd MMM yyyy', { locale: LOCALE_MAP[locale] })}</S.CardDate>
         <S.CardTextInfo>

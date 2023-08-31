@@ -10,7 +10,7 @@ export interface IPublication {
   photo: string,
   createdAt: Date,
   isFavorite: boolean,
-  content: Record<string, any>
+  contentBlocks: Record<string, any>
 }
 
 export enum PublicationEnum {

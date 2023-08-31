@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { PUBLICATION_CONTENT_BLOCKS } from '@constants/publicationContentBlocks';
 import Button from '@src/components/UI/Button/Button';
 import { v4 as uuidv4 } from 'uuid';
-import { ICreatePublicationContentBlock, IPublicationContentBlock } from '@src/types/createPublicationTypes';
+import { ICreatePublicationContentBlock, IPublicationContentBlock } from '@src/types/createPublication.types';
 import { IAddContentBlockProps } from './types';
 import * as S from './style';
 

@@ -46,4 +46,9 @@ export class PublicationController {
   getFavoritePublication(@Query('type') type = '') {
     return this.publicationService.getFavoritePublication(type);
   }
+
+  @Get('/get-recent')
+  getRecentPublication(@Query('except') except = '') {
+    return this.publicationService.getRecentPublications(except);
+  }
 }

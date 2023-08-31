@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import { IEditPhotoState } from '@src/components/EditPhoto/types';
-import { ICreatePublicationMain, LocaleFieldsMain } from '@src/types/createPublicationTypes';
+import { ICreatePublicationMain, LocaleFieldsMain } from '@src/types/createPublication.types';
 import Input from '@src/components/UI/Input/Input';
 import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import Title from '@src/components/UI/Title/Title';
