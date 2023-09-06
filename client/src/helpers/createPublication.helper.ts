@@ -13,18 +13,18 @@ export function getCreatePublicationDTO(
 ): ICreatePublicationDTO {
   const result: ICreatePublicationDTO = {
     files: [],
-    photos: [mainInfo.photo as File],
+    photos: typeof mainInfo.photo === 'string' ? [] : [mainInfo.photo as File],
     mainInfo: {
       type: mainInfo.type as PublicationType,
       title: mainInfo.title,
       description: mainInfo.description,
-      photo: getFileFullName(mainInfo.photo as File),
+      photo: typeof mainInfo.photo === 'string' ? mainInfo.photo : getFileFullName(mainInfo.photo as File),
     },
     contentBlocks: [],
   };
   
   contentBlocks.forEach((item) => {
-    if (item.content?.photo) {
+    if (item.content?.photo && typeof item.content?.photo !== 'string') {
       result.photos.push(item.content.photo as File);
       result.contentBlocks.push({
         _id: item._id,
@@ -34,7 +34,7 @@ export function getCreatePublicationDTO(
           photo: getFileFullName(item.content.photo as File),
         },
       });
-    } else if (item.content?.file) {
+    } else if (item.content?.file && typeof item.content?.file !== 'string') {
       const newFile = new File([item.content.file], `${uuidv4()}_${Date.now()}`, { type: item.content.file.type });
       result.files.push(newFile as File);
       result.contentBlocks.push({

@@ -1,6 +1,7 @@
 export const THEMES = {
   light: {
     componentBg: '#fff',
+    dangerColor: '#f14b4b',
     accentColor: '#e34d4d',
     accentColorHover: '#ffd2d2',
     accentColorActive: '#940000',

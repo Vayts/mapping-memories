@@ -39,7 +39,7 @@ export const CardWrapper = styled(NavLink)`
   @media screen and (min-width: ${RESPONSIVE.desktop}) {
     flex-direction: column;
     min-height: 410px;
-    max-width: 378px;
+    width: 378px;
     
     img {
       max-width: unset;

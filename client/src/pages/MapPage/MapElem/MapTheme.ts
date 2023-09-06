@@ -1,52 +1,16 @@
 export const defaultTheme = [
   {
-    featureType: 'all',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#202c3e',
-      },
-    ],
-  },
-  {
-    featureType: 'all',
+    featureType: 'administrative',
     elementType: 'labels.text.fill',
     stylers: [
       {
-        gamma: 0.01,
-      },
-      {
-        lightness: 20,
-      },
-      {
-        weight: '1.39',
-      },
-      {
-        color: '#ffffff',
+        color: '#2a3a3f',
       },
     ],
   },
   {
-    featureType: 'all',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        weight: '0.96',
-      },
-      {
-        saturation: '9',
-      },
-      {
-        visibility: 'on',
-      },
-      {
-        color: '#000000',
-      },
-    ],
-  },
-  {
-    featureType: 'all',
-    elementType: 'labels.icon',
+    featureType: 'administrative.province',
+    elementType: 'geometry.stroke',
     stylers: [
       {
         visibility: 'off',
@@ -58,70 +22,175 @@ export const defaultTheme = [
     elementType: 'geometry',
     stylers: [
       {
-        lightness: 30,
+        lightness: '0',
       },
       {
-        saturation: '9',
+        saturation: '0',
       },
       {
-        color: '#29446b',
+        color: '#f5f5f2',
+      },
+      {
+        gamma: '1',
+      },
+    ],
+  },
+  {
+    featureType: 'landscape.man_made',
+    elementType: 'all',
+    stylers: [
+      {
+        lightness: '-3',
+      },
+      {
+        gamma: '1.00',
+      },
+    ],
+  },
+  {
+    featureType: 'landscape.natural.terrain',
+    elementType: 'all',
+    stylers: [
+      {
+        visibility: 'off',
       },
     ],
   },
   {
     featureType: 'poi',
-    elementType: 'geometry',
+    elementType: 'all',
     stylers: [
       {
-        saturation: 20,
+        visibility: 'off',
       },
     ],
   },
   {
     featureType: 'poi.park',
-    elementType: 'geometry',
-    stylers: [
-      {
-        lightness: 20,
-      },
-      {
-        saturation: -20,
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    elementType: 'geometry',
-    stylers: [
-      {
-        lightness: 10,
-      },
-      {
-        saturation: -30,
-      },
-    ],
-  },
-  {
-    featureType: 'road',
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#193a55',
+        color: '#bae5ce',
+      },
+      {
+        visibility: 'on',
       },
     ],
   },
   {
     featureType: 'road',
-    elementType: 'geometry.stroke',
+    elementType: 'all',
     stylers: [
       {
-        saturation: 25,
+        saturation: -100,
       },
       {
-        lightness: 25,
+        lightness: 45,
       },
       {
-        weight: '0.01',
+        visibility: 'simplified',
+      },
+    ],
+  },
+  {
+    featureType: 'road.highway',
+    elementType: 'all',
+    stylers: [
+      {
+        visibility: 'simplified',
+      },
+    ],
+  },
+  {
+    featureType: 'road.highway',
+    elementType: 'geometry.fill',
+    stylers: [
+      {
+        color: '#fac9a9',
+      },
+      {
+        visibility: 'simplified',
+      },
+    ],
+  },
+  {
+    featureType: 'road.highway',
+    elementType: 'labels.text',
+    stylers: [
+      {
+        color: '#4e4e4e',
+      },
+    ],
+  },
+  {
+    featureType: 'road.arterial',
+    elementType: 'labels.text.fill',
+    stylers: [
+      {
+        color: '#787878',
+      },
+    ],
+  },
+  {
+    featureType: 'road.arterial',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'transit',
+    elementType: 'all',
+    stylers: [
+      {
+        visibility: 'simplified',
+      },
+    ],
+  },
+  {
+    featureType: 'transit.station.airport',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        hue: '#0a00ff',
+      },
+      {
+        saturation: '-77',
+      },
+      {
+        gamma: '0.57',
+      },
+      {
+        lightness: '0',
+      },
+    ],
+  },
+  {
+    featureType: 'transit.station.rail',
+    elementType: 'labels.text.fill',
+    stylers: [
+      {
+        color: '#43321e',
+      },
+    ],
+  },
+  {
+    featureType: 'transit.station.rail',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        hue: '#ff6c00',
+      },
+      {
+        lightness: '4',
+      },
+      {
+        gamma: '0.75',
+      },
+      {
+        saturation: '-68',
       },
     ],
   },
@@ -130,7 +199,34 @@ export const defaultTheme = [
     elementType: 'all',
     stylers: [
       {
-        lightness: -20,
+        color: '#eaf6f8',
+      },
+      {
+        visibility: 'on',
+      },
+    ],
+  },
+  {
+    featureType: 'water',
+    elementType: 'geometry.fill',
+    stylers: [
+      {
+        color: '#99b9e1',
+      },
+    ],
+  },
+  {
+    featureType: 'water',
+    elementType: 'labels.text.fill',
+    stylers: [
+      {
+        lightness: '-49',
+      },
+      {
+        saturation: '-53',
+      },
+      {
+        gamma: '0.79',
       },
     ],
   },

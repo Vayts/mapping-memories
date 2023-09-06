@@ -35,13 +35,13 @@ export const HeaderContent = styled.div`
 export const Logo = styled.img`
   height: 30px;
 
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
     height: 40px;
   }
 `;
 
 export const BurgerButton = styled.div`
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
     display: none;
   }
 `;
@@ -62,7 +62,7 @@ export const Navigation = styled.nav<IHeaderStyle>`
   transition: all 0.2s;
   flex-direction: column;
 
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
     z-index: unset;
     position: unset;
     transform: unset;
@@ -87,7 +87,7 @@ export const NavList = styled.ul`
   overflow-y: scroll;
   max-height: calc(100vh - 60px);
   
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
     display: flex;
     width: 100%;
     height: 100%;
@@ -97,19 +97,28 @@ export const NavList = styled.ul`
 `;
 
 export const NavItem = styled.li`
-  text-transform: uppercase;
-  padding: 0 20px;
+  padding: 0 10px;
   font-weight: 500;
   font-size: 18px;
   text-align: left;
 
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
     height: 100%;
-    font-size: 12px;
-    margin-left: 5px;
+    font-size: 14px;
+    margin-left: 2px;
     font-weight: 400;
     padding: 0;
     text-align: center;
+  }
+
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
+    height: 100%;
+    font-size: 14px;
+    margin-left: 2px;
+    font-weight: 400;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
   }
 
   @media screen and (min-width: ${RESPONSIVE.desktop}) {
@@ -131,7 +140,7 @@ export const NavigationLink = styled(NavLink)`
   position: relative;
   border-bottom: solid 1px rgba(0, 0, 0, 0.12);
 
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
     padding: 0 5px;
     display: flex;
     align-items: center;

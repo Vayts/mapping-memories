@@ -5,7 +5,7 @@ export interface ICreatePublicationMain {
   title: ILocale,
   description: ILocale,
   type: PublicationType | '',
-  photo: File | null,
+  photo: File | null | string,
   errors: Record<string, any>,
   touched: Record<string, any>,
 }

@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { PUBLICATION } from '@constants/actions';
+import { PUBLICATION_AT } from '@constants/actions';
 
-export const getAllPublicationRequest = createAction(PUBLICATION.GET_ALL_PUBLICATION);
+export const getAllPublicationRequest = createAction(PUBLICATION_AT.GET_ALL_PUBLICATION);
 
-export const getFavoritePublicationsRequest = createAction(PUBLICATION.GET_FAVORITE_PUBLICATION);
+export const getFavoritePublicationsRequest = createAction(PUBLICATION_AT.GET_FAVORITE_PUBLICATION);
 
-export const getPublicationsByTitle = createAction(PUBLICATION.GET_PUBLICATION_BY_TITLE);
+export const getPublicationsByTitle = createAction(PUBLICATION_AT.GET_PUBLICATION_BY_TITLE);

@@ -9,6 +9,6 @@ export const Container = styled.div`
   min-height: calc(100vh - 60px);
   
   @media screen and (min-width: ${RESPONSIVE.tablet}) {
-    padding: 0 10px 40px;
+    padding: 0 15px 40px;
   }
 `;

@@ -13,6 +13,10 @@ export interface IPublication {
   contentBlocks: Record<string, any>
 }
 
+export interface IAdminPublication extends IPublication {
+  index: number;
+}
+
 export enum PublicationEnum {
   interview = 'interview',
   artProject = 'artProject',
