@@ -25,6 +25,7 @@ export interface IButtonStyle {
   fz?: number,
   fw?: number,
   height?: string,
+  isLoading?: boolean,
   width?: string,
   disabled?: boolean,
   br?: string,

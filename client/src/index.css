@@ -43,40 +43,59 @@ code {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-nothing-exist:before {
-  content: "\e90a";
+.icon-success:before {
+  content: "\e910";
 }
 
-.icon-link:before {
-  content: "\e908";
+.icon-more:before {
+  content: "\e90f";
+}
+
+.icon-memorial-type:before {
+  content: "\e900";
+}
+.icon-markers:before {
+  content: "\e901";
+}
+.icon-publications:before {
+  content: "\e902";
+}
+.icon-cities:before {
+  content: "\e903";
+}
+
+.icon-nothing-exist:before {
+  content: "\e90a";
 }
 .icon-search:before {
   content: "\e909";
 }
-
+.icon-link:before {
+  content: "\e908";
+}
 .icon-burger:before {
   content: "\e907";
 }
 .icon-left:before {
-  content: "\e902";
-}
-.icon-down:before {
-  content: "\e903";
-}
-.icon-up:before {
   content: "\e904";
 }
-.icon-cross:before {
+.icon-down:before {
   content: "\e905";
 }
-.icon-right:before {
+.icon-up:before {
   content: "\e906";
 }
+.icon-cross:before {
+  content: "\e90b";
+}
+.icon-right:before {
+  content: "\e90c";
+}
 .icon-done:before {
-  content: "\e901";
+  content: "\e90d";
 }
 .icon-nothing-found:before {
-  content: "\e900";
+  content: "\e90e";
 }
 
 *::-webkit-scrollbar {

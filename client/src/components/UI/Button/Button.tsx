@@ -34,13 +34,19 @@ const Button: React.FC<IButton> = (props) => {
       disabled={disabled || isLoading}
       br={br}
       type={type || 'button'}
+      isLoading={isLoading}
     >
-      {isLoading ? <Loader size={15} color='#fff'/> : (
-        <ButtonContent>
-          {icon ? <ButtonIcon fz={fz} className={icon}/> : null}
-          {text ? <ButtonText>{text as string}</ButtonText> : null}
-        </ButtonContent>
-      )}
+      <ButtonContent>
+        {isLoading && <Loader size={15}/>}
+        {icon && (
+          <ButtonIcon
+            isLoading={isLoading}
+            fz={fz}
+            className={icon}
+          />
+        )}
+        {text && <ButtonText isLoading={isLoading}>{text as string}</ButtonText>}
+      </ButtonContent>
     </ButtonItem>
   );
 };

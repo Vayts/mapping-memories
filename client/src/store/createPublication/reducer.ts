@@ -1,7 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ICreatePublicationState } from '@src/store/createPublication/types';
 
-const initialState = {
+const initialState: ICreatePublicationState = {
   isLoading: false,
+  hasBeenAdded: false,
 };
 
 export const createPublicationSlice = createSlice({
@@ -12,9 +14,12 @@ export const createPublicationSlice = createSlice({
       state.isLoading = true;
     },
     createPublicationRequestEnd: (state) => {
-      state.isLoading = true;
+      state.isLoading = false;
+    },
+    setPublicationHasBeenAdded: (state, action: PayloadAction<boolean>) => {
+      state.hasBeenAdded = action.payload;
     },
   },
 });
 
-export const { createPublicationRequestStart, createPublicationRequestEnd } = createPublicationSlice.actions;
+export const { createPublicationRequestStart, setPublicationHasBeenAdded, createPublicationRequestEnd } = createPublicationSlice.actions;

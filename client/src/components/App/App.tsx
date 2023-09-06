@@ -8,13 +8,17 @@ import MapPage from '@src/pages/MapPage/MapPage';
 import AdminLayout from '@hoc/AdminLayout/AdminLayout';
 import { AppWrapper } from '@src/components/App/style';
 import { ToastContainer } from 'react-toastify';
-import CreatePublicationPage from '@src/pages/CreatePublication/CreatePublicationPage';
 import PublicationsPage from '@src/pages/PublicationsPage/PublicationsPage';
 import PublicationPage from '@src/pages/PublicationPage/PublicationPage';
 import { useAppDispatch } from '@src/hooks/hooks';
 import { setLocale } from '@src/store/app/reducer';
 import { LANGUAGE } from '@constants/locale';
 import { LocaleType } from '@src/types/locale.types';
+import CreatePublicationPage from '@src/pages/CreatePublicationPage/CreatePublicationPage';
+import RequireAuth from '@hoc/RequireAuth/RequireAuth';
+import AdminPublications from '@src/pages/AdminPublicationsPage/AdminPublications';
+import EditPublicationPage from '@src/pages/EditPublicationPage/EditPublicationPage';
+import { LoginPage } from '@src/pages/LoginPage/LoginPage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,8 +42,13 @@ export const App: React.FC = () => {
           <Route path='/' element={<Layout withContainer={false}/>}>
             <Route path='/map' element={<MapPage/>}/>
           </Route>
-          <Route path='/admin' element={<AdminLayout/>}>
-            <Route path='/admin/create-interview' element={<CreatePublicationPage/>}/>
+          <Route path='/mapmem-admin' element={<AdminLayout/>}>
+            <Route path='/mapmem-admin/login' element={<LoginPage/>} />
+            <Route path='/mapmem-admin' element={<RequireAuth/>}>
+              <Route path='/mapmem-admin/publications' element={<AdminPublications/>}/>
+              <Route path='/mapmem-admin/publications/add' element={<CreatePublicationPage/>}/>
+              <Route path='/mapmem-admin/publications/edit/:id' element={<EditPublicationPage/>}/>
+            </Route>
           </Route>
         </Routes>
         <ToastContainer
