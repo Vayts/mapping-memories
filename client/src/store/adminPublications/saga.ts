@@ -23,7 +23,7 @@ function* getAllPublicationSaga(): SagaIterator {
       yield put(setPublications(response.data.map((item: IPublication, index: number) => {
         return {
           ...item,
-          index,
+          index: index + 1,
         };
       })));
     }
@@ -65,7 +65,7 @@ function* getAllPublicationBySearchSaga(): SagaIterator {
       yield put(setPublications(response.data.map((item: IPublication, index: number) => {
         return {
           ...item,
-          index,
+          index: index + 1,
         };
       })));
     }
