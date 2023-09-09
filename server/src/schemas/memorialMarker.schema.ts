@@ -13,9 +13,19 @@ export class MemorialMarker {
   lat: number;
   @Prop()
   lng: number;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'MarkerType' })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'MarkerType',
+    required: false,
+    default: null,
+  })
   type_id: MarkerType;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'CityMarker' })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CityMarker',
+    required: false,
+    default: null,
+  })
   city_id: CityMarker;
   @Prop()
   address: LocaleSchema;
@@ -24,9 +34,9 @@ export class MemorialMarker {
   @Prop()
   title: LocaleSchema;
   @Prop({ default: null })
-  img: string;
+  photo: string;
   @Prop({ default: null })
-  img_source: string;
+  photo_source: string;
   @Prop()
   link: string;
   @Prop()

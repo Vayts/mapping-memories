@@ -8,9 +8,12 @@ import {
   Publication,
   PublicationSchema,
 } from '../../schemas/publication.schema';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule,
+
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forFeature([
       { name: Publication.name, schema: PublicationSchema },
