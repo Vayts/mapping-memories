@@ -8,7 +8,7 @@ export const LanguageSwitcherWrapper = styled.div`
   margin-top: 20px;
   height: 100%;
 
-  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+  @media screen and (min-width: ${RESPONSIVE.tabletL}) {
     margin-left: 20px;
     margin-top: 0;
   }

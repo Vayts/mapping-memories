@@ -8,6 +8,7 @@ import { watchEditPublication } from '@src/store/editPublication/saga';
 import { watchPublications } from '@src/store/adminPublications/saga';
 import { watchApp } from '@src/store/app/saga';
 import { watchLogin } from '@src/store/login/sagas';
+import { watchMarkers } from '@src/store/adminMarkers/saga';
 
 const sagas = [
   watchMap,
@@ -18,6 +19,7 @@ const sagas = [
   watchLogin,
   watchPublications,
   watchEditPublication,
+  watchMarkers,
 ];
 
 export default function* rootSaga(): SagaIterator {

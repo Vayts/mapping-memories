@@ -6,19 +6,19 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { Search } from '@src/components/UI/Search/Search';
 import { useTranslation } from 'react-i18next';
 import { selectAdminPublicationsSearch } from '@src/store/adminPublications/selectors';
-import { getAllPublicationBySearchRequest, getAllPublications } from '@src/store/adminPublications/action';
+import { getAllAdminPublicationByTitle, getAllAdminPublications } from '@src/store/adminPublications/action';
 import { setAdminPublicationsSearch } from '@src/store/adminPublications/reducer';
 import PublicationsTable from '@src/pages/AdminPublicationsPage/PublicationsTable/PublicationsTable';
 import * as S from './style';
 
-const AdminPublications: React.FC = () => {
+const AdminPublicationsPage: React.FC = () => {
   const search = useAppSelector(selectAdminPublicationsSearch);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   
   useEffect(() => {
-    dispatch(getAllPublications());
+    dispatch(getAllAdminPublications());
   }, []);
 
   const navigateToAddHandler = () => {
@@ -27,20 +27,20 @@ const AdminPublications: React.FC = () => {
   
   const onSearchChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
-      dispatch(getAllPublications());
+      dispatch(getAllAdminPublications());
     }
     
     dispatch(setAdminPublicationsSearch(e.target.value));
   }, []);
   
   const onSearchClickHandler = useCallback(() => {
-    dispatch(getAllPublicationBySearchRequest());
+    dispatch(getAllAdminPublicationByTitle());
   }, []);
   
   return (
-    <S.AdminPublicationsWrapper>
+    <div>
       <S.AdminHeader>
-        <Title>Публікації</Title>
+        <Title>{t('publications')}</Title>
         <S.AdminHeaderControls>
           <Button
             clickHandler={navigateToAddHandler}
@@ -50,8 +50,8 @@ const AdminPublications: React.FC = () => {
         </S.AdminHeaderControls>
       </S.AdminHeader>
       <PublicationsTable/>
-    </S.AdminPublicationsWrapper>
+    </div>
   );
 };
 
-export default AdminPublications;
+export default AdminPublicationsPage;

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { IHeaderProps } from '@src/components/Header/types';
 import { NavLink } from 'react-router-dom';
 import LanguageSwitcher from '@src/components/LanguageSwitcher/LanguageSwitcher';
+import { STATIC_HREF } from '@constants/app';
 import * as S from './style';
 
 const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
@@ -19,7 +20,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
         <NavLink
           to='/'
         >
-          <S.Logo src='../assets/img/logo.svg' alt='mapping memories of ukraine logo'/>
+          <S.Logo src={`${STATIC_HREF}/logo.svg`} alt='mapping memories of ukraine logo'/>
         </NavLink>
         <S.BurgerButton className='icon-burger' onClick={() => setNavOpen(!isNavOpen)}/>
         <S.Navigation isOpen={isNavOpen}>

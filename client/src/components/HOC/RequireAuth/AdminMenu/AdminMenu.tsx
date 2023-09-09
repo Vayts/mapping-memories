@@ -8,13 +8,13 @@ const AdminMenu: React.FC = () => {
       <Title fz={25}>admin</Title>
       <S.AdminList>
         <S.AdminListItem>
-          <S.AdminNavLink to='/mapmem-admin/memorials'>
+          <S.AdminNavLink to='/mapmem-admin/memorial-types'>
             <span className='icon-memorial-type'/>
             Типи меморіалів
           </S.AdminNavLink>
         </S.AdminListItem>
         <S.AdminListItem>
-          <S.AdminNavLink to='/mapmem-admin/memorials'>
+          <S.AdminNavLink to='/mapmem-admin/city-markers'>
             <span className='icon-cities'/>
             Маркери міст
           </S.AdminNavLink>

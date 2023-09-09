@@ -1,6 +1,16 @@
 export const ROUTES = {
   MAP: {
     GET_INFO: '/map/get-info',
+    GET_CITY_MARKERS: '/map/get-city-markers',
+    ADD_CITY_MARKER: 'map/add-city-marker',
+    EDIT_CITY_MARKER: '/map/edit-city-marker',
+    DELETE_CITY_MARKER: '/map/delete-city-marker',
+    GET_ALL_MEMORIALS: '/map/get-memorial-markers',
+    GET_ALL_MEMORIAL_TYPES: '/map/get-memorial-types',
+    ADD_MEMORIAL_MARKER: '/map/add-memorial-marker',
+    DELETE_MEMORIAL_MARKER: '/map/delete-memorial',
+    GET_MEMORIAL: '/map/get-memorial',
+    EDIT_MEMORIAL: '/map/edit-memorial-marker',
   },
   PUBLICATION: {
     ADD: '/publication/add',
@@ -10,6 +20,8 @@ export const ROUTES = {
     GET_RECENT: '/publication/get-recent',
     DELETE: '/publication/delete',
     EDIT: '/publication/edit',
+    SET_FAVORITE: '/publication/set-favorite',
+    REMOVE_FAVORITE: '/publication/remove-favorite',
   },
   AUTH: {
     LOGIN: '/auth/login',

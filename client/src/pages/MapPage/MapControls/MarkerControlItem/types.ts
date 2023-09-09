@@ -1,5 +1,5 @@
-import { IMemorialMarker } from '@src/store/map/types';
 import { Dispatch, SetStateAction } from 'react';
+import { IMemorialMarker } from '@src/types/markers.types';
 
 export interface IMarkerControllerItemProps {
   marker: IMemorialMarker,

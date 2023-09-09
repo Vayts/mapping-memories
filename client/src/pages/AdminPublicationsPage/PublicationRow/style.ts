@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { IPublicationRowStyle } from '@src/pages/AdminPublicationsPage/PublicationRow/types';
 
 const appear = keyframes`
   0% {
@@ -18,16 +19,11 @@ export const PublicationRowWrapper = styled.tr`
   td {
     height: 60px;
     padding: 15px 5px;
+    position: relative;
     
     p {
       margin: 0 10px 0 0;
     }
-  }
-  
-  td:first-child {
-    width: 20px;
-    padding-left: 10px;
-    text-align: center;
   }
 
   td:nth-child(2) {
@@ -64,4 +60,10 @@ export const PublicationRowWrapper = styled.tr`
     width: 5%;
     text-align: center;
   }
+`;
+
+export const PublicationIsFavoriteTd = styled.td<IPublicationRowStyle>`
+  background-color: ${({ isFavorite, theme }) => (isFavorite ? theme.accentColorHover : 'transparent')};
+  padding-left: 10px;
+  text-align: center;
 `;

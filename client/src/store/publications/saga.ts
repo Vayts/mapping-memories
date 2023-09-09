@@ -17,18 +17,23 @@ import {
 } from '@src/store/publications/reducer';
 import { PublicationType } from '@src/types/publication.types';
 import { selectCurrentPublicationType, selectPublicationsLimit, selectPublicationsSearchValue } from '@src/store/publications/selectors';
-import { getAllPublicationRequest, getFavoritePublicationsRequest, getPublicationsByTitle } from '@src/store/publications/actions';
+import {
+  getAllPublicationRequest,
+  getFavoritePublicationsRequest,
+  getPublicationsByTitle,
+} from '@src/store/publications/actions';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { appRequestEnd, appRequestStart } from '@src/store/app/reducer';
 
 const { t } = i18n;
 
-function* getAllPublicationSaga(): SagaIterator {
+function* addPublicationsSaga(): SagaIterator {
   try {
     const type = yield select(selectCurrentPublicationType);
     yield put(publicationsRequestStart());
     const limit = yield select(selectPublicationsLimit);
-    const response = yield call(getRequest, `${ROUTES.PUBLICATION.GET}?limit=${limit}&type=${type}`);
+    const search = yield select(selectPublicationsSearchValue);
+    const response = yield call(getRequest, `${ROUTES.PUBLICATION.GET}?limit=${limit}&search=${search}&type=${type}`);
     if (response.data) {
       yield put(addPublications(response.data.publications));
       yield put(setPublicationsHasMoreContent(response.data.hasMoreContent));
@@ -52,13 +57,11 @@ function* getFavoritePublicationSaga(): SagaIterator {
   }
 }
 
-function* getInterviewsByTitleSaga(): SagaIterator {
+function* getAllPublicationsSaga(): SagaIterator {
   try {
-    yield put(publicationsRequestStart());
-    yield put(resetPublicationsLimit());
-    yield put(setInSearch(true));
-    const limit = yield select(selectPublicationsLimit);
     const type = yield select(selectCurrentPublicationType);
+    yield put(publicationsRequestStart());
+    const limit = yield select(selectPublicationsLimit);
     const search = yield select(selectPublicationsSearchValue);
     const response = yield call(getRequest, `${ROUTES.PUBLICATION.GET}?limit=${limit}&search=${search}&type=${type}`);
     if (response.data) {
@@ -72,10 +75,34 @@ function* getInterviewsByTitleSaga(): SagaIterator {
   }
 }
 
+function* getPublicationsByTitleSaga(): SagaIterator {
+  try {
+    yield put(publicationsRequestStart());
+    yield put(resetPublicationsLimit());
+    yield put(setInSearch(true));
+    const limit = yield select(selectPublicationsLimit);
+    const type = yield select(selectCurrentPublicationType);
+    const search = yield select(selectPublicationsSearchValue);
+    const response = yield call(getRequest, `${ROUTES.PUBLICATION.GET}?limit=${limit}&search=${search}&type=${type}`);
+    if (response.data) {
+      yield put(setPublications(response.data.publications));
+      yield put(setPublicationsHasMoreContent(response.data.hasMoreContent));
+      
+      if (!search) {
+        yield put(setInSearch(false));
+      }
+    }
+  } catch (e) {
+    getNotification(t('somethingWentWrong'), 'error');
+  } finally {
+    yield put(publicationsRequestEnd());
+  }
+}
+
 function* changePublicationTypeSaga(action: PayloadAction<'' | PublicationType>): SagaIterator {
   try {
     yield put(appRequestStart());
-    yield call(getAllPublicationSaga);
+    yield call(addPublicationsSaga);
     
     if (action.payload) {
       yield call(getFavoritePublicationSaga);
@@ -88,9 +115,9 @@ function* changePublicationTypeSaga(action: PayloadAction<'' | PublicationType>)
 }
 
 export function* watchAllPublications(): SagaIterator {
-  yield takeLatest(getAllPublicationRequest, getAllPublicationSaga);
-  yield takeLatest(addPublicationsLimit, getAllPublicationSaga);
+  yield takeLatest(getAllPublicationRequest, getAllPublicationsSaga);
+  yield takeLatest(addPublicationsLimit, addPublicationsSaga);
   yield takeLatest(getFavoritePublicationsRequest, getFavoritePublicationSaga);
-  yield takeLatest(getPublicationsByTitle, getInterviewsByTitleSaga);
+  yield takeLatest(getPublicationsByTitle, getPublicationsByTitleSaga);
   yield takeLatest(setCurrentPublicationType, changePublicationTypeSaga);
 }

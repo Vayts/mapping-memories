@@ -18,13 +18,14 @@ export const Search: React.FC<ISearch> = (props) => {
     width,
     isLoading,
     fz,
+    disabled,
   } = props;
   const { t } = useTranslation();
   
   const onSearchHandler = useCallback((e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     
-    if (!isLoading) {
+    if (!isLoading && !disabled) {
       onSearch(value);
     }
   }, [isLoading]);
@@ -34,7 +35,7 @@ export const Search: React.FC<ISearch> = (props) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         
-        if (!isLoading) {
+        if (!isLoading && !disabled) {
           onSearch(value);
         }
       }
@@ -61,12 +62,14 @@ export const Search: React.FC<ISearch> = (props) => {
           name={name}
           id={id}
           onKeyDown={onKeyDownHandler}
+          disabled={disabled}
         />
       </S.SearchElem>
       <S.SearchButton
         height={height}
         width={width}
         onClick={onSearchHandler}
+        disabled={disabled}
       >
         {isLoading ? <Loader size={15}/> : (
           <S.SearchIcon

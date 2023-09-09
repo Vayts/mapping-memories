@@ -56,7 +56,7 @@ function validatePublicationDescription(str: string, locale: string): Record<str
   return errors;
 }
 
-function validateRequiredPhoto(photo: File | null): Record<string, string> {
+function validateRequiredPhoto(photo: File | null | string): Record<string, string> {
   const errors: Record<string, string> = {};
   
   if (!photo) {

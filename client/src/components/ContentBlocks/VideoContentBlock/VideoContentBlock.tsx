@@ -48,7 +48,7 @@ const VideoContentBlock: React.FC<IVideoContentBlockProps> = ({ contentBlock, on
       </Title>
       <Input
         locale='uk'
-        id={`description${_id}`}
+        id={`descriptionUk${_id}`}
         name='description'
         value={content.description.uk}
         margin='10px 0 5px'
@@ -61,7 +61,7 @@ const VideoContentBlock: React.FC<IVideoContentBlockProps> = ({ contentBlock, on
       <ErrorMsg show={touched?.description?.uk && !!errors?.description?.uk} margin='5px 0 5px'>{errors?.description?.uk}</ErrorMsg>
       <Input
         locale='en'
-        id={`description${_id}`}
+        id={`descriptionEn${_id}`}
         name='description'
         value={content.description.en}
         margin='10px 0 5px'

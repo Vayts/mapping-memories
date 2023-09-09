@@ -19,14 +19,14 @@ export const SearchElem = styled.label<ISearchStyle>`
   box-sizing: border-box;
 `;
 
-export const SearchInput = styled.input`
+export const SearchInput = styled.input<ISearchStyle>`
   height: 100%;
   width: 100%;
   display: block;
   box-sizing: border-box;
   padding: 10px;
-  border: 1px solid ${({ theme }) => theme.semiLightBgColor};
-  background-color: ${({ theme }) => theme.componentBg};
+  border: 1px solid ${({ theme, disabled }) => (disabled ? theme.borderColor : theme.semiLightBgColor)};;
+  background-color: ${({ theme, disabled }) => (disabled ? theme.brightBgColor : theme.componentBg)};
 
   &:focus {
     outline: none;
@@ -37,16 +37,16 @@ export const SearchInput = styled.input`
 export const SearchButton = styled.div<ISearchStyle>`
   height: ${({ height = '35px' }) => height};
   width: 40px;
-  background-color: ${({ theme }) => theme.accentColor};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.accentColorHover : theme.accentColor)};
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor:  ${({ disabled }) => (disabled ? 'unset' : 'pointer')};;
   transition: all 0.2s;
   position: relative;
   
   &:hover {
-    background-color: ${({ theme }) => theme.accentColorActive};
+    background-color: ${({ theme, disabled }) => (disabled ? theme.accentColorHover : theme.accentColorActive)};
   }
 `;
 
