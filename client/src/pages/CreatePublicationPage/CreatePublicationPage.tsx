@@ -57,6 +57,7 @@ const CreatePublicationPage: React.FC = () => {
 
   return (
     <S.CreatePublicationWrapper>
+      
       <S.CreatePublicationControlsWrapper>
         <Title
           margin='0'
@@ -71,10 +72,12 @@ const CreatePublicationPage: React.FC = () => {
           disabled={isLoading}
         />
       </S.CreatePublicationControlsWrapper>
+      
       <MainInfo
         mainInfo={mainInfo}
         setMainInfo={setMainInfo}
       />
+      
       <ContentBlocks
         contentBlocks={contentBlocks}
         setContentBlocks={setContentBlocks}

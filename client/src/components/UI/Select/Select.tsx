@@ -26,6 +26,7 @@ const Select: React.FC<ISelect> = (props) => {
     searchable,
     valueArr,
     label,
+    isNotDeletable,
   } = props;
   const [isOpen, setOpen] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState('');
@@ -58,7 +59,7 @@ const Select: React.FC<ISelect> = (props) => {
       onChange(value);
       closeSelect();
     }
-  }, []);
+  }, [valueArr]);
   
   const clearHandler = useCallback((e: any) => {
     e.preventDefault();
@@ -94,7 +95,7 @@ const Select: React.FC<ISelect> = (props) => {
   const generateIcons = useCallback(() => {
     return (
       <SelectIconsWrapper>
-        {selected && (
+        {!isNotDeletable && selected && (
           <>
             <SelectIconClear className='icon-cross' onClick={clearHandler}/>
             <SelectSeparator>|</SelectSeparator>

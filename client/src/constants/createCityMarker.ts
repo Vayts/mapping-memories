@@ -1,0 +1,6 @@
+export const CITY_MARKER_VALIDATION = {
+  NAME_MIN: 2,
+  NAME_MAX: 60,
+  LAT_LNG_MIN: -90,
+  LAT_LNG_MAX: 90,
+};

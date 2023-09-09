@@ -1,5 +1,5 @@
 import React, { Dispatch, MutableRefObject, SetStateAction } from 'react';
-import { IMemorialMarker } from '@src/store/map/types';
+import { IMemorialMarker } from '@src/types/markers.types';
 import LatLngBounds = google.maps.LatLngBounds;
 
 export interface IMapProps {

@@ -16,6 +16,7 @@ export interface ISelect {
   isValid?: boolean,
   searchable?: boolean,
   isLoading?: boolean,
+  isNotDeletable?: boolean,
 }
 
 export interface ISelectStyle {

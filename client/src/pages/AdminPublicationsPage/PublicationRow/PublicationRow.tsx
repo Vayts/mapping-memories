@@ -9,14 +9,14 @@ import PublicationContextMenu from '@src/pages/AdminPublicationsPage/Publication
 import * as S from './style';
 
 const PublicationRow: React.FC<IPublicationRowProps> = ({ publication }) => {
-  const { index, title, description, createdAt, type, _id } = publication;
+  const { index, title, description, createdAt, type, isFavorite } = publication;
   const { t } = useTranslation();
   
   return (
     <S.PublicationRowWrapper>
-      <td>
+      <S.PublicationIsFavoriteTd isFavorite={isFavorite}>
         {index}
-      </td>
+      </S.PublicationIsFavoriteTd>
       <td>
         <p>
           {title.uk}
@@ -35,7 +35,7 @@ const PublicationRow: React.FC<IPublicationRowProps> = ({ publication }) => {
       </td>
       <td>
         <Menu>
-          <PublicationContextMenu id={_id}/>
+          <PublicationContextMenu publication={publication}/>
         </Menu>
       </td>
     </S.PublicationRowWrapper>

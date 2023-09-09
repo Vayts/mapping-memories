@@ -13,6 +13,7 @@ export interface ISearch {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void,
 	refValue?: Ref<HTMLInputElement> | null,
   isLoading?: boolean,
+  disabled?: boolean,
 }
 
 export interface ISearchStyle {
@@ -20,4 +21,5 @@ export interface ISearchStyle {
 	fz?: number,
 	height?: string,
 	width?: string,
+  disabled?: boolean,
 }

@@ -41,6 +41,10 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
       return {
         ...state,
         photo,
+        touched: {
+          ...state.touched,
+          photo: true,
+        },
       };
     });
     setPhotoBlob(URL.createObjectURL(photo));
@@ -129,6 +133,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
   
   return (
     <div>
+      
       {editPhotoState.isOpen
         ? (
           <EditPhoto
@@ -136,6 +141,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
             setState={setEditPhoto}
           />
         ) : null}
+      
       <S.PublicationMainBlock>
         <Title
           margin='5px 0 15px'
@@ -159,6 +165,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
           disabled={mainInfo.photo === null}
         />
       </S.PublicationMainBlock>
+      
       <S.PublicationMainBlock>
         <Title
           margin='5px 0 15px'
@@ -176,6 +183,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
         />
         <ErrorMsg show={touched?.type && !!errors?.type} margin='5px 0 5px'>{errors?.type}</ErrorMsg>
       </S.PublicationMainBlock>
+      
       <S.PublicationMainBlock>
         <Title
           margin='5px 0 15px'
@@ -213,6 +221,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
         />
         <ErrorMsg show={touched?.title?.en && !!errors?.title?.en} margin='5px 0 5px'>{errors?.title?.en}</ErrorMsg>
       </S.PublicationMainBlock>
+      
       <S.PublicationMainBlock>
         <Title
           margin='5px 0 15px'
@@ -252,6 +261,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
         />
         <ErrorMsg show={touched?.description?.en && !!errors?.description?.en} margin='5px 0 5px'>{errors?.description?.en}</ErrorMsg>
       </S.PublicationMainBlock>
+      
     </div>
   );
 };

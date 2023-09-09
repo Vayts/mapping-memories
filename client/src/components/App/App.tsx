@@ -16,9 +16,12 @@ import { LANGUAGE } from '@constants/locale';
 import { LocaleType } from '@src/types/locale.types';
 import CreatePublicationPage from '@src/pages/CreatePublicationPage/CreatePublicationPage';
 import RequireAuth from '@hoc/RequireAuth/RequireAuth';
-import AdminPublications from '@src/pages/AdminPublicationsPage/AdminPublications';
+import AdminPublicationsPage from '@src/pages/AdminPublicationsPage/AdminPublicationsPage';
 import EditPublicationPage from '@src/pages/EditPublicationPage/EditPublicationPage';
 import { LoginPage } from '@src/pages/LoginPage/LoginPage';
+import AdminCityMarkerPage from '@src/pages/AdminCityMarkerPage/AdminCityMarkerPage';
+import AdminMemorialsPage from '@src/pages/AdminMemorialsPage/AdminMemorialsPage';
+import AddEditMemorialPage from '@src/pages/AddEditMemorialPage/AddEditMemorialPage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,9 +48,15 @@ export const App: React.FC = () => {
           <Route path='/mapmem-admin' element={<AdminLayout/>}>
             <Route path='/mapmem-admin/login' element={<LoginPage/>} />
             <Route path='/mapmem-admin' element={<RequireAuth/>}>
-              <Route path='/mapmem-admin/publications' element={<AdminPublications/>}/>
+              <Route path='/mapmem-admin/publications' element={<AdminPublicationsPage/>}/>
               <Route path='/mapmem-admin/publications/add' element={<CreatePublicationPage/>}/>
               <Route path='/mapmem-admin/publications/edit/:id' element={<EditPublicationPage/>}/>
+              
+              <Route path='/mapmem-admin/city-markers' element={<AdminCityMarkerPage/>}/>
+              
+              <Route path='/mapmem-admin/memorials' element={<AdminMemorialsPage/>}/>
+              <Route path='/mapmem-admin/memorials/add' element={<AddEditMemorialPage/>}/>
+              <Route path='/mapmem-admin/memorials/edit/:id' element={<AddEditMemorialPage isInEditMode/>}/>
             </Route>
           </Route>
         </Routes>

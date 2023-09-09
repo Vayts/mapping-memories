@@ -13,6 +13,7 @@ export const PublicationContextItem = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   cursor: pointer;
   transition: all 0.1s;
+  user-select: none;
   
   &:hover {
     background-color: ${({ theme }) => theme.brightBgColor};
@@ -25,4 +26,13 @@ export const PublicationContextItem = styled.li`
       background-color: ${({ theme }) => `${theme.dangerColor}20`};
     }
   }
+`;
+
+export const PublicationLoaderWrapper = styled.div`
+  background-color: rgba(0, 0, 0, 0.06);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 `;

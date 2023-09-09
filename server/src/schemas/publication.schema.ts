@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { LocaleSchema } from './locale.schema';
-import { PublicationContentBlock } from './interviewContentBlock.schema';
+import { PublicationContentBlock } from './publicationContentBlock.schema';
 
 type PublicationType = 'interview' | 'artProject' | 'specialProject';
 

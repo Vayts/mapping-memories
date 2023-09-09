@@ -25,6 +25,9 @@ export const adminPublicationsSlice = createSlice({
     setAdminPublicationsSearch: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
     },
+    setLoadingItems: (state, action: PayloadAction<string[]>) => {
+      state.isLoadingItems = action.payload;
+    },
   },
 });
 
@@ -33,4 +36,5 @@ export const {
   publicationsRequestStart,
   setPublications,
   setAdminPublicationsSearch,
+  setLoadingItems,
 } = adminPublicationsSlice.actions;

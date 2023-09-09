@@ -1,22 +1,23 @@
 .gm-style-iw {
   padding: 0 !important;
+  overflow:hidden!important;
 }
 
 @media screen and (max-width: 450px) and (max-height: 800px) {
   .gm-style-iw {
-    overflow-y: scroll !important;
+    overflow-y: hidden !important;
   }
 }
 
 @media screen and (max-height: 800px) {
   .gm-style-iw {
-    overflow-y: scroll !important;
+    overflow-y: hidden !important;
   }
 }
 
 .gm-style-iw-d {
   padding: 0 !important;
-  overflow: unset !important;
+  overflow: hidden !important;
 }
 
 .gm-ui-hover-effect {

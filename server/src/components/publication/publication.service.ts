@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { FileService } from '../photo/file.service';
@@ -17,21 +17,36 @@ export class PublicationService {
   ) {}
 
   async addPublication(files, dto) {
-    const photoData = this.photoService.multiplyUpload(files.photos, 'photo');
-    const filesData = this.photoService.multiplyUpload(files.files, 'files');
-    const upload = Promise.all([photoData, filesData]);
-    upload.then(() => {
-      return this.publicationModel.insertMany([
+    await this.photoService.multiplyUpload(files.photos, 'photo');
+    await this.photoService.multiplyUpload(files.files, 'files');
+
+    return this.publicationModel.insertMany([
+      {
+        createdAt: Date.now(),
+        ...dto.mainInfo,
+        contentBlocks: [...dto.contentBlocks],
+      },
+    ]);
+  }
+
+  async editPublication(id, files, dto) {
+    try {
+      await this.photoService.multiplyUpload(files.photos, 'photo');
+      await this.photoService.multiplyUpload(files.files, 'files');
+
+      const result = await this.publicationModel.findByIdAndUpdate(
+        id,
         {
-          createdAt: Date.now(),
-          title: dto.mainInfo.title,
-          type: dto.mainInfo.type,
-          description: dto.mainInfo.description,
-          photo: dto.mainInfo.photo,
-          contentBlocks: dto.contentBlocks,
+          ...dto.mainInfo,
+          contentBlocks: [...dto.contentBlocks],
         },
-      ]);
-    });
+        { new: true },
+      );
+
+      return result;
+    } catch (e) {
+      throw new HttpException({ message: 'Error' }, HttpStatus.UNAUTHORIZED);
+    }
   }
 
   getFavoritePublication(type: string) {
@@ -74,7 +89,7 @@ export class PublicationService {
   }
 
   async getPublications(limit: number, search: string, type: string) {
-    const searchPipeline = generateSearchPipeline(search);
+    const searchPipeline = generateSearchPipeline(search.trim());
 
     const typeMatchPipeline = type ? [{ $match: { type: type } }] : [];
 
@@ -89,9 +104,9 @@ export class PublicationService {
     const pipeline: any = [
       ...typeMatchPipeline,
       { $sort: { createdAt: -1 } },
+      ...searchPipeline,
       { $skip: limit - 6 },
       { $limit: Number(limit) },
-      ...searchPipeline,
       {
         $project: {
           photo: 1,
@@ -111,7 +126,50 @@ export class PublicationService {
     };
   }
 
-  getPublication(id) {
+  getAllPublications(search: string) {
+    const searchPipeline = generateSearchPipeline(search.trim());
+
+    return this.publicationModel.aggregate([
+      ...searchPipeline,
+      {
+        $project: {
+          photo: 1,
+          _id: 1,
+          description: 1,
+          type: 1,
+          title: 1,
+          createdAt: 1,
+          isFavorite: 1,
+        },
+      },
+    ]);
+  }
+
+  getPublication(id: string) {
     return this.publicationModel.findById(id);
+  }
+
+  setFavoritePublication(id: string) {
+    return this.publicationModel.findByIdAndUpdate(
+      id,
+      {
+        isFavorite: true,
+      },
+      { new: true },
+    );
+  }
+
+  removeFavoritePublication(id: string) {
+    return this.publicationModel.findByIdAndUpdate(
+      id,
+      {
+        isFavorite: false,
+      },
+      { new: true },
+    );
+  }
+
+  deletePublication(id: string) {
+    return this.publicationModel.deleteOne({ _id: id });
   }
 }

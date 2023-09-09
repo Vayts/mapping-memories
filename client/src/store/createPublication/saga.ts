@@ -12,6 +12,8 @@ import { generateAxiosPrivate } from '@src/api/axiosPrivate';
 import { selectUser } from '@src/store/user/selectors';
 import { selectAdminPublications } from '@src/store/adminPublications/selectors';
 import { getCreatePublicationFormData } from '@helpers/createPublication.helper';
+import { ERRORS } from '@constants/errors';
+import { tokenExpired } from '@src/store/user/sagas';
 
 const t = i18n.t;
 
@@ -29,8 +31,12 @@ function* addPublicationSaga(action: PayloadAction<any>): SagaIterator {
       yield put(setPublications([...publications, ...response.data]));
       yield put(setPublicationHasBeenAdded(true));
     }
-  } catch (e) {
-    getNotification(t('somethingWentWrong'), 'error');
+  } catch (e: any) {
+    if (e?.response?.data?.message === ERRORS.NOT_AUTHORIZED) {
+      yield call(tokenExpired, () => addPublicationRequest(values));
+    } else {
+      getNotification(t('somethingWentWrong'), 'error');
+    }
   } finally {
     yield put(publicationsRequestEnd());
   }

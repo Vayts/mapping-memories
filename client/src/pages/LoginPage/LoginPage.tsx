@@ -25,7 +25,7 @@ export const LoginPage: React.FC = () => {
 	
   useEffect(() => {
     if (user) {
-      navigate('/mapmem-admin/publications');
+      navigate(-1);
     }
 		
     return () => {

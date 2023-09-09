@@ -19,6 +19,8 @@ import {
 import { ICreatePublicationDTO } from '@src/types/createPublication.types';
 import { IPublication } from '@src/types/publication.types';
 import { getCreatePublicationFormData } from '@helpers/createPublication.helper';
+import { tokenExpired } from '@src/store/user/sagas';
+import { ERRORS } from '@constants/errors';
 
 const t = i18n.t;
 
@@ -29,8 +31,12 @@ function* getPublicationForEditSaga(action: { payload: { id: string; }; }): Saga
     yield put(editPublicationRequestStart());
     const response = yield call(getRequest, `${ROUTES.PUBLICATION.GET}/${id}`);
     yield put(setPublicationForEdit(response.data));
-  } catch (e) {
-    getNotification(t('somethingWentWrong'), 'error');
+  } catch (e: any) {
+    if (e?.response?.data?.message === ERRORS.NOT_AUTHORIZED) {
+      yield call(tokenExpired, () => getPublicationForEditRequest(id));
+    } else {
+      getNotification(t('somethingWentWrong'), 'error');
+    }
   } finally {
     yield put(editPublicationRequestEnd());
   }
@@ -51,8 +57,12 @@ function* editPublicationSaga(action: { payload: { values: ICreatePublicationDTO
       yield put(setPublications(newPublications));
       yield put(setPublicationHasBeenEdited(true));
     }
-  } catch (e) {
-    getNotification(t('somethingWentWrong'), 'error');
+  } catch (e: any) {
+    if (e?.response?.data?.message === ERRORS.NOT_AUTHORIZED) {
+      yield call(tokenExpired, () => editPublicationRequest(values, id));
+    } else {
+      getNotification(t('somethingWentWrong'), 'error');
+    }
   } finally {
     yield put(publicationsRequestEnd());
   }

@@ -5,24 +5,31 @@ import { Search } from '@src/components/UI/Search/Search';
 import PublicationList from '@src/components/PublicationList/PublicationList';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectPublications, selectPublicationsLoading, selectPublicationsSearchValue } from '@src/store/publications/selectors';
+import {
+  selectIsInSearch,
+  selectPublications,
+  selectPublicationsLoading,
+  selectPublicationsSearchValue,
+} from '@src/store/publications/selectors';
 import { IAllPublicationsProps } from '@src/pages/PublicationsPage/AllPublications/types';
-import { setInSearch, setPublicationsSearchValue } from '@src/store/publications/reducer';
+import {
+  setPublicationsSearchValue,
+} from '@src/store/publications/reducer';
 import { getPublicationsByTitle } from '@src/store/publications/actions';
+import PublicationsNotExist from '@src/pages/PublicationsPage/PublicationsNotExist/PublicationsNotExist';
+import { Loader } from '@src/components/Loader/Loader';
 import * as S from './style';
 
 const AllPublications: React.FC<IAllPublicationsProps> = ({ type }) => {
   const publications = useAppSelector(selectPublications);
   const searchValue = useAppSelector(selectPublicationsSearchValue);
   const isLoading = useAppSelector(selectPublicationsLoading);
+  const isInSearch = useAppSelector(selectIsInSearch);
   const dispatch = useAppDispatch();
+  const showNotExist = !publications.length && !isInSearch;
   const { t } = useTranslation();
   
   const onSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      dispatch(setInSearch(false));
-    }
-    
     dispatch(setPublicationsSearchValue(e.target.value));
   }, []);
   
@@ -41,14 +48,16 @@ const AllPublications: React.FC<IAllPublicationsProps> = ({ type }) => {
         </Title>
         <Search
           id='interviewSearch'
-          name='biba'
+          name='searchAll'
           value={searchValue}
           onChange={onSearchChange}
           onSearch={onSearchClickHandler}
           isLoading={isLoading}
+          disabled={showNotExist}
         />
       </S.PublicationsControls>
-      <PublicationList publications={publications}/>
+      {isLoading && <Loader size={50}/>}
+      {showNotExist && !isLoading ? <PublicationsNotExist /> : <PublicationList publications={publications}/>}
     </>
   );
 };
