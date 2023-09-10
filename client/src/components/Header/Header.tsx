@@ -68,7 +68,7 @@ const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
             <S.NavItem>
               <S.NavigationLink
                 onClick={closeNav}
-                to='/about_us'
+                to='/about-us'
               >
                 {t('aboutUs')}
               </S.NavigationLink>
