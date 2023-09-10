@@ -1,0 +1,4 @@
+export const MEMORIAL_TYPE_VALIDATION = {
+  NAME_MIN: 4,
+  NAME_MAX: 60,
+};

@@ -9,8 +9,3 @@ export const AdminCityMarkerHeader = styled.div`
   margin-bottom: 20px;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
-
-export const AdminCityMarkerControls = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;

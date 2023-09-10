@@ -16,6 +16,7 @@ import { CreateCityMarkerDto } from '../../dto/createCityMarker.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { FormDataRequest } from 'nestjs-form-data';
 import { CreateMemorialDto } from '../../dto/createMemorial.dto';
+import { CreateMemorialTypeDto } from '../../dto/createMemorialType.dto';
 @Controller('map')
 export class MapController {
   constructor(private mapService: MapService) {}
@@ -61,6 +62,26 @@ export class MapController {
   @Get('/get-memorial-types')
   getAllMemorialTypes() {
     return this.mapService.getTypes();
+  }
+
+  @Post('/add-memorial-type')
+  @UseGuards(JwtAuthGuard)
+  @FormDataRequest()
+  addMemorialType(@Body() dto: CreateMemorialTypeDto) {
+    return this.mapService.addMemorialType(dto);
+  }
+
+  @Post('/edit-memorial-type/:id')
+  @UseGuards(JwtAuthGuard)
+  @FormDataRequest()
+  editMemorialType(@Body() dto: CreateMemorialTypeDto, @Param('id') id) {
+    return this.mapService.editMemorialType(dto, id);
+  }
+
+  @Delete('/delete-memorial-type/:id')
+  @UseGuards(JwtAuthGuard)
+  deleteMemorialType(@Param('id') id) {
+    return this.mapService.deleteMemorialType(id);
   }
 
   @Get('/get-memorial/:id')

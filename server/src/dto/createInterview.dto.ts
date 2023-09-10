@@ -12,8 +12,10 @@ import {
   DynamicLanguagesMinLength,
   DynamicLanguagesStringCheck,
 } from '../validators/language.validator';
+import { TrimObjectKeys } from '../helper/pipeline.helper';
 
 class InterviewDescription {
+  @TrimObjectKeys()
   @IsString({ message: 'ONLY_STRING' })
   @IsNotEmpty()
   @MinLength(30)
@@ -22,12 +24,14 @@ class InterviewDescription {
 
 export class CreateInterviewMainInfoDto {
   @IsObject()
+  @TrimObjectKeys()
   @DynamicLanguagesStringCheck()
   @DynamicLanguagesMinLength(2)
   @ValidateNested({ each: true })
   readonly title: { [key: string]: string };
 
   @IsObject()
+  @TrimObjectKeys()
   @DynamicLanguagesStringCheck()
   @DynamicLanguagesMinLength(30)
   @ValidateNested({ each: true })

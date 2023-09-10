@@ -16,6 +16,7 @@ import {
 import { CreateCityMarkerDto } from '../../dto/createCityMarker.dto';
 import { FileService } from '../photo/file.service';
 import { CreateMemorialDto } from '../../dto/createMemorial.dto';
+import { CreateMemorialTypeDto } from '../../dto/createMemorialType.dto';
 
 @Injectable()
 export class MapService {
@@ -168,7 +169,7 @@ export class MapService {
       { city_id: null },
     );
 
-    return this.cityMarkerModel.deleteOne({ _id: id });
+    return this.cityMarkerModel.findByIdAndDelete(id);
   }
 
   getAllMemorials() {
@@ -264,5 +265,27 @@ export class MapService {
     );
 
     return result;
+  }
+
+  addMemorialType(values: CreateMemorialTypeDto) {
+    return this.markerTypeModel.insertMany([
+      {
+        ...values,
+      },
+    ]);
+  }
+
+  async editMemorialType(values: CreateMemorialTypeDto, id) {
+    const result = await this.markerTypeModel.findByIdAndUpdate(
+      id,
+      { ...values },
+      { new: true },
+    );
+
+    return result;
+  }
+
+  async deleteMemorialType(id) {
+    return this.markerTypeModel.findByIdAndDelete(id);
   }
 }

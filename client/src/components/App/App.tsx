@@ -22,6 +22,7 @@ import { LoginPage } from '@src/pages/LoginPage/LoginPage';
 import AdminCityMarkerPage from '@src/pages/AdminCityMarkerPage/AdminCityMarkerPage';
 import AdminMemorialsPage from '@src/pages/AdminMemorialsPage/AdminMemorialsPage';
 import AddEditMemorialPage from '@src/pages/AddEditMemorialPage/AddEditMemorialPage';
+import AdminMemorialTypesPage from '@src/pages/AdminMemorialTypesPage/AdminMemorialTypesPage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -53,6 +54,8 @@ export const App: React.FC = () => {
               <Route path='/mapmem-admin/publications/edit/:id' element={<EditPublicationPage/>}/>
               
               <Route path='/mapmem-admin/city-markers' element={<AdminCityMarkerPage/>}/>
+              
+              <Route path='/mapmem-admin/memorial-types' element={<AdminMemorialTypesPage/>}/>
               
               <Route path='/mapmem-admin/memorials' element={<AdminMemorialsPage/>}/>
               <Route path='/mapmem-admin/memorials/add' element={<AddEditMemorialPage/>}/>

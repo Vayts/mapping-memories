@@ -12,9 +12,11 @@ import {
   DynamicLanguagesStringCheck,
 } from '../validators/language.validator';
 import { Transform } from 'class-transformer';
+import { TrimObjectKeys } from '../helper/pipeline.helper';
 
 export class CreateMemorialDto {
   @Transform(({ value }) => JSON.parse(value))
+  @TrimObjectKeys()
   @IsNotEmptyObject()
   @DynamicLanguagesStringCheck()
   @DynamicLanguagesMinLength(5)
@@ -22,6 +24,7 @@ export class CreateMemorialDto {
   readonly title: { [key: string]: string };
 
   @Transform(({ value }) => JSON.parse(value))
+  @TrimObjectKeys()
   @IsNotEmptyObject()
   @DynamicLanguagesStringCheck()
   @DynamicLanguagesMinLength(30)
@@ -29,6 +32,7 @@ export class CreateMemorialDto {
   readonly description: { [key: string]: string };
 
   @Transform(({ value }) => JSON.parse(value))
+  @TrimObjectKeys()
   @IsNotEmptyObject()
   @DynamicLanguagesStringCheck()
   @DynamicLanguagesMinLength(10)
