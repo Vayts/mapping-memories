@@ -11,7 +11,6 @@ import { selectAdminPublications, selectAdminPublicationsSearch, selectLoadingPu
 import { selectUser } from '@src/store/user/selectors';
 import { generateAxiosPrivate } from '@src/api/axiosPrivate';
 import { removeFavoritePublicationRequest, setFavoritePublicationRequest } from '@src/store/publications/actions';
-import { createPublicationRequestStart } from '@src/store/createPublication/reducer';
 import { ERRORS } from '@constants/errors';
 import { tokenExpired } from '@src/store/user/sagas';
 
@@ -88,7 +87,6 @@ function* setFavoritePublicationSaga(action: { payload: { id: string }; }): Saga
   const loadingItems = yield select(selectLoadingPublication);
   
   try {
-    yield put(createPublicationRequestStart());
     yield put(setLoadingItems([...loadingItems, id]));
     const user = yield select(selectUser);
     const publications = yield select(selectAdminPublications);
@@ -113,7 +111,6 @@ function* setFavoritePublicationSaga(action: { payload: { id: string }; }): Saga
       getNotification(t('somethingWentWrong'), 'error');
     }
   } finally {
-    yield put(publicationsRequestEnd());
     yield put(setLoadingItems(loadingItems.filter((item: string) => item !== id)));
   }
 }
@@ -123,7 +120,6 @@ function* removeFavoritePublicationSaga(action: { payload: { id: string }; }): S
   const loadingItems = yield select(selectLoadingPublication);
   
   try {
-    yield put(createPublicationRequestStart());
     yield put(setLoadingItems([...loadingItems, id]));
     const user = yield select(selectUser);
     const publications = yield select(selectAdminPublications);
@@ -148,7 +144,6 @@ function* removeFavoritePublicationSaga(action: { payload: { id: string }; }): S
       getNotification(t('somethingWentWrong'), 'error');
     }
   } finally {
-    yield put(publicationsRequestEnd());
     yield put(setLoadingItems(loadingItems.filter((item: string) => item !== id)));
   }
 }
