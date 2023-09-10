@@ -71,7 +71,7 @@ export class PublicationController {
     return this.publicationService.removeFavoritePublication(id);
   }
 
-  @Get('/get_all')
+  @Get('/get-all')
   getAllPublications(@Query('search') search = '') {
     return this.publicationService.getAllPublications(search);
   }
