@@ -1,20 +1,41 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { IHeaderProps } from '@src/components/Header/types';
+import { NavLink } from 'react-router-dom';
+import LanguageSwitcher from '@src/components/LanguageSwitcher/LanguageSwitcher';
+import { STATIC_HREF } from '@constants/app';
 import * as S from './style';
 
-const Header: React.FC = () => {
+const Header: React.FC<IHeaderProps> = ({ isFixed }) => {
   const [isNavOpen, setNavOpen] = useState(false);
   const { t } = useTranslation();
   
+  const closeNav = () => {
+    setNavOpen(false);
+  };
+  
   return (
-    <S.HeaderWrapper>
+    <S.HeaderWrapper isOpen={isNavOpen} isFixed={isFixed}>
       <S.HeaderContent>
-        <S.Logo src='../assets/img/logo.svg' alt='mapping memories of ukraine logo'/>
+        <NavLink
+          to='/'
+        >
+          <S.Logo src={`${STATIC_HREF}/logo.svg`} alt='mapping memories of ukraine logo'/>
+        </NavLink>
         <S.BurgerButton className='icon-burger' onClick={() => setNavOpen(!isNavOpen)}/>
         <S.Navigation isOpen={isNavOpen}>
           <S.NavList>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
+                to='/'
+              >
+                {t('main')}
+              </S.NavigationLink>
+            </S.NavItem>
+            <S.NavItem>
+              <S.NavigationLink
+                onClick={closeNav}
                 to='/map'
               >
                 {t('mapOfMemorials')}
@@ -22,6 +43,7 @@ const Header: React.FC = () => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/interviews'
               >
                 {t('interviews')}
@@ -29,13 +51,15 @@ const Header: React.FC = () => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
-                to='/admin/create-interview'
+                onClick={closeNav}
+                to='/art-projects'
               >
                 {t('artProjects')}
               </S.NavigationLink>
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
+                onClick={closeNav}
                 to='/special-projects'
               >
                 {t('specialProjects')}
@@ -43,12 +67,14 @@ const Header: React.FC = () => {
             </S.NavItem>
             <S.NavItem>
               <S.NavigationLink
-                to='/about_us'
+                onClick={closeNav}
+                to='/about-us'
               >
                 {t('aboutUs')}
               </S.NavigationLink>
             </S.NavItem>
           </S.NavList>
+          <LanguageSwitcher/>
         </S.Navigation>
       </S.HeaderContent>
     </S.HeaderWrapper>

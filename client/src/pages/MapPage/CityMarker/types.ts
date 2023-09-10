@@ -1,4 +1,4 @@
-import { ICityMarker } from '@src/store/map/types';
+import { ICityMarker } from '@src/types/markers.types';
 
 export interface ICityMarkerProps {
   setCoords: (x: number, y: number) => void;

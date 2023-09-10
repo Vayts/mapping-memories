@@ -3,6 +3,7 @@ import { IMarkerControllerItemProps } from '@src/pages/MapPage/MapControls/Marke
 import { useAppSelector } from '@src/hooks/hooks';
 import { selectLocale } from '@src/store/app/selectors';
 import { MAP } from '@constants/map';
+import { STATIC_HREF } from '@constants/app';
 import * as S from './style';
 
 const MarkerControlItem: React.FC<IMarkerControllerItemProps> = ({ marker, setCoords, setActiveMarker }) => {
@@ -15,7 +16,7 @@ const MarkerControlItem: React.FC<IMarkerControllerItemProps> = ({ marker, setCo
   
   return (
     <S.MemorialControlWrapper onClick={clickHandler}>
-      <S.MemorialIcon src={icon} alt="marker icon"/>
+      <S.MemorialIcon src={`${STATIC_HREF}/${icon}`} alt="marker icon"/>
       <S.MemorialInfo>
         <S.MemorialTitle>{title[locale]}</S.MemorialTitle>
         <S.MemorialAddress>{address[locale]}</S.MemorialAddress>

@@ -1,12 +1,10 @@
 import React, { memo, useCallback } from 'react';
 import { InfoWindow, Marker } from '@react-google-maps/api';
 import { IMemorialMarkerProps } from '@src/pages/MapPage/MemorialMarker/types';
-import { useAppSelector } from '@src/hooks/hooks';
-import { selectLocale } from '@src/store/app/selectors';
 import { MAP } from '@constants/map';
-import { useTranslation } from 'react-i18next';
 import './InfoWindow.css';
 import InfoWindowContent from '@src/pages/MapPage/MemorialMarker/InfoWindowContent/InfoWindowContent';
+import { STATIC_HREF } from '@constants/app';
 
 const MemorialMarker: React.FC<IMemorialMarkerProps> = (
   {
@@ -21,7 +19,6 @@ const MemorialMarker: React.FC<IMemorialMarkerProps> = (
     lat,
     lng,
     icon,
-
   } = marker;
   
   const setMarker = useCallback(() => {
@@ -37,7 +34,7 @@ const MemorialMarker: React.FC<IMemorialMarkerProps> = (
     <>
       <Marker
         position={{ lat, lng }}
-        icon={{ url: icon }}
+        icon={{ url: `${STATIC_HREF}/${icon}` }}
         onClick={setMarker}
       />
       {activeMarker?._id === _id ? (

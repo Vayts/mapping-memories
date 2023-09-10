@@ -13,7 +13,7 @@ const initialState: IMapState = {
     cities: [],
     memorials: [],
   },
-  isLoading: false,
+  isLoading: true,
 };
 export const mapSlice = createSlice({
   name: 'map',

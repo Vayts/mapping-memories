@@ -1,4 +1,4 @@
-import { IMarkerType } from '@src/store/map/types';
+import { IMarkerType } from '@src/types/markers.types';
 
 export interface ITypeControlItem {
   typeMarker: IMarkerType,

@@ -66,8 +66,14 @@ export const ControlTypeBlock = styled.div`
   border-top: 1px solid #d3d3d3;
   border-bottom: 1px solid #d3d3d3;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+
+  @media screen and (min-width: ${RESPONSIVE.mobileL}) {
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 
 export const ResetTypeButton = styled.span`

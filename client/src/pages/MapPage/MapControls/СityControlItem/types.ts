@@ -1,4 +1,4 @@
-import { ICityMarker } from '@src/store/map/types';
+import { ICityMarker } from '@src/types/markers.types';
 
 export interface ICityControlItemProps {
   marker: ICityMarker,
