@@ -224,6 +224,40 @@ export class MapService {
         },
       },
       {
+        $match: {
+          count: { $gte: 1 },
+        },
+      },
+      {
+        $project: {
+          markersInfo: 0,
+        },
+      },
+    ]);
+  }
+
+  getAllTypes() {
+    return this.markerTypeModel.aggregate([
+      {
+        $lookup: {
+          from: 'memorialmarkers',
+          let: { type_id: '$_id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$type_id', '$$type_id'] },
+              },
+            },
+          ],
+          as: 'markersInfo',
+        },
+      },
+      {
+        $addFields: {
+          count: { $size: '$markersInfo' },
+        },
+      },
+      {
         $project: {
           markersInfo: 0,
         },

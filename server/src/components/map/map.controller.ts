@@ -17,85 +17,86 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { FormDataRequest } from 'nestjs-form-data';
 import { CreateMemorialDto } from '../../dto/createMemorial.dto';
 import { CreateMemorialTypeDto } from '../../dto/createMemorialType.dto';
-@Controller('map')
+import { ROUTES } from '../../constants/routes';
+@Controller(ROUTES.MAP.DEFAULT)
 export class MapController {
   constructor(private mapService: MapService) {}
 
-  @Get('/get-info')
+  @Get(ROUTES.MAP.GET_INFO)
   getInfo(@Query() query: Record<string, string>) {
     const filters = query.filters.split('_%_').filter((item) => item);
     return this.mapService.getInfo(filters);
   }
 
-  @Get('/get-city-markers')
+  @Get(ROUTES.MAP.GET_CITY_MARKERS)
   @UseGuards(JwtAuthGuard)
   getMarkers() {
     return this.mapService.getAllCityMarkers();
   }
 
-  @Post('/add-city-marker')
+  @Post(ROUTES.MAP.ADD_CITY_MARKER)
   @UseGuards(JwtAuthGuard)
   @FormDataRequest()
   addCityMarker(@Body() dto: CreateCityMarkerDto) {
     return this.mapService.addCityMarker(dto);
   }
 
-  @Post('/edit-city-marker/:id')
+  @Post(ROUTES.MAP.EDIT_CITY_MARKER)
   @UseGuards(JwtAuthGuard)
   @FormDataRequest()
   editCityMarker(@Body() dto: CreateCityMarkerDto, @Param('id') id) {
     return this.mapService.editCityMarker(dto, id);
   }
 
-  @Delete('/delete-city-marker/:id')
+  @Delete(ROUTES.MAP.DELETE_CITY_MARKER)
   @UseGuards(JwtAuthGuard)
   @FormDataRequest()
   deleteCityMarker(@Param('id') id) {
     return this.mapService.deleteCityMarker(id);
   }
 
-  @Get('/get-memorial-markers')
+  @Get(ROUTES.MAP.GET_ALL_MEMORIALS)
   getAllMemorials() {
     return this.mapService.getAllMemorials();
   }
 
-  @Get('/get-memorial-types')
+  @Get(ROUTES.MAP.GET_ALL_MEMORIAL_TYPES)
   getAllMemorialTypes() {
-    return this.mapService.getTypes();
+    return this.mapService.getAllTypes();
   }
 
-  @Post('/add-memorial-type')
+  @Post(ROUTES.MAP.ADD_MEMORIAL_TYPE)
   @UseGuards(JwtAuthGuard)
   @FormDataRequest()
   addMemorialType(@Body() dto: CreateMemorialTypeDto) {
     return this.mapService.addMemorialType(dto);
   }
 
-  @Post('/edit-memorial-type/:id')
+  @Post(ROUTES.MAP.EDIT_MEMORIAL_TYPE)
   @UseGuards(JwtAuthGuard)
   @FormDataRequest()
   editMemorialType(@Body() dto: CreateMemorialTypeDto, @Param('id') id) {
     return this.mapService.editMemorialType(dto, id);
   }
 
-  @Delete('/delete-memorial-type/:id')
+  @Delete(ROUTES.MAP.DELETE_MEMORIAL_TYPE)
   @UseGuards(JwtAuthGuard)
   deleteMemorialType(@Param('id') id) {
     return this.mapService.deleteMemorialType(id);
   }
 
-  @Get('/get-memorial/:id')
+  @Get(ROUTES.MAP.GET_MEMORIAL)
   getMemorial(@Param('id') id) {
     return this.mapService.getMemorial(id);
   }
 
-  @Delete('/delete-memorial/:id')
+  @Delete(ROUTES.MAP.DELETE_MEMORIAL_MARKER)
   @UseGuards(JwtAuthGuard)
   deleteMemorial(@Param('id') id) {
     return this.mapService.deleteMemorial(id);
   }
 
-  @Post('/add-memorial-marker')
+  @Post(ROUTES.MAP.ADD_MEMORIAL_MARKER)
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'photos' }]))
   addMemorialMarker(
@@ -105,7 +106,7 @@ export class MapController {
     return this.mapService.addMemorial(files, dto);
   }
 
-  @Post('/edit-memorial-marker/:id')
+  @Post(ROUTES.MAP.EDIT_MEMORIAL)
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'photos' }]))
   editMemorialMarker(

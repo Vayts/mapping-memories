@@ -23,6 +23,7 @@ import AdminCityMarkerPage from '@src/pages/AdminCityMarkerPage/AdminCityMarkerP
 import AdminMemorialsPage from '@src/pages/AdminMemorialsPage/AdminMemorialsPage';
 import AddEditMemorialPage from '@src/pages/AddEditMemorialPage/AddEditMemorialPage';
 import AdminMemorialTypesPage from '@src/pages/AdminMemorialTypesPage/AdminMemorialTypesPage';
+import AboutUsPage from '@src/pages/AboutUsPage/AboutUsPage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ export const App: React.FC = () => {
           <Route path='/' element={<Layout/>}>
             <Route path='/' element={<PublicationsPage withFavorite={false}/>}/>
             <Route path='/interviews' element={<PublicationsPage type='interview' withFavorite/>}/>
+            <Route path='/about-us' element={<AboutUsPage/>}/>
             <Route path='/art-projects' element={<PublicationsPage type='artProject' withFavorite/>}/>
             <Route path='/special-projects' element={<PublicationsPage type='specialProject' withFavorite/>}/>
             <Route path='/publication/:id' element={<PublicationPage/>}/>
