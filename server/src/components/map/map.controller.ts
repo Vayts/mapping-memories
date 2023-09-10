@@ -61,7 +61,7 @@ export class MapController {
 
   @Get('/get-memorial-types')
   getAllMemorialTypes() {
-    return this.mapService.getTypes();
+    return this.mapService.getAllTypes();
   }
 
   @Post('/add-memorial-type')
