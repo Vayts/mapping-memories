@@ -65,6 +65,12 @@ export interface IAdminMemorialType {
   }
 }
 
+export interface ICreateMemorialTypeState {
+  name: ILocale,
+  errors: Record<string, any>,
+  touched: Record<string, any>,
+}
+
 export interface ICreateCityMarkerState {
   name: ILocale,
   lat: string,
@@ -108,4 +114,8 @@ export interface ICityMarkerDto {
   name: ILocale,
   lat: number,
   lng: number,
+}
+
+export interface IMemorialTypeDto {
+  name: ILocale,
 }

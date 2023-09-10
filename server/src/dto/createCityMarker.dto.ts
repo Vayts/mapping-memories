@@ -10,9 +10,11 @@ import {
   DynamicLanguagesStringCheck,
 } from '../validators/language.validator';
 import { Transform } from 'class-transformer';
+import { TrimObjectKeys } from '../helper/pipeline.helper';
 
 export class CreateCityMarkerDto {
   @Transform(({ value }) => JSON.parse(value))
+  @TrimObjectKeys()
   @IsNotEmptyObject()
   @DynamicLanguagesStringCheck()
   @DynamicLanguagesMinLength(2)

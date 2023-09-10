@@ -3,10 +3,18 @@ import { SagaIterator } from 'redux-saga';
 import { getNotification } from '@src/notification/notifications';
 import i18n from 'i18next';
 import {
-  addCityMarkerRequest, addMemorialMarkersRequest,
-  deleteCityMarkerRequest, deleteMemorialMarkerRequest,
-  editCityMarkerRequest, editMemorialMarkerRequest, getAllMemorialMarkersRequest, getAllMemorialTypesRequest,
-  getCityMarkersRequest, getCurrentMemorialRequest,
+  addCityMarkerRequest,
+  addMemorialMarkersRequest,
+  addMemorialTypeRequest,
+  deleteCityMarkerRequest,
+  deleteMemorialMarkerRequest, deleteMemorialTypeRequest,
+  editCityMarkerRequest,
+  editMemorialMarkerRequest,
+  editMemorialTypeRequest,
+  getAllMemorialMarkersRequest,
+  getAllMemorialTypesRequest,
+  getCityMarkersRequest,
+  getCurrentMemorialRequest,
 } from '@src/store/adminMarkers/action';
 import {
   adminMarkersRequestEnd,
@@ -23,8 +31,8 @@ import { IAdminCityMarker, IAdminMemorialMarker, IAdminMemorialType, ICityMarker
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ERRORS } from '@constants/errors';
 import { tokenExpired } from '@src/store/user/sagas';
-import { getCreateCityMarkerFormData } from '@helpers/markers.helper';
-import { selectAdminCityMarkers, selectAdminMemorialMarkers } from '@src/store/adminMarkers/selectors';
+import { getCreateCityMarkerFormData, getMemorialTypeFormData } from '@helpers/markers.helper';
+import { selectAdminCityMarkers, selectAdminMemorialMarkers, selectAdminMemorialTypes } from '@src/store/adminMarkers/selectors';
 import { getCreateMemorialFormData } from '@helpers/createMemorial.helper';
 
 const { t } = i18n;
@@ -313,6 +321,92 @@ function* editMemorialMarkerSaga(action: PayloadAction<any>): SagaIterator {
   }
 }
 
+function* addMemorialTypeSaga(action: PayloadAction<any>): SagaIterator {
+  const { values } = action.payload;
+  
+  try {
+    const formData: FormData = getMemorialTypeFormData(values);
+    yield put(adminMarkersRequestStart());
+    const types = yield select(selectAdminMemorialTypes);
+    const user = yield select(selectUser);
+    const axiosPrivate = generateAxiosPrivate(user);
+    const response = yield call(postRequestWithFiles, ROUTES.MAP.ADD_MEMORIAL_TYPE, formData, axiosPrivate);
+    if (response.data[0]) {
+      yield put(setMemorialTypes([...types, {
+        ...response.data[0],
+        index: types.length + 1,
+        count: 0,
+      }]));
+      getNotification(t('addMemorialTypeSuccessText'));
+    }
+  } catch (e: any) {
+    if (e?.response?.data?.message === ERRORS.NOT_AUTHORIZED) {
+      yield call(tokenExpired, () => addMemorialTypeRequest(values));
+    } else {
+      getNotification(t('somethingWentWrong'), 'error');
+    }
+  } finally {
+    yield put(adminMarkersRequestEnd());
+  }
+}
+
+function* editMemorialTypeSaga(action: PayloadAction<any>): SagaIterator {
+  const { values, id } = action.payload;
+  
+  try {
+    const formData: FormData = getMemorialTypeFormData(values);
+    yield put(adminMarkersRequestStart());
+    const types = yield select(selectAdminMemorialTypes);
+    const user = yield select(selectUser);
+    const axiosPrivate = generateAxiosPrivate(user);
+    const response = yield call(postRequestWithFiles, `${ROUTES.MAP.EDIT_MEMORIAL_TYPE}/${id}`, formData, axiosPrivate);
+    if (response.data) {
+      yield put(setMemorialTypes(types.map((item: IAdminMemorialType) => {
+        if (item._id === id) {
+          return {
+            ...item,
+            name: response.data.name,
+          };
+        }
+        return item;
+      })));
+      getNotification(t('successful'));
+    }
+  } catch (e: any) {
+    if (e?.response?.data?.message === ERRORS.NOT_AUTHORIZED) {
+      yield call(tokenExpired, () => editMemorialTypeRequest(values, id));
+    } else {
+      getNotification(t('somethingWentWrong'), 'error');
+    }
+  } finally {
+    yield put(adminMarkersRequestEnd());
+  }
+}
+
+function* deleteMemorialTypeSaga(action: PayloadAction<any>): SagaIterator {
+  const { id } = action.payload;
+  
+  try {
+    yield put(adminMarkersRequestStart());
+    const types = yield select(selectAdminMemorialTypes);
+    const user = yield select(selectUser);
+    const axiosPrivate = generateAxiosPrivate(user);
+    const response = yield call(deleteRequest, `${ROUTES.MAP.DELETE_MEMORIAL_TYPE}/${id}`, axiosPrivate);
+    if (response.data) {
+      yield put(setMemorialTypes(types.filter((item: IAdminMemorialType) => item._id !== id)));
+      getNotification(t('successful'));
+    }
+  } catch (e: any) {
+    if (e?.response?.data?.message === ERRORS.NOT_AUTHORIZED) {
+      yield call(tokenExpired, () => deleteMemorialTypeRequest(id));
+    } else {
+      getNotification(t('somethingWentWrong'), 'error');
+    }
+  } finally {
+    yield put(adminMarkersRequestEnd());
+  }
+}
+
 export function* watchMarkers(): SagaIterator {
   yield takeLatest(addCityMarkerRequest, addCityMarkerSaga);
   yield takeEvery(editCityMarkerRequest, editCityMarkerSaga);
@@ -324,4 +418,7 @@ export function* watchMarkers(): SagaIterator {
   yield takeEvery(deleteMemorialMarkerRequest, deleteMemorialMarkerSaga);
   yield takeLatest(getCurrentMemorialRequest, getCurrentMemorialSaga);
   yield takeLatest(editMemorialMarkerRequest, editMemorialMarkerSaga);
+  yield takeLatest(addMemorialTypeRequest, addMemorialTypeSaga);
+  yield takeLatest(editMemorialTypeRequest, editMemorialTypeSaga);
+  yield takeEvery(deleteMemorialTypeRequest, deleteMemorialTypeSaga);
 }

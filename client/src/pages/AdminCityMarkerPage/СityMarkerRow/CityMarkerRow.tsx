@@ -18,9 +18,7 @@ const CityMarkerRow: React.FC<ICityRowMarkerProps> = ({ marker }) => {
         </p>
       </td>
       <td>
-        <p>
-          {lat}
-        </p>
+        {lat}
       </td>
       <td>
         {lng}

@@ -1,4 +1,5 @@
 import { LANGUAGES } from '../constants/languages';
+import { Transform, TransformationType } from 'class-transformer';
 
 export function generateSearchPipeline(search: string): any[] {
   let searchPipeline = [];
@@ -41,4 +42,25 @@ export function generateSearchPipeline(search: string): any[] {
   }
 
   return searchPipeline;
+}
+
+function trimString(value: string): string {
+  return typeof value === 'string' ? value.trim() : value;
+}
+
+export function TrimObjectKeys() {
+  return Transform(({ value, type }) => {
+    if (type === TransformationType.PLAIN_TO_CLASS) {
+      if (typeof value === 'object') {
+        const trimmedObject: { [key: string]: string } = {};
+        for (const prop in value) {
+          if (Object.prototype.hasOwnProperty.call(value, prop)) {
+            trimmedObject[prop] = trimString(value[prop]);
+          }
+        }
+        return trimmedObject;
+      }
+    }
+    return value;
+  });
 }

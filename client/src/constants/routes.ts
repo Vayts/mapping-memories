@@ -11,6 +11,9 @@ export const ROUTES = {
     DELETE_MEMORIAL_MARKER: '/map/delete-memorial',
     GET_MEMORIAL: '/map/get-memorial',
     EDIT_MEMORIAL: '/map/edit-memorial-marker',
+    ADD_MEMORIAL_TYPE: '/map/add-memorial-type',
+    EDIT_MEMORIAL_TYPE: '/map/edit-memorial-type',
+    DELETE_MEMORIAL_TYPE: '/map/delete-memorial-type',
   },
   PUBLICATION: {
     ADD: '/publication/add',

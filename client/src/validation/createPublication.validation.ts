@@ -17,17 +17,17 @@ const { t } = i18n;
 function validatePublicationTitle(str: string, locale: string): Record<string, string> {
   const errors: Record<string, string> = {};
   
-  if (str === '') {
+  if (str.trim() === '') {
     errors[locale] = t('requiredField');
     return errors;
   }
 
-  if (str.length < PUBLICATION_VALIDATION.LIMIT.TITLE_MIN) {
+  if (str.trim().length < PUBLICATION_VALIDATION.LIMIT.TITLE_MIN) {
     errors[locale] = t('atLeast', { value: PUBLICATION_VALIDATION.LIMIT.TITLE_MIN });
     return errors;
   }
   
-  if (str.length > PUBLICATION_VALIDATION.LIMIT.TITLE_MAX) {
+  if (str.trim().length > PUBLICATION_VALIDATION.LIMIT.TITLE_MAX) {
     errors[locale] = t('lessThan', { value: PUBLICATION_VALIDATION.LIMIT.TITLE_MAX });
     return errors;
   }
@@ -38,17 +38,17 @@ function validatePublicationTitle(str: string, locale: string): Record<string, s
 function validatePublicationDescription(str: string, locale: string): Record<string, string> {
   const errors: Record<string, string> = {};
   
-  if (str === '') {
+  if (str.trim() === '') {
     errors[locale] = t('requiredField');
     return errors;
   }
   
-  if (str.length < PUBLICATION_VALIDATION.LIMIT.DESCRIPTION_MIN) {
+  if (str.trim().length < PUBLICATION_VALIDATION.LIMIT.DESCRIPTION_MIN) {
     errors[locale] = t('atLeast', { value: PUBLICATION_VALIDATION.LIMIT.DESCRIPTION_MIN });
     return errors;
   }
   
-  if (str.length > PUBLICATION_VALIDATION.LIMIT.DESCRIPTION_MAX) {
+  if (str.trim().length > PUBLICATION_VALIDATION.LIMIT.DESCRIPTION_MAX) {
     errors[locale] = t('lessThan', { value: PUBLICATION_VALIDATION.LIMIT.DESCRIPTION_MAX });
     return errors;
   }
@@ -162,7 +162,7 @@ function getPublicationPhotoBlockValidation(content: IPhotoContentBlock['content
 
 function validatePublicationText(str: string, locale: LocaleType) {
   const errors: Record<string, string> = {};
-  if (str.length < 8) {
+  if (str.trim().length < 8) {
     errors[locale] = t('requiredField');
     return errors;
   }
