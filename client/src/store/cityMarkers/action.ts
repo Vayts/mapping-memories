@@ -7,7 +7,6 @@ export const getCityMarkersRequest = createAction(CITY_MARKERS_AT.GET_CITY_MARKE
 export const addCityMarkerRequest = createAction(CITY_MARKERS_AT.ADD_CITY_MARKER, (values: ICityMarkerDto) => {
   return { payload: { values } };
 });
-
 export const editCityMarkerRequest = createAction(CITY_MARKERS_AT.EDIT_CITY_MARKER, (values: ICityMarkerDto, id: string) => {
   return { payload: { values, id } };
 });

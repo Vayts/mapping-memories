@@ -8,10 +8,10 @@ import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import Button from '@src/components/UI/Button/Button';
 import { getCityMarkerValidation } from '@src/validation/createCityMarker.validation';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectIsMarkersLoading } from '@src/store/adminMarkers/selectors';
 import { getCityMarkerDTO } from '@helpers/markers.helper';
 import { IAddCityMarkerModalProps } from '@src/pages/AdminCityMarkerPage/AddCityMarkerModal/types';
 import { addCityMarkerRequest } from '@src/store/cityMarkers/action';
+import { selectIsCityMarkersLoading } from '@src/store/cityMarkers/selectors';
 import * as S from './style';
 
 const initialValue: ICreateCityMarkerState = {
@@ -26,7 +26,7 @@ const initialValue: ICreateCityMarkerState = {
 };
 
 const AddCityMarkerModal: React.FC<IAddCityMarkerModalProps> = ({ onClose }) => {
-  const isLoading = useAppSelector(selectIsMarkersLoading);
+  const isLoading = useAppSelector(selectIsCityMarkersLoading);
   const [values, setValues] = useState<ICreateCityMarkerState>(initialValue);
   const isButtonDisabled = Object.keys(values.touched).length === 0 || Object.values(values.errors).length > 0;
   const dispatch = useAppDispatch();
