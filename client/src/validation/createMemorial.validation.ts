@@ -1,7 +1,7 @@
 import { IAddMemorialState } from '@src/types/markers.types';
 import { LocaleType } from '@src/types/locale.types';
 import i18n from 'i18next';
-import { MEMORIAL_VALIDATION } from '@constants/addMemorial';
+import { MEMORIAL_VALIDATION } from '@constants/createMemorial';
 import { LINK_REGEX, ONLY_NUMBER_REGEX } from '@constants/regex';
 import { CoordsType } from '@src/types/coords.types';
 import { MEMORIAL_ICONS } from '@constants/memorialIcons';

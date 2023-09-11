@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { PublicationController } from './publication.controller';
 import { PublicationService } from './publication.service';
-import { FileService } from '../photo/file.service';
+import { FileService } from '../file/file.service';
 import {
   Publication,
   PublicationSchema,

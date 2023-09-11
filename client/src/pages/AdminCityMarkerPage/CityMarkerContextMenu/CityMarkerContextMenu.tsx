@@ -3,7 +3,7 @@ import Modal from '@src/components/Modal/Modal';
 import DeleteModal from '@src/components/DeleteModal/DeleteModal';
 import { useTranslation } from 'react-i18next';
 import EditCityMarkerModal from '@src/pages/AdminCityMarkerPage/EditCityMarkerModal/EditCityMarkerModal';
-import { deleteCityMarkerRequest } from '@src/store/adminMarkers/action';
+import { deleteCityMarkerRequest } from '@src/store/cityMarkers/action';
 import { ICityMarkerContextMenuProps } from '@src/pages/AdminCityMarkerPage/CityMarkerContextMenu/types';
 import * as S from './style';
 

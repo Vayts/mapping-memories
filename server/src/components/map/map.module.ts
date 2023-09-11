@@ -11,7 +11,7 @@ import { MapController } from './map.controller';
 import { MapService } from './map.service';
 import { JwtModule } from '@nestjs/jwt';
 import { NestjsFormDataModule } from 'nestjs-form-data';
-import { FileService } from '../photo/file.service';
+import { FileService } from '../file/file.service';
 
 @Module({
   imports: [
