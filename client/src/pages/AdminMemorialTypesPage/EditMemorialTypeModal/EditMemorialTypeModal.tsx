@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectIsMarkersLoading } from '@src/store/adminMarkers/selectors';
+import { selectIsMemorialTypesLoading } from '@src/store/memorialTypes/selectors';
 import { ICreateMemorialTypeState } from '@src/types/markers.types';
 import { useTranslation } from 'react-i18next';
 import { getMemorialTypeDTO } from '@helpers/markers.helper';
-import { editMemorialTypeRequest } from '@src/store/adminMarkers/action';
+import { editMemorialTypeRequest } from '@src/store/memorialTypes/action';
 import { getMemorialTypeValidation } from '@src/validation/createMemorialType.validation';
 import Title from '@src/components/UI/Title/Title';
 import Input from '@src/components/UI/Input/Input';
@@ -21,7 +21,7 @@ const EditMemorialTypeModal: React.FC<IEditMemorialTypeProps> = ({ onClose, type
     touched: {},
   });
   const isButtonDisabled = Object.keys(values.touched).length === 0 || Object.values(values.errors).length > 0;
-  const isLoading = useAppSelector(selectIsMarkersLoading);
+  const isLoading = useAppSelector(selectIsMemorialTypesLoading);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Modal from '@src/components/Modal/Modal';
 import DeleteModal from '@src/components/DeleteModal/DeleteModal';
 import { useTranslation } from 'react-i18next';
-import { deleteMemorialTypeRequest } from '@src/store/adminMarkers/action';
 import EditMemorialTypeModal from '@src/pages/AdminMemorialTypesPage/EditMemorialTypeModal/EditMemorialTypeModal';
 import { IMemorialTypeContextMenuProps } from '@src/pages/AdminMemorialTypesPage/MemorialTypeContextMenu/types';
+import { deleteMemorialTypeRequest } from '@src/store/memorialTypes/action';
 import * as S from './style';
 
 const MemorialTypeContextMenu: React.FC<IMemorialTypeContextMenuProps> = ({ type }) => {

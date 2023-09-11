@@ -13,16 +13,8 @@ import FileUploader from '@src/components/UI/FileUploader/FileUploader';
 import { BASE_URL } from '@src/api/axios';
 import { v4 as uuidv4 } from 'uuid';
 import Select from '@src/components/UI/Select/Select';
-import {
-  addMemorialMarkersRequest, editMemorialMarkerRequest,
-  getAllMemorialTypesRequest,
-  getCurrentMemorialRequest,
-} from '@src/store/adminMarkers/action';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { MEMORIAL_VALIDATION } from '@constants/createMemorial';
-import {
-  selectAdminMemorialTypes
-} from '@src/store/adminMarkers/selectors';
 import { getMemorialMarkerValidation } from '@src/validation/createMemorial.validation';
 import { MEMORIAL_ICONS } from '@constants/memorialIcons';
 import { STATIC_HREF } from '@constants/app';
@@ -33,12 +25,19 @@ import { setCurrentMemorial, setIsAddEditCompleted } from '@src/store/memorialMa
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCityMarkersRequest } from '@src/store/cityMarkers/action';
 import { selectAdminCityMarkers } from '@src/store/cityMarkers/selectors';
-import * as S from './style';
 import {
   selectCurrentMemorial,
   selectIsAddEditCompleted,
-  selectIsMemorialMarkersLoading
+  selectIsMemorialMarkersLoading,
 } from '@src/store/memorialMarkers/selectors';
+import { selectAdminMemorialTypes } from '@src/store/memorialTypes/selectors';
+import {
+  addMemorialMarkersRequest,
+  editMemorialMarkerRequest,
+  getCurrentMemorialRequest,
+} from '@src/store/memorialMarkers/action';
+import { getAllMemorialTypesRequest } from '@src/store/memorialTypes/action';
+import * as S from './style';
 
 const initialImage = 'memorialBlue.svg';
 

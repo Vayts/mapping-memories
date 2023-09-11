@@ -12,6 +12,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CityModule } from '../city/city.module';
 import { MemorialModule } from '../memorial/memorial.module';
+import { MemorialTypeModule } from '../memorialType/memorialType.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { MemorialModule } from '../memorial/memorial.module';
     AuthModule,
     CityModule,
     MemorialModule,
+    MemorialTypeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

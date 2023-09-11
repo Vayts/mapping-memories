@@ -16,6 +16,13 @@ export const ROUTES = {
     EDIT: '/edit/:id',
     DELETE: '/delete/:id',
   },
+  MEMORIAL_TYPE: {
+    DEFAULT: '/api/memorial-type',
+    GET_ALL: '/get-all',
+    ADD: '/add',
+    EDIT: '/edit/:id',
+    DELETE: '/delete/:id',
+  },
   CITY: {
     DEFAULT: '/api/city',
     GET: '/get',

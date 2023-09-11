@@ -15,7 +15,7 @@ import {
 import { getNotification } from '@src/notification/notifications';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { getCreateMemorialFormData } from '@helpers/createMemorial.helper';
-import { selectAdminMemorialMarkers, selectMemorialMarkersLoadingItems } from '@src/store/memorialMarkers/selectors';
+import { selectAdminMemorialMarkers } from '@src/store/memorialMarkers/selectors';
 import i18n from 'i18next';
 import {
   adminMemorialMarkersRequestEnd,
@@ -23,7 +23,6 @@ import {
   manageLoadingMemorialIds,
   setCurrentMemorial,
   setIsAddEditCompleted,
-  setMemorialLoadingItem,
   setMemorialMarkers,
 } from '@src/store/memorialMarkers/reducer';
 

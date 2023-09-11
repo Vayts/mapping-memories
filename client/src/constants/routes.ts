@@ -25,7 +25,7 @@ export const ROUTES = {
     DELETE: 'api/city/delete',
   },
   MEMORIAL_TYPE: {
-    GET: 'api/memorial-type/get',
+    GET_ALL: 'api/memorial-type/get-all',
     ADD: 'api/memorial-type/add',
     EDIT: 'api/memorial-type/edit',
     DELETE: 'api/memorial-type/delete',

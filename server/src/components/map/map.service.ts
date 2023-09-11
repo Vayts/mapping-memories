@@ -14,8 +14,6 @@ import {
   MarkerTypeDocument,
 } from '../../schemas/markerType.schema';
 import { FileService } from '../file/file.service';
-import { CreateMemorialDto } from '../../dto/createMemorial.dto';
-import { CreateMemorialTypeDto } from '../../dto/createMemorialType.dto';
 
 @Injectable()
 export class MapService {
@@ -137,56 +135,5 @@ export class MapService {
         },
       },
     ]);
-  }
-
-  getAllTypes() {
-    return this.markerTypeModel.aggregate([
-      {
-        $lookup: {
-          from: 'memorialmarkers',
-          let: { type_id: '$_id' },
-          pipeline: [
-            {
-              $match: {
-                $expr: { $eq: ['$type_id', '$$type_id'] },
-              },
-            },
-          ],
-          as: 'markersInfo',
-        },
-      },
-      {
-        $addFields: {
-          count: { $size: '$markersInfo' },
-        },
-      },
-      {
-        $project: {
-          markersInfo: 0,
-        },
-      },
-    ]);
-  }
-
-  addMemorialType(values: CreateMemorialTypeDto) {
-    return this.markerTypeModel.insertMany([
-      {
-        ...values,
-      },
-    ]);
-  }
-
-  async editMemorialType(values: CreateMemorialTypeDto, id) {
-    const result = await this.markerTypeModel.findByIdAndUpdate(
-      id,
-      { ...values },
-      { new: true },
-    );
-
-    return result;
-  }
-
-  async deleteMemorialType(id) {
-    return this.markerTypeModel.findByIdAndDelete(id);
   }
 }

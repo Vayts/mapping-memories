@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import Modal from '@src/components/Modal/Modal';
 import DeleteModal from '@src/components/DeleteModal/DeleteModal';
 import { useTranslation } from 'react-i18next';
-import { deleteMemorialMarkerRequest } from '@src/store/adminMarkers/action';
 import { IMemorialMarkerContextMenuProps } from '@src/pages/AdminMemorialsPage/MemorialContextMenu/types';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from '@src/components/Loader/Loader';
 import { useAppSelector } from '@src/hooks/hooks';
 import { selectMemorialMarkersLoadingItems } from '@src/store/memorialMarkers/selectors';
+import { deleteMemorialMarkerRequest } from '@src/store/memorialMarkers/action';
 import * as S from './style';
-import { MemorialLoaderWrapper } from './style';
 
 const MemorialContextMenu: React.FC<IMemorialMarkerContextMenuProps> = ({ marker }) => {
   const [isDeleteOpen, setDeleteOpen] = useState(false);
