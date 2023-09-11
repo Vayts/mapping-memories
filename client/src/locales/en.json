@@ -81,6 +81,8 @@
   "optional": "Optional",
   "ourFriends": "Our Friends",
   "ourTeam": "Our Team",
+  "pageNotFoundDownText": "We are sorry. But the page you requested was not found",
+  "pageNotFoundUpperText": "Ooops. Page not found!",
   "password": "Password",
   "pdf": "PDF file",
   "pdfText": "This will be your PDF",

@@ -24,6 +24,7 @@ import AdminMemorialsPage from '@src/pages/AdminMemorialsPage/AdminMemorialsPage
 import AddEditMemorialPage from '@src/pages/AddEditMemorialPage/AddEditMemorialPage';
 import AdminMemorialTypesPage from '@src/pages/AdminMemorialTypesPage/AdminMemorialTypesPage';
 import AboutUsPage from '@src/pages/AboutUsPage/AboutUsPage';
+import PageNotFound from '@src/pages/PageNotFound/PageNotFound';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -64,6 +65,7 @@ export const App: React.FC = () => {
               <Route path='/mapmem-admin/memorials/edit/:id' element={<AddEditMemorialPage isInEditMode/>}/>
             </Route>
           </Route>
+          <Route path='*' element={<PageNotFound/>} />
         </Routes>
         <ToastContainer
           position="bottom-right"

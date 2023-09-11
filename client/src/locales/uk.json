@@ -81,6 +81,8 @@
   "optional": "Необов'язково",
   "ourFriends": "Наші друзі",
   "ourTeam": "Наша команда",
+  "pageNotFoundDownText": "Вибачте, але запитувану вами сторінку не знайдено",
+  "pageNotFoundUpperText": "Уууупс. Сторінку не знайдено! ",
   "password": "Пароль",
   "pdf": "PDF файл",
   "pdfText": "Тут буде ваш PDF",
