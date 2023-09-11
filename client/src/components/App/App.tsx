@@ -30,7 +30,7 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   
   useEffect(() => {
-    const language: LocaleType = localStorage.getItem('mapMemLang') as LocaleType || 'uk';
+    const language: LocaleType = localStorage.getItem('lang') as LocaleType || 'uk';
     dispatch(setLocale(LANGUAGE.includes(language) ? language : 'uk'));
   }, []);
   

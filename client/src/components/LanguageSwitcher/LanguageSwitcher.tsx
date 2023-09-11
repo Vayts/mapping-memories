@@ -12,9 +12,13 @@ const LanguageSwitcher: React.FC = () => {
   const dispatch = useAppDispatch();
   
   const changeLanguageHandler = (value: LocaleType) => {
-    i18n.changeLanguage(value).then(() => {
-      dispatch(setLocale(value));
-    });
+    i18n.changeLanguage(value)
+      .then(() => {
+        dispatch(setLocale(value));
+      })
+      .then(() => {
+        window.localStorage.setItem('lang', value);
+      });
   };
   
   return (
