@@ -16,13 +16,11 @@ import Select from '@src/components/UI/Select/Select';
 import {
   addMemorialMarkersRequest, editMemorialMarkerRequest,
   getAllMemorialTypesRequest,
-  getCityMarkersRequest,
   getCurrentMemorialRequest,
 } from '@src/store/adminMarkers/action';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { MEMORIAL_VALIDATION } from '@constants/addMemorial';
+import { MEMORIAL_VALIDATION } from '@constants/createMemorial';
 import {
-  selectAdminCityMarkers,
   selectAdminMemorialTypes, selectCurrentMemorial, selectIsAddEditCompleted,
   selectIsMarkersLoading,
 } from '@src/store/adminMarkers/selectors';
@@ -34,6 +32,8 @@ import { getNotification } from '@src/notification/notifications';
 import { Loader } from '@src/components/Loader/Loader';
 import { setCurrentMemorial, setIsAddEditCompleted } from '@src/store/adminMarkers/reducer';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getCityMarkersRequest } from '@src/store/cityMarkers/action';
+import { selectAdminCityMarkers } from '@src/store/cityMarkers/selectors';
 import * as S from './style';
 
 const initialImage = 'memorialBlue.svg';
@@ -158,6 +158,10 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
       return {
         ...state,
         photo: null,
+        touched: {
+          ...state.touched,
+          photo: true,
+        },
       };
     });
     setPhotoBlob(null);

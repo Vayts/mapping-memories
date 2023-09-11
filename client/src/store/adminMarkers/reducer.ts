@@ -43,7 +43,6 @@ export const adminMarkersSlice = createSlice({
 export const {
   adminMarkersRequestStart,
   adminMarkersRequestEnd,
-  setCityMarkers,
   setMemorialMarkers,
   setMemorialTypes,
   setCurrentMemorial,

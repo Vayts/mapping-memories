@@ -2,10 +2,6 @@ export const ROUTES = {
   MAP: {
     DEFAULT: '/api/map',
     GET_INFO: '/get-info',
-    GET_CITY_MARKERS: '/get-city-markers',
-    ADD_CITY_MARKER: '/add-city-marker',
-    EDIT_CITY_MARKER: '/edit-city-marker/:id',
-    DELETE_CITY_MARKER: '/delete-city-marker/:id',
     GET_ALL_MEMORIALS: '/get-memorial-markers',
     GET_ALL_MEMORIAL_TYPES: '/get-memorial-types',
     ADD_MEMORIAL_MARKER: '/add-memorial-marker',
@@ -15,6 +11,13 @@ export const ROUTES = {
     ADD_MEMORIAL_TYPE: '/add-memorial-type',
     EDIT_MEMORIAL_TYPE: '/edit-memorial-type/:id',
     DELETE_MEMORIAL_TYPE: '/delete-memorial-type/:id',
+  },
+  CITY: {
+    DEFAULT: '/api/city',
+    GET: '/get',
+    ADD: '/add',
+    EDIT: '/edit/:id',
+    DELETE: '/delete/:id',
   },
   PUBLICATION: {
     DEFAULT: '/api/publication',

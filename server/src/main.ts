@@ -5,13 +5,7 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: [
-      'http://localhost:4200',
-      'http://localhost:4202',
-      'http://localhost:4020',
-      'http://192.168.88.5',
-      'https://boring-design-app.herokuapp.com',
-    ],
+    origin: ['http://localhost:4200'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

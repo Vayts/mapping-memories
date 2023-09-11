@@ -1,20 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { MARKERS_AT } from '@constants/actions';
-import { ICityMarkerDto, ICreateMemorialDto, IMemorialTypeDto } from '@src/types/markers.types';
-
-export const getCityMarkersRequest = createAction(MARKERS_AT.GET_CITY_MARKERS);
-
-export const addCityMarkerRequest = createAction(MARKERS_AT.ADD_CITY_MARKER, (values: ICityMarkerDto) => {
-  return { payload: { values } };
-});
-
-export const editCityMarkerRequest = createAction(MARKERS_AT.EDIT_CITY_MARKER, (values: ICityMarkerDto, id: string) => {
-  return { payload: { values, id } };
-});
-
-export const deleteCityMarkerRequest = createAction(MARKERS_AT.DELETE_CITY_MARKER, (id: string) => {
-  return { payload: { id } };
-});
+import { ICreateMemorialDto, IMemorialTypeDto } from '@src/types/markers.types';
 
 export const getAllMemorialMarkersRequest = createAction(MARKERS_AT.GET_ALL_MEMORIALS);
 

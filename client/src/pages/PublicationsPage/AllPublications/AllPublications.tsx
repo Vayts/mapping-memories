@@ -56,7 +56,7 @@ const AllPublications: React.FC<IAllPublicationsProps> = ({ type }) => {
           disabled={showNotExist}
         />
       </S.PublicationsControls>
-      {isLoading && <Loader size={50}/>}
+      {isLoading && !publications.length && <Loader size={50}/>}
       {showNotExist && !isLoading ? <PublicationsNotExist /> : <PublicationList publications={publications}/>}
     </>
   );

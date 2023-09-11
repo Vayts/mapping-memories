@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { MapService } from './map.service';
 import { JwtAuthGuard } from '../../guards/jwtAuth.guard';
-import { CreateCityMarkerDto } from '../../dto/createCityMarker.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { FormDataRequest } from 'nestjs-form-data';
 import { CreateMemorialDto } from '../../dto/createMemorial.dto';
@@ -26,33 +25,6 @@ export class MapController {
   getInfo(@Query() query: Record<string, string>) {
     const filters = query.filters.split('_%_').filter((item) => item);
     return this.mapService.getInfo(filters);
-  }
-
-  @Get(ROUTES.MAP.GET_CITY_MARKERS)
-  @UseGuards(JwtAuthGuard)
-  getMarkers() {
-    return this.mapService.getAllCityMarkers();
-  }
-
-  @Post(ROUTES.MAP.ADD_CITY_MARKER)
-  @UseGuards(JwtAuthGuard)
-  @FormDataRequest()
-  addCityMarker(@Body() dto: CreateCityMarkerDto) {
-    return this.mapService.addCityMarker(dto);
-  }
-
-  @Post(ROUTES.MAP.EDIT_CITY_MARKER)
-  @UseGuards(JwtAuthGuard)
-  @FormDataRequest()
-  editCityMarker(@Body() dto: CreateCityMarkerDto, @Param('id') id) {
-    return this.mapService.editCityMarker(dto, id);
-  }
-
-  @Delete(ROUTES.MAP.DELETE_CITY_MARKER)
-  @UseGuards(JwtAuthGuard)
-  @FormDataRequest()
-  deleteCityMarker(@Param('id') id) {
-    return this.mapService.deleteCityMarker(id);
   }
 
   @Get(ROUTES.MAP.GET_ALL_MEMORIALS)

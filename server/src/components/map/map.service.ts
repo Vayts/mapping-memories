@@ -13,15 +13,14 @@ import {
   MarkerType,
   MarkerTypeDocument,
 } from '../../schemas/markerType.schema';
-import { CreateCityMarkerDto } from '../../dto/createCityMarker.dto';
-import { FileService } from '../photo/file.service';
+import { FileService } from '../file/file.service';
 import { CreateMemorialDto } from '../../dto/createMemorial.dto';
 import { CreateMemorialTypeDto } from '../../dto/createMemorialType.dto';
 
 @Injectable()
 export class MapService {
   constructor(
-    private photoService: FileService,
+    private fileService: FileService,
     @InjectModel(MemorialMarker.name)
     private memorialMarkerModel: Model<MemorialMarkerDocument>,
     @InjectModel(CityMarker.name)
@@ -104,72 +103,6 @@ export class MapService {
         },
       },
     ]);
-  }
-
-  getAllCityMarkers() {
-    return this.cityMarkerModel.aggregate([
-      {
-        $lookup: {
-          from: 'memorialmarkers',
-          let: { cityId: '$_id' },
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  $and: [{ $eq: ['$city_id', '$$cityId'] }, true],
-                },
-              },
-            },
-          ],
-          as: 'memorials',
-        },
-      },
-      {
-        $project: {
-          name: 1,
-          icon: 1,
-          lat: 1,
-          lng: 1,
-          count: {
-            $cond: {
-              if: { $gt: [{ $size: '$memorials' }, 0] },
-              then: { $size: '$memorials' },
-              else: 0,
-            },
-          },
-        },
-      },
-    ]);
-  }
-
-  addCityMarker(values: CreateCityMarkerDto) {
-    return this.cityMarkerModel.insertMany([
-      {
-        ...values,
-        icon: 'city.svg',
-      },
-    ]);
-  }
-
-  async editCityMarker(values: CreateCityMarkerDto, id) {
-    const result = await this.cityMarkerModel.findByIdAndUpdate(
-      id,
-      {
-        ...values,
-      },
-      { new: true },
-    );
-
-    return result;
-  }
-
-  async deleteCityMarker(id: string) {
-    await this.memorialMarkerModel.updateMany(
-      { city_id: id },
-      { city_id: null },
-    );
-
-    return this.cityMarkerModel.findByIdAndDelete(id);
   }
 
   getAllMemorials() {
@@ -267,7 +200,7 @@ export class MapService {
 
   async addMemorial(files, dto) {
     if (files?.photos) {
-      await this.photoService.multiplyUpload(files.photos, 'photo');
+      await this.fileService.multiplyUpload(files.photos, 'photo');
     }
 
     return this.memorialMarkerModel.insertMany([
@@ -281,7 +214,7 @@ export class MapService {
 
   async editMemorialMarker(files, values: CreateMemorialDto, id) {
     if (files?.photos) {
-      await this.photoService.multiplyUpload(files.photos, 'photo');
+      await this.fileService.multiplyUpload(files.photos, 'photo');
     }
 
     const result = await this.memorialMarkerModel.findByIdAndUpdate(

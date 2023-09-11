@@ -10,8 +10,8 @@ import { getCityMarkerValidation } from '@src/validation/createCityMarker.valida
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { selectIsMarkersLoading } from '@src/store/adminMarkers/selectors';
 import { getCityMarkerDTO } from '@helpers/markers.helper';
-import { addCityMarkerRequest } from '@src/store/adminMarkers/action';
 import { IAddCityMarkerModalProps } from '@src/pages/AdminCityMarkerPage/AddCityMarkerModal/types';
+import { addCityMarkerRequest } from '@src/store/cityMarkers/action';
 import * as S from './style';
 
 const initialValue: ICreateCityMarkerState = {

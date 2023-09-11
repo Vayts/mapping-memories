@@ -8,10 +8,10 @@ import Button from '@src/components/UI/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { getCityMarkerValidation } from '@src/validation/createCityMarker.validation';
 import { getCityMarkerDTO } from '@helpers/markers.helper';
-import { editCityMarkerRequest } from '@src/store/adminMarkers/action';
 import { IEditCityMarkerModalProps } from '@src/pages/AdminCityMarkerPage/EditCityMarkerModal/types';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { selectIsAppLoading } from '@src/store/app/selectors';
+import { editCityMarkerRequest } from '@src/store/cityMarkers/action';
 import * as S from './style';
 
 const EditCityMarkerModal: React.FC<IEditCityMarkerModalProps> = ({ marker, onClose }) => {

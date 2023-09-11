@@ -24,6 +24,7 @@ const center = {
 const defaultOptions = {
   styles: defaultTheme,
   mapTypeControl: true,
+  clickableIcons: false,
   fullscreenControl: false,
   mapTypeControlOptions: {
     position: 7.0,

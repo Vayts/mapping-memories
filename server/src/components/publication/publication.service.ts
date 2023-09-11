@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { FileService } from '../photo/file.service';
+import { FileService } from '../file/file.service';
 import {
   Publication,
   PublicationDocument,
@@ -11,14 +11,14 @@ import { generateSearchPipeline } from '../../helper/pipeline.helper';
 @Injectable()
 export class PublicationService {
   constructor(
-    private photoService: FileService,
+    private fileService: FileService,
     @InjectModel(Publication.name)
     private publicationModel: Model<PublicationDocument>,
   ) {}
 
   async addPublication(files, dto) {
-    await this.photoService.multiplyUpload(files.photos, 'photo');
-    await this.photoService.multiplyUpload(files.files, 'files');
+    await this.fileService.multiplyUpload(files.photos, 'photo');
+    await this.fileService.multiplyUpload(files.files, 'files');
 
     return this.publicationModel.insertMany([
       {
@@ -31,8 +31,8 @@ export class PublicationService {
 
   async editPublication(id, files, dto) {
     try {
-      await this.photoService.multiplyUpload(files.photos, 'photo');
-      await this.photoService.multiplyUpload(files.files, 'files');
+      await this.fileService.multiplyUpload(files.photos, 'photo');
+      await this.fileService.multiplyUpload(files.files, 'files');
 
       const result = await this.publicationModel.findByIdAndUpdate(
         id,
