@@ -105,36 +105,6 @@ export class MapService {
     ]);
   }
 
-  getAllMemorials() {
-    return this.memorialMarkerModel.aggregate([
-      {
-        $lookup: {
-          from: 'citymarkers',
-          localField: 'city_id',
-          foreignField: '_id',
-          as: 'cityInfo',
-        },
-      },
-      {
-        $addFields: {
-          city: { $arrayElemAt: ['$cityInfo.name.uk', 0] },
-        },
-      },
-      {
-        $project: {
-          cityInfo: 0,
-        },
-      },
-    ]);
-  }
-  getMemorial(id) {
-    return this.memorialMarkerModel.findById(id);
-  }
-
-  deleteMemorial(id) {
-    return this.memorialMarkerModel.findByIdAndDelete(id);
-  }
-
   getTypes() {
     return this.markerTypeModel.aggregate([
       {
@@ -196,42 +166,6 @@ export class MapService {
         },
       },
     ]);
-  }
-
-  async addMemorial(files, dto) {
-    if (files?.photos) {
-      await this.fileService.multiplyUpload(files.photos, 'photo');
-    }
-
-    return this.memorialMarkerModel.insertMany([
-      {
-        ...dto,
-        city_id: dto.city_id ? new mongoose.Types.ObjectId(dto.city_id) : null,
-        type_id: dto.type_id ? new mongoose.Types.ObjectId(dto.type_id) : null,
-      },
-    ]);
-  }
-
-  async editMemorialMarker(files, values: CreateMemorialDto, id) {
-    if (files?.photos) {
-      await this.fileService.multiplyUpload(files.photos, 'photo');
-    }
-
-    const result = await this.memorialMarkerModel.findByIdAndUpdate(
-      id,
-      {
-        ...values,
-        city_id: values.city_id
-          ? new mongoose.Types.ObjectId(values.city_id)
-          : null,
-        type_id: values.type_id
-          ? new mongoose.Types.ObjectId(values.type_id)
-          : null,
-      },
-      { new: true },
-    );
-
-    return result;
   }
 
   addMemorialType(values: CreateMemorialTypeDto) {

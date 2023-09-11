@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectAdminMemorialMarkers } from '@src/store/adminMarkers/selectors';
+import { selectAdminMemorialMarkers } from '@src/store/memorialMarkers/selectors';
 import MemorialRow from '@src/pages/AdminMemorialsPage/MemorialRow/MemorialRow';
 import * as S from './style';
 

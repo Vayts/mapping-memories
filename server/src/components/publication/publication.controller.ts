@@ -63,7 +63,6 @@ export class PublicationController {
 
   @Get(ROUTES.PUBLICATION.SET_FAVORITE)
   setFavoritePublication(@Param('id') id) {
-    console.log('ebalo');
     return this.publicationService.setFavoritePublication(id);
   }
 

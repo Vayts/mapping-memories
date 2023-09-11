@@ -21,8 +21,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { MEMORIAL_VALIDATION } from '@constants/createMemorial';
 import {
-  selectAdminMemorialTypes, selectCurrentMemorial, selectIsAddEditCompleted,
-  selectIsMarkersLoading,
+  selectAdminMemorialTypes
 } from '@src/store/adminMarkers/selectors';
 import { getMemorialMarkerValidation } from '@src/validation/createMemorial.validation';
 import { MEMORIAL_ICONS } from '@constants/memorialIcons';
@@ -30,11 +29,16 @@ import { STATIC_HREF } from '@constants/app';
 import { getCreateMemorialDTO } from '@helpers/createMemorial.helper';
 import { getNotification } from '@src/notification/notifications';
 import { Loader } from '@src/components/Loader/Loader';
-import { setCurrentMemorial, setIsAddEditCompleted } from '@src/store/adminMarkers/reducer';
+import { setCurrentMemorial, setIsAddEditCompleted } from '@src/store/memorialMarkers/reducer';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCityMarkersRequest } from '@src/store/cityMarkers/action';
 import { selectAdminCityMarkers } from '@src/store/cityMarkers/selectors';
 import * as S from './style';
+import {
+  selectCurrentMemorial,
+  selectIsAddEditCompleted,
+  selectIsMemorialMarkersLoading
+} from '@src/store/memorialMarkers/selectors';
 
 const initialImage = 'memorialBlue.svg';
 
@@ -84,7 +88,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
   const [photoBlob, setPhotoBlob] = useState<null | string>(null);
   const currentMemorial = useAppSelector(selectCurrentMemorial);
   const isAddEditCompleted = useAppSelector(selectIsAddEditCompleted);
-  const isLoading = useAppSelector(selectIsMarkersLoading);
+  const isLoading = useAppSelector(selectIsMemorialMarkersLoading);
   const memorialTypes = useAppSelector(selectAdminMemorialTypes);
   const cities = useAppSelector(selectAdminCityMarkers);
   const navigate = useNavigate();

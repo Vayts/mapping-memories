@@ -13,6 +13,7 @@ import { userSlice } from '@src/store/user/reducer';
 import { loginSlice } from '@src/store/login/reducer';
 import { adminMarkersSlice } from '@src/store/adminMarkers/reducer';
 import { cityMarkersSlice } from '@src/store/cityMarkers/reducer';
+import { memorialMarkersSlice } from '@src/store/memorialMarkers/reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -29,6 +30,7 @@ export const store = configureStore({
     adminPublications: adminPublicationsSlice.reducer,
     adminMarkers: adminMarkersSlice.reducer,
     cityMarkers: cityMarkersSlice.reducer,
+    memorialMarkers: memorialMarkersSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {

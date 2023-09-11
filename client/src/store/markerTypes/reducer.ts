@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAdminMarkersState } from '@src/store/adminMarkers/types';
-import { IAdminCityMarker, IAdminMemorialMarker, IAdminMemorialType, IMemorialMarker } from '@src/types/markers.types';
+import { IAdminMarkersState } from '@src/store/markerTypes/types';
+import { IAdminCityMarker, IAdminMemorialMarker, IAdminMemorialType } from '@src/types/markers.types';
 
 const initialState: IAdminMarkersState = {
   isLoading: true,
@@ -12,7 +12,7 @@ const initialState: IAdminMarkersState = {
   isAddEditCompleted: false,
 };
 
-export const adminMarkersSlice = createSlice({
+export const memorialTypesSlice = createSlice({
   name: 'adminMarkers',
   initialState,
   reducers: {
@@ -31,12 +31,6 @@ export const adminMarkersSlice = createSlice({
     setMemorialTypes: (state, action: PayloadAction<IAdminMemorialType[]>) => {
       state.memorialTypes = action.payload;
     },
-    setIsAddEditCompleted: (state, action: PayloadAction<boolean>) => {
-      state.isAddEditCompleted = action.payload;
-    },
-    setCurrentMemorial: (state, action: PayloadAction<IMemorialMarker | null>) => {
-      state.currentMemorial = action.payload;
-    },
   },
 });
 
@@ -45,6 +39,4 @@ export const {
   adminMarkersRequestEnd,
   setMemorialMarkers,
   setMemorialTypes,
-  setCurrentMemorial,
-  setIsAddEditCompleted,
-} = adminMarkersSlice.actions;
+} = memorialTypesSlice.actions;

@@ -4,7 +4,7 @@ import Button from '@src/components/UI/Button/Button';
 import { useTranslation } from 'react-i18next';
 import AdminsMemorialsTable from '@src/pages/AdminMemorialsPage/AdminMemorialsTable/AdminMemorialsTable';
 import { useAppDispatch } from '@src/hooks/hooks';
-import { getAllMemorialMarkersRequest } from '@src/store/adminMarkers/action';
+import { getAllMemorialMarkersRequest } from '@src/store/memorialMarkers/action';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 

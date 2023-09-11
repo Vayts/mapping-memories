@@ -11,6 +11,7 @@ import { MapModule } from '../map/map.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CityModule } from '../city/city.module';
+import { MemorialModule } from '../memorial/memorial.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { CityModule } from '../city/city.module';
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../../..', 'client/dist'),
-      exclude: ['/api*'],
+      exclude: ['/api/(.*)'],
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
@@ -30,6 +31,7 @@ import { CityModule } from '../city/city.module';
     PublicationModule,
     AuthModule,
     CityModule,
+    MemorialModule,
   ],
   controllers: [AppController],
   providers: [AppService],
