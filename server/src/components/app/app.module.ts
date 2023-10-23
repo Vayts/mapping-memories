@@ -18,24 +18,18 @@ import { CoreModule } from '../core/core.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../../..', 'client/public/img'),
+      rootPath: join(__dirname, '../../..', 'client/public/img'),
       exclude: ['/api/(.*)'],
       serveRoot: '/img',
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../../..', 'client/dist'),
+      rootPath: join(__dirname, '../../..', 'client/dist'),
       exclude: ['/api/(.*)'],
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
-    MapModule,
     FileModule,
     PublicationModule,
-    AuthModule,
-    CityModule,
-    MemorialModule,
-    MemorialTypeModule,
-    CoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
