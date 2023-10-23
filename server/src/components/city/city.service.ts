@@ -56,13 +56,15 @@ export class CityService {
     ]);
   }
 
-  addCityMarker(values: CreateCityMarkerDto) {
-    return this.cityMarkerModel.insertMany([
+  async addCityMarker(values: CreateCityMarkerDto) {
+    const result = await this.cityMarkerModel.insertMany([
       {
         ...values,
         icon: 'city.svg',
       },
     ]);
+
+    return result[0];
   }
 
   async editCityMarker(values: CreateCityMarkerDto, id) {

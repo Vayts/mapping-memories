@@ -8,9 +8,10 @@ import { useTranslation } from 'react-i18next';
 import { getCityMarkerValidation } from '@src/validation/createCityMarker.validation';
 import { getCityMarkerDTO } from '@helpers/markers.helper';
 import { IEditCityMarkerModalProps } from '@src/pages/AdminCityMarkerPage/EditCityMarkerModal/types';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { editCityMarkerRequest } from '@src/store/cityMarkers/action';
-import { selectIsCityMarkersLoading } from '@src/store/cityMarkers/selectors';
+import { useAppDispatch } from '@src/hooks/hooks';
+import { editCity } from '@src/store/cities/thunks';
+import { errorManager } from '@helpers/error.helper';
+import { setLoadingCities } from '@src/store/cities/slice';
 import * as S from './style';
 
 const EditCityMarkerModal: React.FC<IEditCityMarkerModalProps> = ({ marker, onClose }) => {
@@ -21,7 +22,7 @@ const EditCityMarkerModal: React.FC<IEditCityMarkerModalProps> = ({ marker, onCl
     lng: marker.lng.toString(),
     touched: {},
   });
-  const isLoading = useAppSelector(selectIsCityMarkersLoading);
+  const [isLoading, setLoading] = useState(false);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   
@@ -59,10 +60,20 @@ const EditCityMarkerModal: React.FC<IEditCityMarkerModalProps> = ({ marker, onCl
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (Object.values(values.errors).length === 0) {
-      const data = getCityMarkerDTO(values);
+      const dto = getCityMarkerDTO(values);
       
-      dispatch(editCityMarkerRequest(data, marker._id as string));
-      onClose();
+      setLoading(true);
+      dispatch(setLoadingCities(marker._id));
+      dispatch(editCity({ values: dto, id: marker._id }))
+        .unwrap()
+        .then(() => {
+          onClose();
+        })
+        .catch(errorManager)
+        .finally(() => {
+          setLoading(false);
+          dispatch(setLoadingCities(marker._id));
+        });
     }
   };
   

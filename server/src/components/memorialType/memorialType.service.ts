@@ -49,22 +49,22 @@ export class MemorialTypeService {
     ]);
   }
 
-  addMemorialType(values: CreateMemorialTypeDto) {
-    return this.markerTypeModel.insertMany([
+  async addMemorialType(values: CreateMemorialTypeDto) {
+    const result = await this.markerTypeModel.insertMany([
       {
         ...values,
       },
     ]);
+
+    return result[0];
   }
 
   async editMemorialType(values: CreateMemorialTypeDto, id) {
-    const result = await this.markerTypeModel.findByIdAndUpdate(
+    return this.markerTypeModel.findByIdAndUpdate(
       id,
       { ...values },
       { new: true },
     );
-
-    return result;
   }
 
   async deleteMemorialType(id) {

@@ -1,5 +1,5 @@
-import { PublicationType } from '@src/types/publication.types';
+import { PublicationEnum } from '@src/types/publication.types';
 
 export interface IAllPublicationsProps {
-  type?: PublicationType | '',
+  type: PublicationEnum | '',
 }

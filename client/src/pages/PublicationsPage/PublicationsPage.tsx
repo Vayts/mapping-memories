@@ -1,25 +1,21 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import {
-  selectPublications,
-  selectPublicationsLoading,
-  selectPublicationsHasMoreContent, selectFavoritePublications, selectIsInSearch,
-} from '@src/store/publications/selectors';
-import {
-  addPublicationsLimit, resetPublicationsLimit,
-  resetPublicationsState, setCurrentPublicationType, setInSearch, setPublicationsSearchValue,
-} from '@src/store/publications/reducer';
 import Button from '@src/components/UI/Button/Button';
 import { IPublicationsPageProps } from '@src/pages/PublicationsPage/types';
 import { PUBLICATIONS_PAGE_CONFIG } from '@constants/publication';
-import { selectIsAppLoading } from '@src/store/app/selectors';
+import { selectIsAppLoading } from '@src/store/core/selectors';
 import { Loader } from '@src/components/Loader/Loader';
 import PublicationNothingFound from '@src/pages/PublicationsPage/PublicationNothingFound/PublicationNothingFound';
 import AllPublications from '@src/pages/PublicationsPage/AllPublications/AllPublications';
 import FavoritePublications from '@src/pages/PublicationsPage/FavoritePublications/FavoritePublications';
-import { getAllPublicationRequest } from '@src/store/publications/actions';
 import { STATIC_HREF } from '@constants/app';
+import { resetPublications, resetPublicationsLimit } from '@src/store/publications/slice';
+import { selectAllPublications } from '@src/store/publications/selectors';
+import { getPublications, getPublicationsByTitle, loadMorePublications } from '@src/store/publications/thunks';
+import { Search } from '@src/components/UI/Search/Search';
+import PublicationsNotExist from '@src/pages/PublicationsPage/PublicationsNotExist/PublicationsNotExist';
+import { PublicationEnum } from '@src/types/publication.types';
 import * as S from './style';
 
 const PublicationsPage: React.FC<IPublicationsPageProps> = ({
@@ -27,66 +23,105 @@ const PublicationsPage: React.FC<IPublicationsPageProps> = ({
   withFavorite,
 }) => {
   const isAppLoading = useAppSelector(selectIsAppLoading);
-  const isInSearch = useAppSelector(selectIsInSearch);
-  const isLoading = useAppSelector(selectPublicationsLoading);
-  const hasMoreContent = useAppSelector(selectPublicationsHasMoreContent);
-  const publications = useAppSelector(selectPublications);
-  const favoriteInterviews = useAppSelector(selectFavoritePublications);
+  const isLoading = useAppSelector((state) => state.publications.isLoading);
+  const publications = useAppSelector(selectAllPublications);
+  const favoritePublications = useAppSelector((state) => state.publications.favoritePublications);
+  const [search, setSearch] = useState('');
+  const [isInSearch, setIsInSearch] = useState(false);
   const showNothingFound = !publications.length && isInSearch && !isLoading;
-  const showMore = Boolean(publications.length) && isInSearch && !isLoading;
-  const showFavorite = withFavorite && Boolean(favoriteInterviews.length);
+  const showNotExist = !publications.length && !isInSearch && !isLoading;
+  const hasMoreContent = useAppSelector((state) => state.publications.hasMoreContent);
+  const loadMoreLoading = useAppSelector((state) => state.publications.loadMoreLoading);
+  const showAll = Boolean(!publications.length) && isInSearch && !isLoading;
+  const showFavorite = withFavorite && Boolean(favoritePublications.length) && !isInSearch;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   
   useEffect(() => {
-    dispatch(setCurrentPublicationType(type || ''));
+    dispatch(getPublications({ type: type || '', search: '' }));
     
     return () => {
-      dispatch(resetPublicationsState());
+      dispatch(resetPublications());
     };
   }, [type]);
   
-  const addLimitHandler = useCallback(() => {
-    dispatch(addPublicationsLimit());
-  }, []);
-  
   const showAllPublicationHandler = useCallback(() => {
     dispatch(resetPublicationsLimit());
-    dispatch(setPublicationsSearchValue(''));
-    dispatch(setInSearch(false));
-    dispatch(getAllPublicationRequest());
+    dispatch(getPublications({ type: type || '', search: '' }));
+    setSearch('');
+    setIsInSearch(false);
   }, []);
+  
+  const onSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  }, []);
+  
+  const addLimitHandler = () => {
+    dispatch(loadMorePublications({ type: type || '', search }));
+  };
+  
+  const onSearchClickHandler = useCallback(() => {
+    if (!search && !publications.length) {
+      setIsInSearch(false);
+      dispatch(getPublicationsByTitle({ type: type || '', search }));
+    } else if (!search && isInSearch) {
+      setIsInSearch(false);
+      dispatch(getPublicationsByTitle({ type: type || '', search }));
+    } else if (search) {
+      setIsInSearch(true);
+      dispatch(getPublicationsByTitle({ type: type || '', search }));
+    }
+  }, [search]);
   
   return (
     <S.PublicationsPageWrapper>
       <S.PublicationsBanner>
-        <img src={`${STATIC_HREF}/banner_${type || 'main'}.svg`} alt="interview banner" />
+        <img src={`${STATIC_HREF}/banner_${type || 'main'}.svg`} alt={`${type} banner`} />
       </S.PublicationsBanner>
-      {isAppLoading ? <Loader size={50} /> : (
+      <Search
+        height='40px'
+        id='interviewSearch'
+        name='searchAll'
+        value={search}
+        margin='0 0 20px'
+        onChange={onSearchChange}
+        onSearch={onSearchClickHandler}
+        isLoading={isLoading}
+        disabled={showNotExist}
+      />
+      
+      {isAppLoading || isLoading ? (
+        <S.PublicationsLoaderWrapper>
+          <Loader size={50}/>
+        </S.PublicationsLoaderWrapper>
+      ) : (
         <>
           {showFavorite && <FavoritePublications type={type} />}
           
           <S.PublicationsListWrapper>
-            <AllPublications type={type} />
+            
+            {Boolean(publications.length) && !isLoading && <AllPublications type={type || ''}/>}
             
             {showNothingFound && (
               <PublicationNothingFound
-                text={t(PUBLICATIONS_PAGE_CONFIG[type || 'default'].nothing)}
+                text={t(PUBLICATIONS_PAGE_CONFIG[(type as PublicationEnum) || 'default'].nothing)}
               />
             )}
+            
+            {showNotExist && !isLoading && <PublicationsNotExist />}
             
             <S.PublicationsMoreButton>
               {hasMoreContent && (
                 <Button
-                  disabled={isLoading}
-                  isLoading={isLoading}
+                  disabled={loadMoreLoading}
+                  isLoading={loadMoreLoading}
                   text={t('seeMore')}
                   clickHandler={addLimitHandler}
                   height="50px"
                   width="250px"
                 />
               )}
-              {showMore && (
+              {showAll && (
                 <Button
                   disabled={isLoading}
                   isLoading={isLoading}
@@ -97,7 +132,7 @@ const PublicationsPage: React.FC<IPublicationsPageProps> = ({
                 />
               )}
             </S.PublicationsMoreButton>
-          
+            
           </S.PublicationsListWrapper>
         </>
       )}

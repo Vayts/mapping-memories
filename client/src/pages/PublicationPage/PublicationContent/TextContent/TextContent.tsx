@@ -2,7 +2,7 @@ import React from 'react';
 import SanitizeHTML from '@src/components/SanitizeHTML/SanitizeHTML';
 import { ITextContentProps } from '@src/pages/PublicationPage/PublicationContent/TextContent/types';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectLocale } from '@src/store/app/selectors';
+import { selectLocale } from '@src/store/core/selectors';
 import * as S from './style';
 
 const TextContent: React.FC<ITextContentProps> = ({ contentBlock }) => {

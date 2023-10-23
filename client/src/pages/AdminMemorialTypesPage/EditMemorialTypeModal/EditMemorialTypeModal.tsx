@@ -1,10 +1,8 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectIsMemorialTypesLoading } from '@src/store/memorialTypes/selectors';
+import { useAppDispatch } from '@src/hooks/hooks';
 import { ICreateMemorialTypeState } from '@src/types/markers.types';
 import { useTranslation } from 'react-i18next';
 import { getMemorialTypeDTO } from '@helpers/markers.helper';
-import { editMemorialTypeRequest } from '@src/store/memorialTypes/action';
 import { getMemorialTypeValidation } from '@src/validation/createMemorialType.validation';
 import Title from '@src/components/UI/Title/Title';
 import Input from '@src/components/UI/Input/Input';
@@ -12,6 +10,8 @@ import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import { MEMORIAL_TYPE_VALIDATION } from '@constants/createMeorialType';
 import Button from '@src/components/UI/Button/Button';
 import { IEditMemorialTypeProps } from '@src/pages/AdminMemorialTypesPage/EditMemorialTypeModal/types';
+import { editMemorialType } from '@src/store/memorialTypes/thunks';
+import { errorManager } from '@helpers/error.helper';
 import * as S from './style';
 
 const EditMemorialTypeModal: React.FC<IEditMemorialTypeProps> = ({ onClose, type }) => {
@@ -21,7 +21,7 @@ const EditMemorialTypeModal: React.FC<IEditMemorialTypeProps> = ({ onClose, type
     touched: {},
   });
   const isButtonDisabled = Object.keys(values.touched).length === 0 || Object.values(values.errors).length > 0;
-  const isLoading = useAppSelector(selectIsMemorialTypesLoading);
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   
@@ -59,10 +59,17 @@ const EditMemorialTypeModal: React.FC<IEditMemorialTypeProps> = ({ onClose, type
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (Object.values(values.errors).length === 0) {
-      const data = getMemorialTypeDTO(values);
-      
-      onClose();
-      dispatch(editMemorialTypeRequest(data, type._id));
+      const dto = getMemorialTypeDTO(values);
+      setLoading(true);
+      dispatch(editMemorialType({ values: dto, id: type._id }))
+        .unwrap()
+        .then(() => {
+          onClose();
+        })
+        .catch(errorManager)
+        .finally(() => {
+          setLoading(false);
+        });
     }
   };
   

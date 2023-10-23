@@ -1,5 +1,5 @@
-import { IAdminCityMarker } from '@src/types/markers.types';
+import { ICityMarker } from '@src/types/markers.types';
 
 export interface ICityMarkerContextMenuProps {
-  marker: IAdminCityMarker,
+  marker: ICityMarker,
 }

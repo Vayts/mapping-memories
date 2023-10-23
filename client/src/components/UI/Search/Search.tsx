@@ -28,7 +28,7 @@ export const Search: React.FC<ISearch> = (props) => {
     if (!isLoading && !disabled) {
       onSearch(value);
     }
-  }, [isLoading]);
+  }, [isLoading, value]);
   
   const onKeyDownHandler = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -67,7 +67,6 @@ export const Search: React.FC<ISearch> = (props) => {
       </S.SearchElem>
       <S.SearchButton
         height={height}
-        width={width}
         onClick={onSearchHandler}
         disabled={disabled}
       >

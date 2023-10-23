@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { PUBLICATION_TYPE_COLOR } from '@constants/publication';
@@ -42,4 +42,4 @@ const PublicationRow: React.FC<IPublicationRowProps> = ({ publication }) => {
   );
 };
 
-export default PublicationRow;
+export default memo(PublicationRow);

@@ -6,13 +6,12 @@ import { IMemorialMarkerContextMenuProps } from '@src/pages/AdminMemorialsPage/M
 import { useNavigate } from 'react-router-dom';
 import { Loader } from '@src/components/Loader/Loader';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectMemorialMarkersLoadingItems } from '@src/store/memorialMarkers/selectors';
-import { deleteMemorialMarkerRequest } from '@src/store/memorialMarkers/action';
+import { deleteMemorial } from '@src/store/memorials/thunks';
 import * as S from './style';
 
 const MemorialContextMenu: React.FC<IMemorialMarkerContextMenuProps> = ({ marker }) => {
   const [isDeleteOpen, setDeleteOpen] = useState(false);
-  const isLoadingMemorials = useAppSelector(selectMemorialMarkersLoadingItems);
+  const isLoadingMemorials = useAppSelector((state) => state.memorials.loadingItems);
   const navigate = useNavigate();
   const { _id } = marker;
   const { t } = useTranslation();
@@ -31,7 +30,7 @@ const MemorialContextMenu: React.FC<IMemorialMarkerContextMenuProps> = ({ marker
         <Modal outsideHandler={toggleDeleteModalHandler}>
           <DeleteModal
             itemId={_id as string}
-            action={deleteMemorialMarkerRequest}
+            action={deleteMemorial}
             text={t('deleteMemorialMarkerText')}
             onClose={toggleDeleteModalHandler}
           />

@@ -2,26 +2,17 @@ import React, { memo, useCallback } from 'react';
 import Checkbox from '@src/components/UI/Checkbox/Checkbox';
 import { ITypeControlItem } from '@src/pages/MapPage/MapControls/TypeControlItem/types';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectLocale } from '@src/store/app/selectors';
-import { selectActiveTypes } from '@src/store/map/selectors';
-import { setActiveTypes } from '@src/store/map/reducer';
+import { selectLocale } from '@src/store/core/selectors';
+import { setActiveTypes } from '@src/store/map/slice';
 import * as S from './style';
 
 const TypeControlItem: React.FC<ITypeControlItem> = ({ typeMarker }) => {
   const locale = useAppSelector(selectLocale);
-  const types = useAppSelector(selectActiveTypes);
+  const types = useAppSelector((state) => state.map.activeTypes);
   const dispatch = useAppDispatch();
   
   const clickHandler = useCallback(() => {
-    let newState;
-    
-    if (types.includes(typeMarker._id)) {
-      newState = types.filter((item) => item !== typeMarker._id);
-    } else {
-      newState = [...types, typeMarker._id];
-    }
-    
-    dispatch(setActiveTypes(newState));
+    dispatch(setActiveTypes(typeMarker._id));
   }, [types]);
   
   return (

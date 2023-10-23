@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectAdminMemorialMarkers } from '@src/store/memorialMarkers/selectors';
 import MemorialRow from '@src/pages/AdminMemorialsPage/MemorialRow/MemorialRow';
+import { selectAllMemorials } from '@src/store/memorials/selectors';
 import * as S from './style';
 
 const AdminsMemorialsTable: React.FC = () => {
-  const memorials = useAppSelector(selectAdminMemorialMarkers);
+  const memorials = useAppSelector(selectAllMemorials);
   
   return (
     <S.MemorialsTableWrapper>

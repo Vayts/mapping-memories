@@ -1,6 +1,6 @@
-import { IAdminCityMarker } from '@src/types/markers.types';
+import { ICityMarker } from '@src/types/markers.types';
 
 export interface IEditCityMarkerModalProps {
-  marker: IAdminCityMarker,
+  marker: ICityMarker,
   onClose: () => void,
 }

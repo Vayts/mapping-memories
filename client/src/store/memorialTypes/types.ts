@@ -1,7 +1,4 @@
-import { IAdminMemorialType } from '@src/types/markers.types';
-
-export interface IAdminMarkerTypesState {
+export interface IMemorialTypesState {
   isLoading: boolean,
-  data: IAdminMemorialType[],
   loadingItems: string[],
 }

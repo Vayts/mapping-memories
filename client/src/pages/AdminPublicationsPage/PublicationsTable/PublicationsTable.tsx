@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectAdminPublications } from '@src/store/adminPublications/selectors';
 import PublicationRow from '@src/pages/AdminPublicationsPage/PublicationRow/PublicationRow';
+import { selectAllPublications } from '@src/store/publications/selectors';
 import * as S from './style';
 
 const PublicationsTable: React.FC = () => {
-  const publications = useAppSelector(selectAdminPublications);
+  const publications = useAppSelector(selectAllPublications);
   
   return (
     <S.PublicationsTableWrapper>

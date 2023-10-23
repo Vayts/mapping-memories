@@ -1,7 +1,7 @@
 import React from 'react';
 import { IInfoWindowContentProps } from '@src/pages/MapPage/MemorialMarker/InfoWindowContent/types';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectLocale } from '@src/store/app/selectors';
+import { selectLocale } from '@src/store/core/selectors';
 import { useTranslation } from 'react-i18next';
 import { BASE_URL } from '@src/api/axios';
 import * as S from './style';
