@@ -22,6 +22,8 @@ export interface IMemorialMarker {
   },
   link: string | null,
   icon: string,
+  index?: number,
+  city?: string,
 }
 
 export interface IAdminMemorialMarker extends IMemorialMarker {
@@ -40,6 +42,7 @@ export interface ICityMarker {
     uk: string,
     en: string,
   }
+  index?: number,
 }
 
 export interface IAdminCityMarker extends ICityMarker{
@@ -55,8 +58,8 @@ export interface IMarkerType {
   }
 }
 
-export interface IAdminMemorialType {
-  index: number,
+export interface IMemorialType {
+  index?: number,
   _id: string,
   count: number,
   name: {

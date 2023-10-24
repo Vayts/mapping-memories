@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PublicationCard from '@src/components/PublicationCard/PublicationCard';
-import { IPublication } from '@src/types/publication.types';
 import { IPublicationList } from '@src/components/PublicationList/types';
+import { IPublication } from '@src/types/publication.types';
 import * as S from './style';
 
 const PublicationList: React.FC<IPublicationList> = ({ publications }) => {

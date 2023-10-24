@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Modal from '@src/components/Modal/Modal';
 import DeleteModal from '@src/components/DeleteModal/DeleteModal';
 import { useTranslation } from 'react-i18next';
-import { deleteMemorialTypeRequest } from '@src/store/adminMarkers/action';
 import EditMemorialTypeModal from '@src/pages/AdminMemorialTypesPage/EditMemorialTypeModal/EditMemorialTypeModal';
 import { IMemorialTypeContextMenuProps } from '@src/pages/AdminMemorialTypesPage/MemorialTypeContextMenu/types';
+import { deleteMemorialType } from '@src/store/memorialTypes/thunks';
 import * as S from './style';
 
 const MemorialTypeContextMenu: React.FC<IMemorialTypeContextMenuProps> = ({ type }) => {
@@ -26,7 +26,7 @@ const MemorialTypeContextMenu: React.FC<IMemorialTypeContextMenuProps> = ({ type
         <Modal outsideHandler={toggleDeleteModalHandler}>
           <DeleteModal
             itemId={type._id as string}
-            action={deleteMemorialTypeRequest}
+            action={deleteMemorialType}
             text={t('deleteMemorialTypeText')}
             onClose={toggleDeleteModalHandler}
           />

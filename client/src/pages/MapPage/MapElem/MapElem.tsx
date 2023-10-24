@@ -1,13 +1,13 @@
 import * as process from 'process';
 import React, { memo, ReactNode, useCallback, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectActiveTypes, selectCityMarkers, selectMapIsLoading, selectMemorialMarkers } from '@src/store/map/selectors';
+import { useAppSelector } from '@src/hooks/hooks';
 import MemorialMarker from '@src/pages/MapPage/MemorialMarker/MemorialMarker';
 import CityMarker from '@src/pages/MapPage/CityMarker/CityMarker';
 import { MAP } from '@constants/map';
 import { Loader } from '@src/components/Loader/Loader';
-import { mapRequestEnd } from '@src/store/map/reducer';
+import { selectAllCities } from '@src/store/cities/selectors';
+import { selectAllMemorials } from '@src/store/memorials/selectors';
 import { IMapProps } from './types';
 import { defaultTheme } from './MapTheme';
 
@@ -24,6 +24,7 @@ const center = {
 const defaultOptions = {
   styles: defaultTheme,
   mapTypeControl: true,
+  clickableIcons: false,
   fullscreenControl: false,
   mapTypeControlOptions: {
     position: 7.0,
@@ -44,15 +45,14 @@ const MapElem: React.FC<IMapProps> = (props) => {
     setActiveMarker,
     setBounds,
   } = props;
-  const memorialMarkers = useAppSelector(selectMemorialMarkers);
-  const isLoading = useAppSelector(selectMapIsLoading);
-  const cityMarkers = useAppSelector(selectCityMarkers);
-  const activeTypes = useAppSelector(selectActiveTypes);
+  const memorialMarkers = useAppSelector(selectAllMemorials);
+  const isLoading = useAppSelector((state) => state.map.isLoading);
+  const cityMarkers = useAppSelector(selectAllCities);
+  const activeTypes = useAppSelector((state) => state.map.activeTypes);
   const { isLoaded } = useJsApiLoader({
     id: '845a623558bc42e2',
     googleMapsApiKey: process.env.GOOGLE_MAP_API as string,
   });
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (map) {
@@ -85,7 +85,6 @@ const MapElem: React.FC<IMapProps> = (props) => {
     mapRef.current = map;
     mapRef.current.addListener('zoom_changed', handleZoomChanged);
     setMap(map);
-    dispatch(mapRequestEnd());
   }, []);
   
   const onUnmount = React.useCallback((map: google.maps.Map) => {

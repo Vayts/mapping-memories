@@ -5,9 +5,10 @@ export const PublicationListWrapper = styled.div`
   margin: 0 0 20px;
   padding: 0 0 10px;
   display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 23px;
 
   @media screen and (min-width: ${RESPONSIVE.desktop}) {
-    gap: 30px;
     grid-template-columns: repeat(3, 1fr);
   }
 `;

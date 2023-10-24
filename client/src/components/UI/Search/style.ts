@@ -36,7 +36,7 @@ export const SearchInput = styled.input<ISearchStyle>`
 
 export const SearchButton = styled.div<ISearchStyle>`
   height: ${({ height = '35px' }) => height};
-  width: 40px;
+  width: ${({ height = '35px' }) => height};
   background-color: ${({ theme, disabled }) => (disabled ? theme.accentColorHover : theme.accentColor)};
   display: flex;
   justify-content: center;

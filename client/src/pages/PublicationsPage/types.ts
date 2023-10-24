@@ -1,6 +1,6 @@
-import { PublicationType } from '@src/types/publication.types';
+import { PublicationEnum } from '@src/types/publication.types';
 
 export interface IPublicationsPageProps {
-  type?: PublicationType | '',
+  type?: PublicationEnum | '',
   withFavorite?: boolean,
 }

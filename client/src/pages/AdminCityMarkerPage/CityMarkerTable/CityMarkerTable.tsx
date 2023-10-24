@@ -1,12 +1,12 @@
 import React from 'react';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectAdminCityMarkers } from '@src/store/adminMarkers/selectors';
 import CityMarkerRow from '@src/pages/AdminCityMarkerPage/СityMarkerRow/CityMarkerRow';
+import { selectAllCities } from '@src/store/cities/selectors';
 import * as S from './style';
 
 const CityMarkerTable: React.FC = () => {
-  const cityMarkers = useAppSelector(selectAdminCityMarkers);
-  
+  const cityMarkers = useAppSelector(selectAllCities);
+
   return (
     <S.CityMarkerTableWrapper>
       <S.CityMarkerTableHead>

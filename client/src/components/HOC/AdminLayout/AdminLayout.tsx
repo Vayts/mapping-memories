@@ -1,17 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectIsAppLoading } from '@src/store/app/selectors';
-import { appFirstLoadAction } from '@src/store/app/action';
+import { useAppDispatch } from '@src/hooks/hooks';
 import { Loader } from '@src/components/Loader/Loader';
+import { adminFirstLoad } from '@src/store/core/thunks';
+import { errorManager } from '@helpers/error.helper';
 import * as S from './style';
 
 const AdminLayout: React.FC = () => {
-  const isLoading = useAppSelector(selectIsAppLoading);
+  const [isLoading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
   
   useEffect(() => {
-    dispatch(appFirstLoadAction());
+    setLoading(true);
+    dispatch(adminFirstLoad())
+      .unwrap()
+      .catch(errorManager)
+      .then(() => {
+        setLoading(false);
+      });
   }, []);
   
   return (

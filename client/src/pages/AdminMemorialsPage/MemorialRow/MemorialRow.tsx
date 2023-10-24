@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Menu } from '@src/components/UI/Menu/Menu';
 import { IMemorialRowProps } from '@src/pages/AdminMemorialsPage/MemorialRow/types';
 import { STATIC_HREF } from '@constants/app';
@@ -10,7 +9,7 @@ const MemorialRow: React.FC<IMemorialRowProps> = ({ memorial }) => {
   const { index, title, description, icon, lat, lng, city } = memorial;
   
   return (
-    <S.PublicationRowWrapper>
+    <S.MemorialRowWrapper>
       <td>
         {index}
       </td>
@@ -28,10 +27,10 @@ const MemorialRow: React.FC<IMemorialRowProps> = ({ memorial }) => {
         </p>
       </td>
       <td>
-        {lat.toFixed(10)}
+        {lat.toString().slice(0, 10)}
       </td>
       <td>
-        {lng.toFixed(10)}
+        {lng.toString().slice(0, 10)}
       </td>
       <td>
         {city}
@@ -41,7 +40,7 @@ const MemorialRow: React.FC<IMemorialRowProps> = ({ memorial }) => {
           <MemorialContextMenu marker={memorial}/>
         </Menu>
       </td>
-    </S.PublicationRowWrapper>
+    </S.MemorialRowWrapper>
   );
 };
 

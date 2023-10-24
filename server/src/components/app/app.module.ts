@@ -6,10 +6,14 @@ import { AuthModule } from '../auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { PublicationModule } from '../publication/publication.module';
-import { FileModule } from '../photo/file.module';
+import { FileModule } from '../file/file.module';
 import { MapModule } from '../map/map.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CityModule } from '../city/city.module';
+import { MemorialModule } from '../memorial/memorial.module';
+import { MemorialTypeModule } from '../memorialType/memorialType.module';
+import { CoreModule } from '../core/core.module';
 
 @Module({
   imports: [
@@ -18,12 +22,20 @@ import { join } from 'path';
       exclude: ['/api/(.*)'],
       serveRoot: '/img',
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../..', 'client/dist'),
+      exclude: ['/api/(.*)'],
+    }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
-    MapModule,
+    CoreModule,
     FileModule,
-    PublicationModule,
     AuthModule,
+    MapModule,
+    CityModule,
+    MemorialModule,
+    MemorialTypeModule,
+    PublicationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

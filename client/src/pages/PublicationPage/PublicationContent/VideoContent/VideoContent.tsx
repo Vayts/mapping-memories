@@ -2,7 +2,7 @@ import React from 'react';
 import { IVideoContentProps } from '@src/pages/PublicationPage/PublicationContent/VideoContent/types';
 import Description from '@src/components/UI/Description/Description';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectLocale } from '@src/store/app/selectors';
+import { selectLocale } from '@src/store/core/selectors';
 import * as S from './style';
 
 const VideoContent: React.FC<IVideoContentProps> = ({ contentBlock }) => {

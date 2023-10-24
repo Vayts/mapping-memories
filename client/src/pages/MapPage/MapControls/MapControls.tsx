@@ -1,11 +1,5 @@
 import React, { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import {
-  selectActiveTypes,
-  selectCityMarkers,
-  selectMemorialMarkers,
-  selectTypeMarkers,
-} from '@src/store/map/selectors';
 import MarkerControlItem from '@src/pages/MapPage/MapControls/MarkerControlItem/MarkerControlItem';
 import { IMapControlsProps } from '@src/pages/MapPage/MapControls/types';
 import { MAP } from '@constants/map';
@@ -14,19 +8,22 @@ import { getExtendBounds } from '@helpers/map.helper';
 import TypeControlItem from '@src/pages/MapPage/MapControls/TypeControlItem/TypeControlItem';
 import MapNothingFound from '@src/pages/MapPage/MapControls/MapNothingFound/MapNothingFound';
 import { useTranslation } from 'react-i18next';
-import { setActiveTypes } from '@src/store/map/reducer';
 import Title from '@src/components/UI/Title/Title';
 import { IMemorialMarker } from '@src/types/markers.types';
+import { selectAllMemorials } from '@src/store/memorials/selectors';
+import { selectAllCities } from '@src/store/cities/selectors';
+import { selectAllMemorialTypes } from '@src/store/memorialTypes/selectors';
+import { resetActiveTypes } from '@src/store/map/slice';
 import * as S from './style';
 
 const MapControls: React.FC<IMapControlsProps> = ({ setCoords, setActiveMarker, zoom, bounds }) => {
   const [sortedMarkers, setSortedMarkers] = useState<IMemorialMarker[]>([]);
   const [controlType, setControlType] = useState<string>(MAP.CITY);
   const [isMenuOpen, setMenuOpen] = useState<boolean>(true);
-  const markers = useAppSelector(selectMemorialMarkers);
-  const cities = useAppSelector(selectCityMarkers);
-  const markerTypes = useAppSelector(selectTypeMarkers);
-  const activeTypes = useAppSelector(selectActiveTypes);
+  const markers = useAppSelector(selectAllMemorials);
+  const cities = useAppSelector(selectAllCities);
+  const markerTypes = useAppSelector(selectAllMemorialTypes);
+  const activeTypes = useAppSelector((state) => state.map.activeTypes);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   
@@ -63,7 +60,7 @@ const MapControls: React.FC<IMapControlsProps> = ({ setCoords, setActiveMarker, 
   }, []);
   
   const resetFilters = useCallback(() => {
-    dispatch(setActiveTypes([]));
+    dispatch(resetActiveTypes());
   }, []);
   
   const generateContent = useCallback(() => {
@@ -102,9 +99,10 @@ const MapControls: React.FC<IMapControlsProps> = ({ setCoords, setActiveMarker, 
   
   return (
     <S.ControlsWrapper isOpen={isMenuOpen}>
-      <S.ToggleButton onClick={toggleMenu}>
+      <S.ToggleButton onTouchEnd={toggleMenu} onClick={toggleMenu}>
         <span className={isMenuOpen ? 'icon-cross' : 'icon-right'}/>
       </S.ToggleButton>
+      
       <S.CategoriesBlock>
         <S.ControlTypeBlock>
           <Title

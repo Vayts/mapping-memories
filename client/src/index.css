@@ -43,59 +43,59 @@ code {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-success:before {
-  content: "\e910";
-}
-
-.icon-more:before {
-  content: "\e90f";
-}
-
-.icon-memorial-type:before {
+.icon-refresh:before {
   content: "\e900";
 }
-.icon-markers:before {
+.icon-memorial-type:before {
   content: "\e901";
 }
-.icon-publications:before {
+.icon-markers:before {
   content: "\e902";
 }
-.icon-cities:before {
+.icon-publications:before {
   content: "\e903";
 }
-
-.icon-nothing-exist:before {
-  content: "\e90a";
-}
-.icon-search:before {
-  content: "\e909";
-}
-.icon-link:before {
-  content: "\e908";
-}
-.icon-burger:before {
-  content: "\e907";
-}
-.icon-left:before {
+.icon-cities:before {
   content: "\e904";
 }
-.icon-down:before {
+.icon-left:before {
   content: "\e905";
 }
-.icon-up:before {
+.icon-down:before {
   content: "\e906";
 }
-.icon-cross:before {
+.icon-up:before {
+  content: "\e907";
+}
+.icon-burger:before {
+  content: "\e908";
+}
+.icon-link:before {
+  content: "\e909";
+}
+.icon-search:before {
+  content: "\e90a";
+}
+.icon-nothing-exist:before {
   content: "\e90b";
 }
-.icon-right:before {
+.icon-cross:before {
   content: "\e90c";
 }
-.icon-done:before {
+.icon-right:before {
   content: "\e90d";
 }
-.icon-nothing-found:before {
+.icon-done:before {
   content: "\e90e";
+}
+.icon-nothing-found:before {
+  content: "\e90f";
+}
+.icon-more:before {
+  content: "\e910";
+}
+.icon-success:before {
+  content: "\e911";
 }
 
 *::-webkit-scrollbar {

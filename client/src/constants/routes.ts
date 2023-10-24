@@ -1,19 +1,25 @@
 export const ROUTES = {
   MAP: {
     GET_INFO: 'api/map/get-info',
-    GET_CITY_MARKERS: 'api/map/get-city-markers',
-    ADD_CITY_MARKER: 'api/map/add-city-marker',
-    EDIT_CITY_MARKER: 'api/map/edit-city-marker',
-    DELETE_CITY_MARKER: 'api/map/delete-city-marker',
-    GET_ALL_MEMORIALS: 'api/map/get-memorial-markers',
-    GET_ALL_MEMORIAL_TYPES: 'api/map/get-memorial-types',
-    ADD_MEMORIAL_MARKER: 'api/map/add-memorial-marker',
-    DELETE_MEMORIAL_MARKER: 'api/map/delete-memorial',
-    GET_MEMORIAL: 'api/map/get-memorial',
-    EDIT_MEMORIAL: 'api/map/edit-memorial-marker',
-    ADD_MEMORIAL_TYPE: 'api/map/add-memorial-type',
-    EDIT_MEMORIAL_TYPE: 'api/map/edit-memorial-type',
-    DELETE_MEMORIAL_TYPE: 'api/map/delete-memorial-type',
+  },
+  MEMORIAL: {
+    GET_ALL: 'api/memorial/get-all',
+    ADD: 'api/memorial/add',
+    GET: 'api/memorial/get',
+    EDIT: 'api/memorial/edit',
+    DELETE: 'api/memorial/delete',
+  },
+  CITY: {
+    GET: 'api/city/get',
+    ADD: 'api/city/add',
+    EDIT: 'api/city/edit',
+    DELETE: 'api/city/delete',
+  },
+  MEMORIAL_TYPE: {
+    GET_ALL: 'api/memorial-type/get-all',
+    ADD: 'api/memorial-type/add',
+    EDIT: 'api/memorial-type/edit',
+    DELETE: 'api/memorial-type/delete',
   },
   PUBLICATION: {
     ADD: 'api/publication/add',
@@ -26,9 +32,50 @@ export const ROUTES = {
     SET_FAVORITE: 'api/publication/set-favorite',
     REMOVE_FAVORITE: 'api/publication/remove-favorite',
   },
-  AUTH: {
-    LOGIN: 'api/auth/login',
-    LOGOUT: 'api/auth/logout',
-    REFRESH: 'api/auth/refresh',
-  },
+  
+};
+
+export const MEMORIAL_ROUTES = {
+  GET_ALL: '/memorial/get-all',
+  ADD: '/memorial/add',
+  GET: '/memorial/get',
+  EDIT: '/memorial/edit',
+  DELETE: '/memorial/delete',
+};
+
+export const CITY_ROUTES = {
+  GET: '/city/get',
+  ADD: '/city/add',
+  EDIT: '/city/edit',
+  DELETE: '/city/delete',
+};
+
+export const MEMORIAL_TYPE_ROUTES = {
+  GET: '/memorial-type/get-all',
+  ADD: '/memorial-type/add',
+  EDIT: '/memorial-type/edit',
+  DELETE: '/memorial-type/delete',
+};
+
+export const AUTH_ROUTES = {
+  LOGIN: '/auth/login',
+  LOGOUT: '/auth/logout',
+  REFRESH: '/auth/refresh',
+};
+
+export const MAP_ROUTES = {
+  GET_INFO: '/map/get-info',
+};
+
+export const PUBLICATION_ROUTES = {
+  ADD: '/publication/add',
+  GET: '/publication/get',
+  LOAD_MORE: '/publication/load-more',
+  GET_ALL: '/publication/get-all',
+  GET_FAVORITE: '/publication/get-favorite',
+  GET_ADDITIONAL: '/publication/get-additional',
+  DELETE: '/publication/delete',
+  EDIT: '/publication/edit',
+  SET_FAVORITE: '/publication/set-favorite',
+  REMOVE_FAVORITE: '/publication/remove-favorite',
 };

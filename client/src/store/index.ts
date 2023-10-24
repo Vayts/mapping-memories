@@ -1,46 +1,36 @@
 import { configureStore } from '@reduxjs/toolkit';
-import createSagaMiddleware from 'redux-saga';
-import { mapSlice } from '@src/store/map/reducer';
-import { appSlice } from '@src/store/app/reducer';
-import rootSaga from '@src/store/sagas';
-import { MARKERS_AT, PUBLICATION_AT } from '@constants/actions';
-import { createPublicationSlice } from '@src/store/createPublication/reducer';
-import { publicationsSlice } from '@src/store/publications/reducer';
-import { currentPublicationSlice } from '@src/store/publication/reducer';
-import { editPublicationSlice } from '@src/store/editPublication/reducer';
-import { adminPublicationsSlice } from '@src/store/adminPublications/reducer';
-import { userSlice } from '@src/store/user/reducer';
-import { loginSlice } from '@src/store/login/reducer';
-import { adminMarkersSlice } from '@src/store/adminMarkers/reducer';
-
-const sagaMiddleware = createSagaMiddleware();
+import { MEMORIAL_AT, PUBLICATION_AT } from '@constants/actions';
+import { authSlice } from '@src/store/auth/slice';
+import { publicationsSlice } from '@src/store/publications/slice';
+import { coreSlice } from '@src/store/core/slice';
+import { currentPublicationSlice } from '@src/store/currentPublication/slice';
+import { memorialsSlice } from '@src/store/memorials/slice';
+import { citiesSlice } from '@src/store/cities/slice';
+import { memorialTypesSlice } from '@src/store/memorialTypes/slice';
+import { mapSlice } from '@src/store/map/slice';
 
 export const store = configureStore({
   reducer: {
-    app: appSlice.reducer,
-    map: mapSlice.reducer,
-    user: userSlice.reducer,
-    login: loginSlice.reducer,
-    publications: publicationsSlice.reducer,
-    createPublication: createPublicationSlice.reducer,
-    currentPublication: currentPublicationSlice.reducer,
-    editPublication: editPublicationSlice.reducer,
-    adminPublications: adminPublicationsSlice.reducer,
-    adminMarkers: adminMarkersSlice.reducer,
+    [mapSlice.name]: mapSlice.reducer,
+    [memorialsSlice.name]: memorialsSlice.reducer,
+    [citiesSlice.name]: citiesSlice.reducer,
+    [coreSlice.name]: coreSlice.reducer,
+    [currentPublicationSlice.name]: currentPublicationSlice.reducer,
+    [publicationsSlice.name]: publicationsSlice.reducer,
+    [memorialTypesSlice.name]: memorialTypesSlice.reducer,
+    [authSlice.name]: authSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [
         PUBLICATION_AT.ADD_PUBLICATION,
         PUBLICATION_AT.EDIT_PUBLICATION,
-        MARKERS_AT.ADD_MEMORIAL_MARKER,
-        MARKERS_AT.EDIT_MEMORIAL,
+        MEMORIAL_AT.ADD_MEMORIAL_MARKER,
+        MEMORIAL_AT.EDIT_MEMORIAL,
       ],
     },
-  }).concat(sagaMiddleware),
+  }),
 });
-
-sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;

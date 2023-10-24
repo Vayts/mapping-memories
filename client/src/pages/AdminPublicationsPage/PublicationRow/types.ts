@@ -1,7 +1,7 @@
-import { IAdminPublication } from '@src/types/publication.types';
+import { IPublication } from '@src/types/publication.types';
 
 export interface IPublicationRowProps {
-  publication: IAdminPublication,
+  publication: IPublication,
 }
 
 export interface IPublicationRowStyle {
