@@ -58,7 +58,7 @@ export const publicationsSlice = createSlice({
       .addCase(getPublications.fulfilled, (state, { payload }) => {
         publicationsAdapter.setAll(state, payload.publications ?? {});
         state.hasMoreContent = payload.hasMoreContent;
-        state.favoritePublications = payload.favoritePublications;
+        state.favoritePublications = payload.favoritePublications ?? [];
         state.isLoading = false;
       })
       .addCase(getAllPublications.pending, (state) => {
