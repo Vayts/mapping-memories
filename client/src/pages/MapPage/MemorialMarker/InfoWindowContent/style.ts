@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export const Content = styled.div`
   min-width: 150px;
   max-width: 500px;
-  overflow: hidden;
+  //overflow-y: scroll;
 `;
 
 export const PhotoWrapper = styled.div`
@@ -39,9 +39,9 @@ export const InfoTitle = styled.h2`
 
 export const InfoData = styled.div`
   padding: 20px 15px 10px;
-  overflow-y: auto;
+  //overflow-y: scroll;
   max-height: 250px;
-  overflow-x: hidden;
+  //overflow-x: hidden;
 `;
 
 export const InfoDescription = styled.p`

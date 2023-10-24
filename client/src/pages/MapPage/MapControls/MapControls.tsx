@@ -99,7 +99,7 @@ const MapControls: React.FC<IMapControlsProps> = ({ setCoords, setActiveMarker, 
   
   return (
     <S.ControlsWrapper isOpen={isMenuOpen}>
-      <S.ToggleButton onTouchEnd={toggleMenu} onClick={toggleMenu}>
+      <S.ToggleButton onClick={toggleMenu}>
         <span className={isMenuOpen ? 'icon-cross' : 'icon-right'}/>
       </S.ToggleButton>
       
