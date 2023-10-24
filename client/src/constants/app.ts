@@ -1,3 +1,3 @@
-import { BASE_URL } from '@src/api/axios';
+import { BASE_URI } from '@src/api/api';
 
-export const STATIC_HREF = `${BASE_URL}/img`;
+export const STATIC_HREF = `${BASE_URI}/img`;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IPdfContentProps } from '@src/pages/PublicationPage/PublicationContent/PdfContent/types';
-import { BASE_URL } from '@src/api/axios';
+import { BASE_URL } from '@src/api/api';
 import * as S from './style';
 
 const PdfContent: React.FC<IPdfContentProps> = ({ contentBlock }) => {

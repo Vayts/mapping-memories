@@ -10,7 +10,6 @@ import { IAddEditMemorialPageProps } from '@src/pages/AddEditMemorialPage/types'
 import Button from '@src/components/UI/Button/Button';
 import EditPhoto from '@src/components/EditPhoto/EditPhoto';
 import FileUploader from '@src/components/UI/FileUploader/FileUploader';
-import { BASE_URL } from '@src/api/axios';
 import { v4 as uuidv4 } from 'uuid';
 import Select from '@src/components/UI/Select/Select';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
@@ -27,6 +26,7 @@ import { errorManager } from '@helpers/error.helper';
 import { resetCurrentMemorial, setLoadingMemorial } from '@src/store/memorials/slice';
 import { selectAllCities } from '@src/store/cities/selectors';
 import { selectAllMemorialTypes } from '@src/store/memorialTypes/selectors';
+import { BASE_URL } from '@src/api/api';
 import * as S from './style';
 
 const initialImage = 'memorialBlue.svg';

@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { BASE_URL } from '@src/api/axios';
 import { format } from 'date-fns';
 import Title from '@src/components/UI/Title/Title';
 import Description from '@src/components/UI/Description/Description';
@@ -9,6 +8,7 @@ import Tag from '@src/components/Tag/Tag';
 import { PUBLICATION_TYPE_COLOR } from '@constants/publication';
 import { useTranslation } from 'react-i18next';
 import { LOCALE_MAP } from '@constants/locale';
+import { BASE_URL } from '@src/api/api';
 import * as S from './style';
 import { IPublicationCardProps } from './types';
 

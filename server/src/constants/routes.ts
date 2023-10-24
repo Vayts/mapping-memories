@@ -49,4 +49,9 @@ export const ROUTES = {
     LOGOUT: '/logout',
     REFRESH: '/refresh',
   },
+  FILE: {
+    DEFAULT: '/api/file',
+    DOWNLOAD_PDF: '/download/pdf',
+    DOWNLOAD_PHOTO: '/download/photo',
+  },
 };

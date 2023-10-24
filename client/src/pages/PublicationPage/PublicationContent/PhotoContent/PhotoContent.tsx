@@ -1,10 +1,10 @@
 import React from 'react';
 import { IPhotoContentProps } from '@src/pages/PublicationPage/PublicationContent/PhotoContent/types';
-import { BASE_URL } from '@src/api/axios';
 import { useAppSelector } from '@src/hooks/hooks';
 import { selectLocale } from '@src/store/core/selectors';
 import Description from '@src/components/UI/Description/Description';
 import { useTranslation } from 'react-i18next';
+import { BASE_URL } from '@src/api/api';
 import * as S from './style';
 import { PhotoTextWrapper } from './style';
 

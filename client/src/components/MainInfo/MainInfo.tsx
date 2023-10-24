@@ -13,8 +13,8 @@ import { PUBLICATION_TYPES, PUBLICATION_VALIDATION } from '@constants/createPubl
 import { getPublicationMainValidation } from '@src/validation/createPublication.validation';
 import { v4 as uuidv4 } from 'uuid';
 import Select from '@src/components/UI/Select/Select';
-import { PublicationType } from '@src/types/publication.types';
-import { BASE_URL } from '@src/api/axios';
+import { PublicationEnum } from '@src/types/publication.types';
+import { BASE_URL } from '@src/api/api';
 import * as S from './style';
 import { IMainInfoBlockProps } from './types';
 
@@ -111,7 +111,7 @@ const MainInfo: React.FC<IMainInfoBlockProps> = ({ setMainInfo, mainInfo, isInEd
           ...prev.touched,
           type: true,
         },
-        type: value as PublicationType,
+        type: value as PublicationEnum,
       };
       
       return {

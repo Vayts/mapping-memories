@@ -3,7 +3,8 @@ import axios from 'axios';
 import { refresh } from '@src/store/auth/thunks';
 import { AUTH_ERRORS } from '@constants/errors';
 
-export const BASE_URL = 'http://localhost:4020/api';
+export const BASE_URI = 'http://localhost:4020';
+export const BASE_URL = `${BASE_URI}/api`;
 
 export const axiosPublic = axios.create({
   baseURL: BASE_URL,
