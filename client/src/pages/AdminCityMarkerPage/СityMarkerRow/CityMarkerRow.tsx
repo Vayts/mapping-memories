@@ -18,10 +18,10 @@ const CityMarkerRow: React.FC<ICityRowMarkerProps> = ({ marker }) => {
         </p>
       </td>
       <td>
-        {lat}
+        {lat.toString().slice(0, 10)}
       </td>
       <td>
-        {lng}
+        {lng.toString().slice(0, 10)}
       </td>
       <td>
         {count}

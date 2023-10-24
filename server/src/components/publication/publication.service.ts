@@ -7,6 +7,7 @@ import {
   PublicationDocument,
 } from '../../schemas/publication.schema';
 import { generateSearchPipeline } from '../../helper/pipeline.helper';
+import { PUBLICATIONS_PER_PAGE } from '../../constants/core.constants';
 
 @Injectable()
 export class PublicationService {
@@ -34,7 +35,7 @@ export class PublicationService {
       await this.fileService.multiplyUpload(files.photos, 'photo');
       await this.fileService.multiplyUpload(files.files, 'files');
 
-      const result = await this.publicationModel.findByIdAndUpdate(
+      return this.publicationModel.findByIdAndUpdate(
         id,
         {
           ...dto.mainInfo,
@@ -42,8 +43,6 @@ export class PublicationService {
         },
         { new: true },
       );
-
-      return result;
     } catch (e) {
       throw new HttpException({ message: 'Error' }, HttpStatus.UNAUTHORIZED);
     }
@@ -70,11 +69,10 @@ export class PublicationService {
     ]);
   }
 
-  getRecentPublications(except) {
+  getAdditionalPublications(except) {
     return this.publicationModel.aggregate([
       { $match: { _id: { $ne: new mongoose.Types.ObjectId(except) } } },
-      { $sort: { createdAt: -1 } },
-      { $limit: 3 },
+      { $sample: { size: 3 } },
       {
         $project: {
           photo: 1,
@@ -115,11 +113,53 @@ export class PublicationService {
           type: 1,
           title: 1,
           createdAt: 1,
+          isFavorite: 1,
         },
       },
     ];
+    const favoritePublications = await this.getFavoritePublication(type);
     const publications = await this.publicationModel.aggregate(pipeline);
 
+    return {
+      favoritePublications,
+      hasMoreContent,
+      publications,
+    };
+  }
+
+  async loadMorePublications(limit: number, search: string, type: string) {
+    const searchPipeline = generateSearchPipeline(search.trim());
+
+    const typeMatchPipeline = type ? [{ $match: { type: type } }] : [];
+
+    const publicationCount = await this.publicationModel.aggregate([
+      ...typeMatchPipeline,
+      { $sort: { createdAt: -1 } },
+      ...searchPipeline,
+    ]);
+
+    const hasMoreContent = Number(limit) < publicationCount.length;
+
+    const pipeline: any = [
+      ...typeMatchPipeline,
+      { $sort: { createdAt: -1 } },
+      ...searchPipeline,
+      { $skip: limit - PUBLICATIONS_PER_PAGE },
+      { $limit: PUBLICATIONS_PER_PAGE },
+      {
+        $project: {
+          photo: 1,
+          _id: 1,
+          description: 1,
+          type: 1,
+          title: 1,
+          createdAt: 1,
+          isFavorite: 1,
+        },
+      },
+    ];
+
+    const publications = await this.publicationModel.aggregate(pipeline);
     return {
       hasMoreContent,
       publications,
@@ -140,6 +180,11 @@ export class PublicationService {
           title: 1,
           createdAt: 1,
           isFavorite: 1,
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
         },
       },
     ]);

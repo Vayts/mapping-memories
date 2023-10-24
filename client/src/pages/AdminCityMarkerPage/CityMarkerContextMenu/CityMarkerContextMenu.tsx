@@ -3,11 +3,15 @@ import Modal from '@src/components/Modal/Modal';
 import DeleteModal from '@src/components/DeleteModal/DeleteModal';
 import { useTranslation } from 'react-i18next';
 import EditCityMarkerModal from '@src/pages/AdminCityMarkerPage/EditCityMarkerModal/EditCityMarkerModal';
-import { deleteCityMarkerRequest } from '@src/store/cityMarkers/action';
 import { ICityMarkerContextMenuProps } from '@src/pages/AdminCityMarkerPage/CityMarkerContextMenu/types';
+import { deleteCity } from '@src/store/cities/thunks';
+import { useAppSelector } from '@src/hooks/hooks';
+import { Loader } from '@src/components/Loader/Loader';
 import * as S from './style';
 
 const CityMarkerContextMenu: React.FC<ICityMarkerContextMenuProps> = ({ marker }) => {
+  const { _id } = marker;
+  const loadingCities = useAppSelector((state) => state.cities.loadingItems);
   const [isEditOpen, setEditOpen] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const { t } = useTranslation();
@@ -25,8 +29,8 @@ const CityMarkerContextMenu: React.FC<ICityMarkerContextMenuProps> = ({ marker }
       {isDeleteOpen && (
         <Modal outsideHandler={toggleDeleteModalHandler}>
           <DeleteModal
-            itemId={marker._id as string}
-            action={deleteCityMarkerRequest}
+            itemId={_id}
+            action={deleteCity}
             text={t('deleteCityMarkerText')}
             onClose={toggleDeleteModalHandler}
           />
@@ -40,6 +44,7 @@ const CityMarkerContextMenu: React.FC<ICityMarkerContextMenuProps> = ({ marker }
           />
         </Modal>
       )}
+      {loadingCities.includes(_id) && <S.CitiLoaderWrapper><Loader size={15}/></S.CitiLoaderWrapper>}
       <S.CityMarkerContextMenuWrapper>
         <S.CityMarkerContextItem onClick={toggleEditHandler}>Редагувати</S.CityMarkerContextItem>
         <S.CityMarkerContextItem onClick={toggleDeleteModalHandler}>Видалити</S.CityMarkerContextItem>

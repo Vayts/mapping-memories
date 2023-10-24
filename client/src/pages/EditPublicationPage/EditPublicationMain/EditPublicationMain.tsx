@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Title from '@src/components/UI/Title/Title';
 import Button from '@src/components/UI/Button/Button';
 import MainInfo from '@src/components/MainInfo/MainInfo';
 import { ICreatePublicationContentBlock, ICreatePublicationMain } from '@src/types/createPublication.types';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectPublicationHasBeenEdited, selectEditPublicationLoading } from '@src/store/editPublication/selectors';
+import { useAppDispatch } from '@src/hooks/hooks';
 import { getCreatePublicationTotalValidation } from '@src/validation/createPublication.validation';
 import { IEditPublicationMainProps } from '@src/pages/EditPublicationPage/EditPublicationMain/types';
 import { useTranslation } from 'react-i18next';
-import { editPublicationRequest } from '@src/store/editPublication/actions';
 import { useNavigate } from 'react-router-dom';
 import { convertPublicationDataToEditFormatMain, covertPublicationDataToEditFormatContentBlocks } from '@helpers/editPublication.helper';
 import { getCreatePublicationDTO } from '@helpers/createPublication.helper';
 import ContentBlocks from '@src/components/ContentBlocks/ContentBlocks';
-import { setPublicationHasBeenEdited } from '@src/store/editPublication/reducer';
+import { editPublication } from '@src/store/publications/thunks';
+import { errorManager } from '@helpers/error.helper';
 import * as S from './style';
 
 const EditPublicationMain: React.FC<IEditPublicationMainProps> = ({ publication }) => {
@@ -22,28 +21,21 @@ const EditPublicationMain: React.FC<IEditPublicationMainProps> = ({ publication 
     contentBlocks,
     setContentBlocks,
   ] = useState<ICreatePublicationContentBlock[]>(covertPublicationDataToEditFormatContentBlocks(publication.contentBlocks));
-  const hasBeenEdited = useAppSelector(selectPublicationHasBeenEdited);
-  const isLoading = useAppSelector(selectEditPublicationLoading);
+  const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  
-  useEffect(() => {
-    if (hasBeenEdited) {
-      navigate('/mapmem-admin/publications');
-    }
-    
-    return () => {
-      dispatch(setPublicationHasBeenEdited(false));
-    };
-  }, [hasBeenEdited]);
   
   const submitHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (getCreatePublicationTotalValidation(mainInfo, contentBlocks)) {
       const values = getCreatePublicationDTO(mainInfo, contentBlocks);
-      
-      dispatch(editPublicationRequest(values, publication._id));
+      setLoading(true);
+      dispatch(editPublication({ values, id: publication._id }))
+        .unwrap()
+        .then(() => navigate('/mapmem-admin/publications'))
+        .catch(errorManager)
+        .finally(() => setLoading(false));
     }
   };
   

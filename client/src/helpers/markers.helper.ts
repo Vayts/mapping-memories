@@ -8,15 +8,6 @@ export function getCityMarkerDTO(value: ICreateCityMarkerState): ICityMarkerDto 
   };
 }
 
-export function getCreateCityMarkerFormData(values: ICityMarkerDto): FormData {
-  const formData = new FormData();
-  formData.append('name', JSON.stringify(values.name));
-  formData.append('lat', JSON.stringify(values.lat));
-  formData.append('lng', JSON.stringify(values.lng));
-  
-  return formData;
-}
-
 export function getMemorialTypeDTO(value: ICreateMemorialTypeState): IMemorialTypeDto {
   return {
     name: value.name,

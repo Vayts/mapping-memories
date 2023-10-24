@@ -2,9 +2,9 @@ import React, { ChangeEvent, memo, useCallback, useState } from 'react';
 import Title from '@src/components/UI/Title/Title';
 import { useTranslation } from 'react-i18next';
 import PdfUploader from '@src/components/UI/PdfUploader/PdfUploader';
-import { IPdfContentBlockProps } from '@src/pages/CreatePublication/ContentBlocks/PdfContentBlock/types';
 import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
-import { BASE_URL } from '@src/api/axios';
+import { IPdfContentBlockProps } from '@src/components/ContentBlocks/PdfContentBlock/types';
+import { BASE_URL } from '@src/api/api';
 import * as Style from '../style';
 import * as S from './style';
 

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const PublicationsPageWrapper = styled.div`
   min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
 `;
 
 export const PublicationsBanner = styled.div`
@@ -14,13 +16,18 @@ export const PublicationsBanner = styled.div`
   }
 `;
 
-export const PublicationsMoreButton = styled.div`
-  margin: 20px 0;
-  display: flex;
-  justify-content: center;
+export const PublicationsLoaderWrapper = styled.div`
+  flex-grow: 1;
+  position: relative;
 `;
 
 export const PublicationsListWrapper = styled.div`
   position: relative;
   min-height: 200px;
+`;
+
+export const PublicationsMoreButton = styled.div`
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
 `;

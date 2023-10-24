@@ -34,10 +34,10 @@ export const ROUTES = {
     DEFAULT: '/api/publication',
     ADD: '/add',
     GET: '/get',
+    LOAD_MORE: '/load-more',
     GET_CURRENT: '/get/:id',
     GET_ALL: '/get-all',
-    GET_FAVORITE: '/get-favorite',
-    GET_RECENT: '/get-recent',
+    GET_ADDITIONAL: '/get-additional',
     DELETE: '/delete/:id',
     EDIT: '/edit/:id',
     SET_FAVORITE: '/set-favorite/:id',
@@ -48,5 +48,10 @@ export const ROUTES = {
     LOGIN: '/login',
     LOGOUT: '/logout',
     REFRESH: '/refresh',
+  },
+  FILE: {
+    DEFAULT: '/api/file',
+    DOWNLOAD_PDF: '/download/pdf',
+    DOWNLOAD_PHOTO: '/download/photo',
   },
 };

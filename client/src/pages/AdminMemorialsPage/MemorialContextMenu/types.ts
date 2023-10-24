@@ -1,5 +1,5 @@
-import { IAdminMemorialMarker } from '@src/types/markers.types';
+import { IMemorialMarker } from '@src/types/markers.types';
 
 export interface IMemorialMarkerContextMenuProps {
-  marker: IAdminMemorialMarker,
+  marker: IMemorialMarker,
 }

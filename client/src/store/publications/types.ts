@@ -1,12 +1,9 @@
-import { IPublication, PublicationType } from '@src/types/publication.types';
+import { IPublication } from '@src/types/publication.types';
 
 export interface IPublicationState {
-  currentPublicationType: '' | PublicationType,
+  favoritePublications: IPublication[],
   isLoading: boolean,
-  isInSearch: boolean,
-  data: IPublication[],
-  favoritePublication: IPublication[],
-  searchValue: string,
+  loadMoreLoading: boolean,
   limit: number,
   hasMoreContent: boolean,
 }

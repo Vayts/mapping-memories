@@ -4,7 +4,7 @@ export const NothingFoundWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px 0;
+  margin: 30px 0;
 `;
 
 export const NothingFoundIcon = styled.div`

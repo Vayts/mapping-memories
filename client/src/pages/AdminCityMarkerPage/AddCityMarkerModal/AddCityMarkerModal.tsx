@@ -7,11 +7,11 @@ import { ICreateCityMarkerState } from '@src/types/markers.types';
 import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import Button from '@src/components/UI/Button/Button';
 import { getCityMarkerValidation } from '@src/validation/createCityMarker.validation';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
+import { useAppDispatch } from '@src/hooks/hooks';
 import { getCityMarkerDTO } from '@helpers/markers.helper';
 import { IAddCityMarkerModalProps } from '@src/pages/AdminCityMarkerPage/AddCityMarkerModal/types';
-import { addCityMarkerRequest } from '@src/store/cityMarkers/action';
-import { selectIsCityMarkersLoading } from '@src/store/cityMarkers/selectors';
+import { createCity } from '@src/store/cities/thunks';
+import { errorManager } from '@helpers/error.helper';
 import * as S from './style';
 
 const initialValue: ICreateCityMarkerState = {
@@ -26,7 +26,7 @@ const initialValue: ICreateCityMarkerState = {
 };
 
 const AddCityMarkerModal: React.FC<IAddCityMarkerModalProps> = ({ onClose }) => {
-  const isLoading = useAppSelector(selectIsCityMarkersLoading);
+  const [isLoading, setLoading] = useState(false);
   const [values, setValues] = useState<ICreateCityMarkerState>(initialValue);
   const isButtonDisabled = Object.keys(values.touched).length === 0 || Object.values(values.errors).length > 0;
   const dispatch = useAppDispatch();
@@ -68,8 +68,16 @@ const AddCityMarkerModal: React.FC<IAddCityMarkerModalProps> = ({ onClose }) => 
     if (Object.values(values.errors).length === 0) {
       const data = getCityMarkerDTO(values);
       
-      onClose();
-      dispatch(addCityMarkerRequest(data));
+      setLoading(true);
+      dispatch(createCity(data))
+        .unwrap()
+        .then(() => {
+          onClose();
+        })
+        .catch(errorManager)
+        .finally(() => {
+          setLoading(false);
+        });
     }
   };
   

@@ -1,46 +1,45 @@
-import React, { ChangeEvent, useCallback, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import Title from '@src/components/UI/Title/Title';
 import Button from '@src/components/UI/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { Search } from '@src/components/UI/Search/Search';
 import { useTranslation } from 'react-i18next';
-import { selectAdminPublicationsSearch } from '@src/store/adminPublications/selectors';
-import { getAllAdminPublicationByTitle, getAllAdminPublications } from '@src/store/adminPublications/action';
-import { setAdminPublicationsSearch } from '@src/store/adminPublications/reducer';
 import PublicationsTable from '@src/pages/AdminPublicationsPage/PublicationsTable/PublicationsTable';
+import { getAllPublications, getAllPublicationsByTitle } from '@src/store/publications/thunks';
+import { Loader } from '@src/components/Loader/Loader';
 import * as S from './style';
 
 const AdminPublicationsPage: React.FC = () => {
-  const search = useAppSelector(selectAdminPublicationsSearch);
+  const isLoading = useAppSelector((state) => state.publications.isLoading);
+  const [search, setSearch] = useState('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  
-  useEffect(() => {
-    dispatch(getAllAdminPublications());
-  }, []);
 
   const navigateToAddHandler = () => {
     navigate('/mapmem-admin/publications/add');
   };
   
   const onSearchChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      dispatch(getAllAdminPublications());
-    }
-    
-    dispatch(setAdminPublicationsSearch(e.target.value));
+    setSearch(e.target.value);
   }, []);
   
-  const onSearchClickHandler = useCallback(() => {
-    dispatch(getAllAdminPublicationByTitle());
-  }, []);
+  const onSearchClickHandler = () => {
+    dispatch(getAllPublicationsByTitle(search));
+  };
+  
+  const handleRefresh = () => {
+    dispatch(getAllPublications());
+  };
   
   return (
     <div>
       <S.AdminHeader>
-        <Title>{t('publications')}</Title>
+        <S.AdminTitleWrapper>
+          <Title>{t('publications')}</Title>
+          <S.AdminRefreshButton className='icon-refresh' onClick={handleRefresh}/>
+        </S.AdminTitleWrapper>
         <S.AdminHeaderControls>
           <Button
             clickHandler={navigateToAddHandler}
@@ -49,7 +48,7 @@ const AdminPublicationsPage: React.FC = () => {
           <Search id='publicationsSearch' name='publicationsSearch' value={search} onSearch={onSearchClickHandler} onChange={onSearchChangeHandler}/>
         </S.AdminHeaderControls>
       </S.AdminHeader>
-      <PublicationsTable/>
+      {isLoading ? <Loader size={50}/> : <PublicationsTable/>}
     </div>
   );
 };

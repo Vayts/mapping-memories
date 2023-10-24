@@ -2,19 +2,15 @@ import React, { useState } from 'react';
 import Modal from '@src/components/Modal/Modal';
 import DeleteModal from '@src/components/DeleteModal/DeleteModal';
 import { useTranslation } from 'react-i18next';
-import { deletePublicationRequest } from '@src/store/adminPublications/action';
 import { useNavigate } from 'react-router-dom';
 import { IPublicationContextMenuProps } from '@src/pages/AdminPublicationsPage/PublicationContextMenu/types';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { removeFavoritePublicationRequest, setFavoritePublicationRequest } from '@src/store/publications/actions';
-import { selectLoadingPublication } from '@src/store/adminPublications/selectors';
-import { Loader } from '@src/components/Loader/Loader';
+import { useAppDispatch } from '@src/hooks/hooks';
+import { deletePublication, removeFromFavorite, setFavorite } from '@src/store/publications/thunks';
 import * as S from './style';
 
 const PublicationContextMenu: React.FC<IPublicationContextMenuProps> = ({ publication }) => {
   const { _id, isFavorite } = publication;
   const [isDeleteOpen, setDeleteOpen] = useState(false);
-  const loadingPublications = useAppSelector(selectLoadingPublication);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -29,20 +25,20 @@ const PublicationContextMenu: React.FC<IPublicationContextMenuProps> = ({ public
   
   const changeFavoriteStatusClickHandler = () => {
     if (!isFavorite) {
-      dispatch(setFavoritePublicationRequest(_id));
+      dispatch(setFavorite(_id));
       return false;
     }
-    dispatch(removeFavoritePublicationRequest(_id));
+    dispatch(removeFromFavorite(_id));
   };
   
   return (
     <>
-      {loadingPublications.includes(_id) && <S.PublicationLoaderWrapper><Loader size={15}/></S.PublicationLoaderWrapper>}
+      {/*{loadingPublications.includes(_id) && <S.PublicationLoaderWrapper><Loader size={15}/></S.PublicationLoaderWrapper>}*/}
       {isDeleteOpen && (
         <Modal outsideHandler={toggleDeleteModalHandler}>
           <DeleteModal
             itemId={_id}
-            action={deletePublicationRequest}
+            action={deletePublication}
             text={t('deletePublicationText')}
             onClose={toggleDeleteModalHandler}
           />

@@ -10,7 +10,8 @@ const appear = keyframes`
   }
 `;
 
-export const PublicationRowWrapper = styled.tr`
+export const MemorialRowWrapper = styled.tr`
+  position: relative;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   width: 100%;
   animation: ${appear} 0.2s linear;

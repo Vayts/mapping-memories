@@ -8,7 +8,7 @@ import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '@src/components/UI/Button/Button';
-import { BASE_URL } from '@src/api/axios';
+import { BASE_URL } from '@src/api/api';
 import { IPhotoContentBlockProps } from './types';
 import * as Style from '../style';
 import * as S from './style';

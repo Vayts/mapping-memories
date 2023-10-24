@@ -7,9 +7,10 @@ export const CardWrapper = styled(NavLink)`
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${({ theme }) => theme.borderColor};
+  //border: 1px solid ${({ theme }) => theme.borderColor};
   transition: all 0.2s;
-  box-shadow: 0 0 5px rgba(136, 136, 136, 0.15);
+  //box-shadow: 0 0 5px rgba(136, 136, 136, 0.15);
+  border: 1px solid #dee2ed;
 
   &:hover {
     box-shadow: 0 0 5px rgba(136, 136, 136, 0.30);

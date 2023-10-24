@@ -72,13 +72,15 @@ export class MemorialService {
       await this.fileService.multiplyUpload(files.photos, 'photo');
     }
 
-    return this.memorialMarkerModel.insertMany([
+    const result = await this.memorialMarkerModel.insertMany([
       {
         ...dto,
         city_id: dto.city_id ? new mongoose.Types.ObjectId(dto.city_id) : null,
         type_id: dto.type_id ? new mongoose.Types.ObjectId(dto.type_id) : null,
       },
     ]);
+
+    return result[0];
   }
   getMemorial(id) {
     return this.memorialMarkerModel.findById(id);

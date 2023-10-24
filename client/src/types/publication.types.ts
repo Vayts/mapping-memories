@@ -1,24 +1,19 @@
 import { ILocale } from '@src/types/locale.types';
 
-export type PublicationType = 'interview' | 'artProject' | 'specialProject';
-
 export interface IPublication {
   _id: string,
   title: ILocale,
   description: ILocale,
-  type: PublicationType,
+  type: PublicationEnum,
   photo: string,
   createdAt: Date,
   isFavorite: boolean,
+  index?: number;
   contentBlocks: Record<string, any>
 }
 
-export interface IAdminPublication extends IPublication {
-  index: number;
-}
-
 export enum PublicationEnum {
-  interview = 'interview',
-  artProject = 'artProject',
-  specialProject = 'specialProject',
+  Interview = 'interview',
+  ArtProject = 'artProject',
+  SpecialProject = 'specialProject',
 }

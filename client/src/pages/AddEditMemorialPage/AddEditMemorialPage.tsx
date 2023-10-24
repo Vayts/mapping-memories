@@ -1,16 +1,14 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { IAddMemorialState } from '@src/types/markers.types';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { IAddMemorialState, ICityMarker } from '@src/types/markers.types';
 import Input from '@src/components/UI/Input/Input';
 import ErrorMsg from '@src/components/UI/ErrorMsg/ErrorMsg';
 import Title from '@src/components/UI/Title/Title';
 import TextArea from '@src/components/UI/TextArea/TextArea';
 import { IEditPhotoState } from '@src/components/EditPhoto/types';
 import { useTranslation } from 'react-i18next';
-import { IAddEditMemorialPageProps } from '@src/pages/AddEditMemorialPage/types';
 import Button from '@src/components/UI/Button/Button';
 import EditPhoto from '@src/components/EditPhoto/EditPhoto';
 import FileUploader from '@src/components/UI/FileUploader/FileUploader';
-import { BASE_URL } from '@src/api/axios';
 import { v4 as uuidv4 } from 'uuid';
 import Select from '@src/components/UI/Select/Select';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
@@ -21,22 +19,13 @@ import { STATIC_HREF } from '@constants/app';
 import { getCreateMemorialDTO } from '@helpers/createMemorial.helper';
 import { getNotification } from '@src/notification/notifications';
 import { Loader } from '@src/components/Loader/Loader';
-import { setCurrentMemorial, setIsAddEditCompleted } from '@src/store/memorialMarkers/reducer';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCityMarkersRequest } from '@src/store/cityMarkers/action';
-import { selectAdminCityMarkers } from '@src/store/cityMarkers/selectors';
-import {
-  selectCurrentMemorial,
-  selectIsAddEditCompleted,
-  selectIsMemorialMarkersLoading,
-} from '@src/store/memorialMarkers/selectors';
-import { selectAdminMemorialTypes } from '@src/store/memorialTypes/selectors';
-import {
-  addMemorialMarkersRequest,
-  editMemorialMarkerRequest,
-  getCurrentMemorialRequest,
-} from '@src/store/memorialMarkers/action';
-import { getAllMemorialTypesRequest } from '@src/store/memorialTypes/action';
+import { createMemorial, editMemorial, getCurrentMemorial } from '@src/store/memorials/thunks';
+import { errorManager } from '@helpers/error.helper';
+import { resetCurrentMemorial, setLoadingMemorial } from '@src/store/memorials/slice';
+import { selectAllCities } from '@src/store/cities/selectors';
+import { selectAllMemorialTypes } from '@src/store/memorialTypes/selectors';
+import { BASE_URL } from '@src/api/api';
 import * as S from './style';
 
 const initialImage = 'memorialBlue.svg';
@@ -79,33 +68,36 @@ const editPhotoInitial = {
   photoName: 'firstPhoto',
 };
 
-const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode }) => {
+const AddEditMemorialPage: React.FC = () => {
+  const { id } = useParams();
   const [values, setValues] = useState<IAddMemorialState>(initialValue);
   const [isPhotoChanged, setPhotoChanged] = useState(false);
-  const { id } = useParams();
   const [editPhotoState, setEditPhoto] = useState<IEditPhotoState>(editPhotoInitial);
   const [photoBlob, setPhotoBlob] = useState<null | string>(null);
-  const currentMemorial = useAppSelector(selectCurrentMemorial);
-  const isAddEditCompleted = useAppSelector(selectIsAddEditCompleted);
-  const isLoading = useAppSelector(selectIsMemorialMarkersLoading);
-  const memorialTypes = useAppSelector(selectAdminMemorialTypes);
-  const cities = useAppSelector(selectAdminCityMarkers);
+  const [isLoading, setLoading] = useState(false);
+  const currentMemorial = useAppSelector((state) => state.memorials.currentMemorial);
+  const memorialTypes = useAppSelector(selectAllMemorialTypes);
+  const memorialTypesValueArr = useMemo(() => memorialTypes.map((item) => item.name.uk), []);
+  const cities: ICityMarker[] = useAppSelector(selectAllCities);
+  const citiesValueArr = useMemo(() => cities.map((item) => item.name.uk), []);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   
   useEffect(() => {
-    if (isInEditMode) {
-      dispatch(getCurrentMemorialRequest(id as string));
+    if (id) {
+      setLoading(true);
+      dispatch(getCurrentMemorial(id as string))
+        .unwrap()
+        .catch(errorManager)
+        .finally(() => {
+          setLoading(false);
+        });
+      
+      return () => {
+        dispatch(resetCurrentMemorial());
+      };
     }
-    
-    dispatch(getAllMemorialTypesRequest());
-    dispatch(getCityMarkersRequest());
-    
-    return () => {
-      dispatch(setIsAddEditCompleted(false));
-      dispatch(setCurrentMemorial(null));
-    };
   }, []);
   
   useEffect(() => {
@@ -113,12 +105,6 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
       setValues(Object.assign(initialValue, currentMemorial));
     }
   }, [currentMemorial]);
-  
-  useEffect(() => {
-    if (isAddEditCompleted) {
-      navigate('/mapmem-admin/memorials');
-    }
-  }, [isAddEditCompleted]);
   
   const setMainPhotoHandler = useCallback((photo: any) => {
     setValues((state: IAddMemorialState) => {
@@ -132,7 +118,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
       };
     });
     setPhotoBlob(URL.createObjectURL(photo));
-    if (isInEditMode) {
+    if (id) {
       setPhotoChanged(true);
     }
   }, []);
@@ -219,7 +205,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
         errors: getMemorialMarkerValidation(newState),
       };
     });
-  }, [memorialTypes]);
+  }, []);
   
   const cityChangeHandler = useCallback((value: string) => {
     const selectedItem = cities.find((item) => item.name.uk === value);
@@ -239,7 +225,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
         errors: getMemorialMarkerValidation(newState),
       };
     });
-  }, [cities]);
+  }, []);
   
   const iconChangeHandler = useCallback((value: string) => {
     setValues((prev: IAddMemorialState) => {
@@ -262,11 +248,26 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
   const onSubmitHandler = () => {
     if (Object.keys(values.errors).length === 0 && Object.keys(values.touched).length > 0) {
       const dto = getCreateMemorialDTO(values);
+      setLoading(true);
       
-      if (isInEditMode) {
-        dispatch(editMemorialMarkerRequest(dto, id as string));
+      if (id) {
+        dispatch(setLoadingMemorial(id));
+        dispatch(editMemorial({ values: dto, id: id as string }))
+          .unwrap()
+          .then(() => navigate('/mapmem-admin/memorials'))
+          .catch(errorManager)
+          .finally(() => {
+            setLoading(false);
+            dispatch(setLoadingMemorial(id));
+          });
       } else {
-        dispatch(addMemorialMarkersRequest(dto));
+        dispatch(createMemorial(dto))
+          .unwrap()
+          .then(() => navigate('/mapmem-admin/memorials'))
+          .catch(errorManager)
+          .finally(() => {
+            setLoading(false);
+          });
       }
     } else {
       getNotification(t('checkDataError'), 'error');
@@ -289,7 +290,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
           margin='0'
           fz={30}
         >
-          {t('addMemorial')}
+          {t(id ? 'editMemorial' : 'addMemorial')}
         </Title>
         <Button
           text={t('send')}
@@ -312,7 +313,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
                 id='photo'
                 onChange={openEditPhoto}
                 name='photo'
-                value={isInEditMode && !isPhotoChanged && values.photo ? `${BASE_URL}/file/download/photo?id=${values.photo}` : photoBlob}
+                value={id && !isPhotoChanged && values.photo ? `${BASE_URL}/file/download/photo?id=${values.photo}` : photoBlob}
                 margin='0 0 20px'
               />
             </S.AddMemorialPhotoWrapper>
@@ -463,7 +464,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
               isValid={values.touched?.type_id && !values.errors?.type_id}
               onChange={typeChangeHandler}
               placeholder={t('publicationType')}
-              valueArr={memorialTypes.map((item) => item.name.uk)}
+              valueArr={memorialTypesValueArr}
             />
             <ErrorMsg show={values.touched?.type_id && !!values.errors?.type_id} margin='5px 0 5px'>{values.errors?.type_id}</ErrorMsg>
           </S.AddMemorialBlock>
@@ -481,7 +482,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
               isValid={values.touched?.city_id && !values.errors?.city_id}
               onChange={cityChangeHandler}
               placeholder={t('city')}
-              valueArr={cities.map((item) => item.name.uk)}
+              valueArr={citiesValueArr}
             />
             <ErrorMsg show={values.touched?.city_id && !!values.errors?.city_id} margin='5px 0 5px'>{values.errors?.city_id}</ErrorMsg>
           </S.AddMemorialBlock>

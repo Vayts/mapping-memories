@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { JwtModule } from '@nestjs/jwt';
-import { TokenModule } from '../token/token.module';
 import { CityMarker, CityMarkerSchema } from '../../schemas/cityMarker.schema';
 import {
   MemorialMarker,
@@ -18,8 +16,6 @@ import { FileService } from '../file/file.service';
       { name: CityMarker.name, schema: CityMarkerSchema },
       { name: MemorialMarker.name, schema: MemorialMarkerSchema },
     ]),
-    JwtModule.register({}),
-    TokenModule,
     NestjsFormDataModule,
   ],
   controllers: [MemorialController],

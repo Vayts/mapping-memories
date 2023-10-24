@@ -27,3 +27,12 @@ export const CityMarkerContextItem = styled.li`
     }
   }
 `;
+
+export const CitiLoaderWrapper = styled.div`
+  background-color: rgba(0, 0, 0, 0.06);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+`;

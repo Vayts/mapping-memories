@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -45,7 +46,7 @@ export class MemorialController {
     return this.memorialService.addMemorial(files, dto);
   }
 
-  @Post(ROUTES.MEMORIAL.EDIT)
+  @Put(ROUTES.MEMORIAL.EDIT)
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'photos' }]))
   editMemorialMarker(
