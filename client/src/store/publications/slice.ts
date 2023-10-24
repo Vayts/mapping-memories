@@ -12,7 +12,7 @@ import {
 } from '@src/store/publications/thunks';
 
 const initialState: IPublicationState = {
-  isLoading: true,
+  isLoading: false,
   loadMoreLoading: false,
   limit: PUBLICATIONS_PAGE_CONFIG.PER_PAGE,
   favoritePublications: [],
@@ -69,6 +69,7 @@ export const publicationsSlice = createSlice({
       })
       .addCase(getAllPublications.fulfilled, (state, { payload }) => {
         publicationsAdapter.setAll(state, payload.publications ?? {});
+        state.isLoading = false;
       })
       .addCase(getAllPublicationsByTitle.pending, (state) => {
         state.isLoading = true;

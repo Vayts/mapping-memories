@@ -12,18 +12,20 @@ import AboutUsPage from '@src/pages/AboutUsPage/AboutUsPage';
 import PageNotFound from '@src/pages/PageNotFound/PageNotFound';
 import { appFirstLoad } from '@src/store/core/thunks';
 import { PublicationEnum } from '@src/types/publication.types';
-import PublicationPage from '@src/pages/PublicationPage/PublicationPage';
 import AdminLayout from '@hoc/AdminLayout/AdminLayout';
 import { LoginPage } from '@src/pages/LoginPage/LoginPage';
 import RequireAuth from '@hoc/RequireAuth/RequireAuth';
-import AdminPublicationsPage from '@src/pages/AdminPublicationsPage/AdminPublicationsPage';
-import CreatePublicationPage from '@src/pages/CreatePublicationPage/CreatePublicationPage';
-import EditPublicationPage from '@src/pages/EditPublicationPage/EditPublicationPage';
-import AdminMemorialsPage from '@src/pages/AdminMemorialsPage/AdminMemorialsPage';
-import AddEditMemorialPage from '@src/pages/AddEditMemorialPage/AddEditMemorialPage';
-import AdminCityMarkerPage from '@src/pages/AdminCityMarkerPage/AdminCityMarkerPage';
-import AdminMemorialTypesPage from '@src/pages/AdminMemorialTypesPage/AdminMemorialTypesPage';
-import MapPage from '@src/pages/MapPage/MapPage';
+import { withSuspense } from '@hoc/WithSuspense/WithSuspense';
+
+const AdminPublicationsPage = withSuspense(React.lazy(() => import('@src/pages/AdminPublicationsPage/AdminPublicationsPage')));
+const CreatePublicationPage = withSuspense(React.lazy(() => import('@src/pages/CreatePublicationPage/CreatePublicationPage')));
+const EditPublicationPage = withSuspense(React.lazy(() => import('@src/pages/EditPublicationPage/EditPublicationPage')));
+const AddEditMemorialPage = withSuspense(React.lazy(() => import('@src/pages/AddEditMemorialPage/AddEditMemorialPage')));
+const AdminMemorialsPage = withSuspense(React.lazy(() => import('@src/pages/AdminMemorialsPage/AdminMemorialsPage')));
+const AdminCityMarkerPage = withSuspense(React.lazy(() => import('@src/pages/AdminCityMarkerPage/AdminCityMarkerPage')));
+const AdminMemorialTypesPage = withSuspense(React.lazy(() => import('@src/pages/AdminMemorialTypesPage/AdminMemorialTypesPage')));
+const PublicationPage = withSuspense(React.lazy(() => import('@src/pages/PublicationPage/PublicationPage')));
+const MapPage = withSuspense(React.lazy(() => import('@src/pages/MapPage/MapPage')));
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +62,7 @@ export const App: React.FC = () => {
               
               <Route path='/mapmem-admin/memorials' element={<AdminMemorialsPage/>}/>
               <Route path='/mapmem-admin/memorials/add' element={<AddEditMemorialPage/>}/>
-              <Route path='/mapmem-admin/memorials/edit/:id' element={<AddEditMemorialPage isInEditMode/>}/>
+              <Route path='/mapmem-admin/memorials/edit/:id' element={<AddEditMemorialPage/>}/>
             </Route>
           </Route>
           <Route path='*' element={<PageNotFound/>} />

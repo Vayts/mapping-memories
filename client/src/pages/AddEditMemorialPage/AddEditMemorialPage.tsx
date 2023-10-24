@@ -6,7 +6,6 @@ import Title from '@src/components/UI/Title/Title';
 import TextArea from '@src/components/UI/TextArea/TextArea';
 import { IEditPhotoState } from '@src/components/EditPhoto/types';
 import { useTranslation } from 'react-i18next';
-import { IAddEditMemorialPageProps } from '@src/pages/AddEditMemorialPage/types';
 import Button from '@src/components/UI/Button/Button';
 import EditPhoto from '@src/components/EditPhoto/EditPhoto';
 import FileUploader from '@src/components/UI/FileUploader/FileUploader';
@@ -69,7 +68,7 @@ const editPhotoInitial = {
   photoName: 'firstPhoto',
 };
 
-const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode }) => {
+const AddEditMemorialPage: React.FC = () => {
   const { id } = useParams();
   const [values, setValues] = useState<IAddMemorialState>(initialValue);
   const [isPhotoChanged, setPhotoChanged] = useState(false);
@@ -86,7 +85,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
   const { t } = useTranslation();
   
   useEffect(() => {
-    if (isInEditMode) {
+    if (id) {
       setLoading(true);
       dispatch(getCurrentMemorial(id as string))
         .unwrap()
@@ -119,7 +118,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
       };
     });
     setPhotoBlob(URL.createObjectURL(photo));
-    if (isInEditMode) {
+    if (id) {
       setPhotoChanged(true);
     }
   }, []);
@@ -251,7 +250,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
       const dto = getCreateMemorialDTO(values);
       setLoading(true);
       
-      if (isInEditMode) {
+      if (id) {
         dispatch(setLoadingMemorial(id));
         dispatch(editMemorial({ values: dto, id: id as string }))
           .unwrap()
@@ -291,7 +290,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
           margin='0'
           fz={30}
         >
-          {t(isInEditMode ? 'editMemorial' : 'addMemorial')}
+          {t(id ? 'editMemorial' : 'addMemorial')}
         </Title>
         <Button
           text={t('send')}
@@ -314,7 +313,7 @@ const AddEditMemorialPage: React.FC<IAddEditMemorialPageProps> = ({ isInEditMode
                 id='photo'
                 onChange={openEditPhoto}
                 name='photo'
-                value={isInEditMode && !isPhotoChanged && values.photo ? `${BASE_URL}/file/download/photo?id=${values.photo}` : photoBlob}
+                value={id && !isPhotoChanged && values.photo ? `${BASE_URL}/file/download/photo?id=${values.photo}` : photoBlob}
                 margin='0 0 20px'
               />
             </S.AddMemorialPhotoWrapper>
