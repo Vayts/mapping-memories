@@ -5,9 +5,10 @@ import { IPublication, PublicationEnum } from '@src/types/publication.types';
 import { RootState } from '@src/store';
 import { publicationSchema } from '@src/store/publications/schema';
 import { normalize } from 'normalizr';
-import { addPublicationsLimit } from '@src/store/publications/slice';
+import { addPublicationsLimit, resetPublicationsLimit } from '@src/store/publications/slice';
 import { ICreatePublicationDTO } from '@src/types/createPublication.types';
 import { getCreatePublicationFormData } from '@helpers/createPublication.helper';
+import { PUBLICATIONS_PAGE_CONFIG } from '@constants/publication';
 
 const MODULE_NAME = 'publications';
 
@@ -32,10 +33,10 @@ export const getPublications = createAsyncThunk(
 
 export const getPublicationsByTitle = createAsyncThunk(
   `${MODULE_NAME}/getByTitle`,
-  async ({ type, search }: {type: PublicationEnum | '', search: string}, { getState, rejectWithValue }) => {
+  async ({ type, search }: {type: PublicationEnum | '', search: string}, { dispatch, rejectWithValue }) => {
     try {
-      const limit = (getState() as RootState).publications.limit;
-      const response = await axiosPublic.get(`${PUBLICATION_ROUTES.GET}?limit=${limit}&search=${search}&type=${type}`);
+      await dispatch(resetPublicationsLimit());
+      const response = await axiosPublic.get(`${PUBLICATION_ROUTES.GET}?limit=${PUBLICATIONS_PAGE_CONFIG.PER_PAGE}&search=${search}&type=${type}`);
       const result = normalize(response.data.publications, [publicationSchema]);
       return {
         publications: result.entities.publications,
@@ -57,6 +58,7 @@ export const loadMorePublications = createAsyncThunk(
       const response = await axiosPublic.get(`${PUBLICATION_ROUTES.LOAD_MORE}?limit=${limit}&search=${search}&type=${type}`);
 
       const result = normalize(response.data.publications, [publicationSchema]);
+      
       return {
         publications: result.entities.publications,
         hasMoreContent: response.data.hasMoreContent,

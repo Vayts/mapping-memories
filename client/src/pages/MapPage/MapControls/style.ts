@@ -24,7 +24,7 @@ export const ControlsWrapper = styled.div<IMapControlsStyle>`
   }
 `;
 
-export const ToggleButton = styled.div`
+export const ToggleButton = styled.a`
   width: 0;
   height: 0;
   border-style: solid;
@@ -38,11 +38,14 @@ export const ToggleButton = styled.div`
   transition: all 0.2s;
   z-index: -1;
 
-  &:hover {
-    border-color: transparent transparent transparent ${({ theme }) => theme.accentColorHover};
+  @media screen and (min-width: ${RESPONSIVE.tablet}) {
+    &:hover {
+      border-color: transparent transparent transparent ${({ theme }) => theme.accentColorHover};
+    }
   }
 
   span {
+    cursor: pointer;
     position: absolute;
     right: 15px;
     top: 50%;

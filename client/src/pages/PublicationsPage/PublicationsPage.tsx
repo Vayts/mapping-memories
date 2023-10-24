@@ -57,10 +57,10 @@ const PublicationsPage: React.FC<IPublicationsPageProps> = ({
   }, []);
   
   const addLimitHandler = () => {
-    dispatch(loadMorePublications({ type: type || '', search }));
+    dispatch(loadMorePublications({ type: type || '', search: isInSearch ? search : '' }));
   };
   
-  const onSearchClickHandler = useCallback(() => {
+  const onSearchClickHandler = useCallback(async () => {
     if (!search && !publications.length) {
       setIsInSearch(false);
       dispatch(getPublicationsByTitle({ type: type || '', search }));
@@ -69,6 +69,7 @@ const PublicationsPage: React.FC<IPublicationsPageProps> = ({
       dispatch(getPublicationsByTitle({ type: type || '', search }));
     } else if (search) {
       setIsInSearch(true);
+      await dispatch(resetPublicationsLimit);
       dispatch(getPublicationsByTitle({ type: type || '', search }));
     }
   }, [search]);
