@@ -17,7 +17,6 @@ Categorization of articles for easier search.
 
 - User Authentication:
 User authentication for article publication and marker management.
-User roles, e.g., administrators and regular users.
 
 - Search and Filtering:
 Search for markers and articles based on criteria such as category, location, keywords, and date.
