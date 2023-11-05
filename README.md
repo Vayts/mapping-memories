@@ -35,6 +35,7 @@ Use of the Google Maps API to display the map and work with markers.
 - MongoDB
 - AWS S3
 - Google Maps Api
+- i18n
 
 ### Todo
 
