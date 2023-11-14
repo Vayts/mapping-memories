@@ -22,6 +22,10 @@ Custom icons and marker categories for easy navigation.
 Ability to create, read, and edit articles or posts.
 Categorization of articles for easier search.
 
+![image](https://github.com/Vayts/mapping-memories/assets/54949928/1eff2ecb-a76e-423a-80ca-a18da50f8f59)
+![image](https://github.com/Vayts/mapping-memories/assets/54949928/614b61d5-4cae-4e0b-9ca0-817695a3b463)
+
+
 - User Authentication:
 User authentication for article publication and marker management.
 
