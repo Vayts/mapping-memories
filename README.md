@@ -16,6 +16,8 @@ Adding markers to the map with location details, descriptions, and additional in
 Editing and deleting markers after their creation.
 Custom icons and marker categories for easy navigation.
 
+![image](https://github.com/Vayts/mapping-memories/assets/54949928/454294de-b9df-47c7-999a-022984481ef3)
+
 - Articles:
 Ability to create, read, and edit articles or posts.
 Categorization of articles for easier search.
