@@ -9,6 +9,9 @@
 Ability to view a Google Map with the option to add markers.
 Adding markers to the map with location details, descriptions, and additional information.
 
+![image](https://github.com/Vayts/mapping-memories/assets/54949928/c0316d9c-1279-4903-87fb-792053b2944a)
+
+
 - Marker Management:
 Editing and deleting markers after their creation.
 Custom icons and marker categories for easy navigation.
